@@ -160,9 +160,9 @@ public class GreenShroomPipeline extends OpenCvPipeline {
          * pixel value of the 3-channel image, and referenced the value
          * at index 2 here.
          */
-        avg1 = (int) (Core.mean(region1_Cb).val[0] + Core.mean(region1_Cr).val[0]);
-        avg2 = (int) (Core.mean(region2_Cb).val[0] + Core.mean(region2_Cr).val[0]);
-        avg3 = (int) (Core.mean(region3_Cb).val[0] + Core.mean(region3_Cr).val[0]);
+        avg1 = (int) Math.abs((Core.mean(region1_Cb).val[0] - Core.mean(region1_Cr).val[0]));
+        avg2 = (int) Math.abs((Core.mean(region2_Cb).val[0] - Core.mean(region2_Cr).val[0]));
+        avg3 = (int) Math.abs((Core.mean(region3_Cb).val[0] - Core.mean(region3_Cr).val[0]));
 
         /*
          * Draw a rectangle showing sample region 1 on the screen.
@@ -198,16 +198,16 @@ public class GreenShroomPipeline extends OpenCvPipeline {
                 2); // Thickness of the rectangle lines
 
         /*
-         * Find the min of the 3 averages
+         * Find the max of the 3 averages
          */
-        int minOneTwo = Math.min(avg1, avg2);
-        int min = Math.min(minOneTwo, avg3);
+        int maxOneTwo = Math.max(avg1, avg2);
+        int max = Math.max(maxOneTwo, avg3);
 
         /*
          * Now that we found the max, we actually need to go and
          * figure out which sample region that value was from
          */
-        if (min == avg1) // Was it from region 1?
+        if (max == avg1) // Was it from region 1?
         {
             position = CapstonePosition.LEFT; // Record our analysis
 
@@ -221,7 +221,7 @@ public class GreenShroomPipeline extends OpenCvPipeline {
                     region1_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
                     -1); // Negative thickness means solid fill
-        } else if (min == avg2) // Was it from region 2?
+        } else if (max == avg2) // Was it from region 2?
         {
             position = CapstonePosition.CENTER; // Record our analysis
 
@@ -235,7 +235,7 @@ public class GreenShroomPipeline extends OpenCvPipeline {
                     region2_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
                     -1); // Negative thickness means solid fill
-        } else if (min == avg3) // Was it from region 3?
+        } else if (max == avg3) // Was it from region 3?
         {
             position = CapstonePosition.RIGHT; // Record our analysis
 
@@ -253,6 +253,15 @@ public class GreenShroomPipeline extends OpenCvPipeline {
 
         if (updateTelemetry) {
             telemetry.addData("[Pattern]", position);
+            telemetry.addData("avg1: ", avg1);
+            telemetry.addData("avg2: ", avg2);
+            telemetry.addData("avg3: ", avg3);
+//            telemetry.addData("avg1cb: ", Core.mean(region1_Cb).val[0]);
+//            telemetry.addData("avg1cr: ", Core.mean(region1_Cr).val[0]);
+//            telemetry.addData("avg2cb: ", Core.mean(region2_Cb).val[0]);
+//            telemetry.addData("avg2cr: ", Core.mean(region2_Cr).val[0]);
+//            telemetry.addData("avg3cb: ", Core.mean(region3_Cb).val[0]);
+//            telemetry.addData("avg3cr: ", Core.mean(region3_Cr).val[0]);
             telemetry.update();
         }
 
