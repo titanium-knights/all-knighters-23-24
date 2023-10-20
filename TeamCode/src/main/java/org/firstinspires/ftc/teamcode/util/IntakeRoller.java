@@ -6,7 +6,7 @@ public class IntakeRoller {
     public DcMotor intakeMotor; //DcMotor is taken from the hardware import
 
     public IntakeRoller(HardwareMap hmap) { //get motor from port
-        this.intakeMotor = hmap.dcMotor.get(Config.intakeMotor);
+        this.intakeMotor = hmap.dcMotor.get(CONFIG.intakeMotor);
         //Config.intakeMotor connected to a variable WE created
     }
 }
