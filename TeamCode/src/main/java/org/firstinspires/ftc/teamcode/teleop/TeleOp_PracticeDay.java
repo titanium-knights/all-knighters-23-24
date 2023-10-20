@@ -15,11 +15,18 @@ public class TeleOp_PracticeDay extends OpMode { //class header, we will always 
     //make instance of the classes (i.e, subsystems or dt)
     MecanumDrive drive; //no value
     IntakeRoller intakeRoller;
+    Arm arm;
+    PixelClaw pixelClaw;
 
-    @Override
-    public void init() { //initializes, connects
+    public void setupDevices() {
         //hardwareMap = phone/ android app, connects the name of the ports to the actual object
         drive = new MecanumDrive(hardwareMap); //connecting ports to
+        arm = new Arm(hardwareMap);
+        pixelClaw = new PixelClaw(hardwareMap);
+    }
+    @Override
+    public void init() { //initializes, connects
+        setupDevices();
     }
 
     @Override
@@ -28,9 +35,32 @@ public class TeleOp_PracticeDay extends OpMode { //class header, we will always 
 
         //gamepad controls return a float or boolean (either you press it .1 to 0 or you hit or dont hit it)
         //most of the loop code is nested in conditional statements
-        if (gamepad1.left_trigger != 0) {
 
+        //ARM CONTROLS
+        if (gamepad1.left_trigger > .1) { //move back if the left trigger is pressed down, set power accordingly
+            arm.setPower(-gamepad1.left_trigger);
+        } else if (gamepad1.right_trigger > .1) { //move forward if right trigger is pressed down, set power accordingly
+            arm.setPower(gamepad1.right_trigger);
+        } else { //if no triggers, set power to 0, worm gear should hold arm in place
+            arm.setPower(0);
         }
+
+        //CLAW PIVOT CONTROLS
+        if (gamepad1.a) { //if click a, pickup position set
+            pixelClaw.setPivotPos("PICKUP");
+        }
+        if (gamepad1.b) { //place
+            pixelClaw.setPivotPos("PLACE");
+        }
+
+        //CLAW CONTROLS
+        if (gamepad1.x) { //if click a, pickup position set
+            pixelClaw.setClawPos("LOOSE");
+        }
+        if (gamepad1.y) { //place
+            pixelClaw.setClawPos("GRAB");
+        }
+
 
     }
 
