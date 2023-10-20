@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.util;
 
-public class Config {
+public class CONFIG {
     //We use the CONFIG to store all of our port numbers. This allows us to have them all in one place.
 
     //ch = control hub
@@ -18,5 +18,9 @@ public class Config {
     public static String O_R = "fr"; //right odo, ch 1
 
     //Subsystems
-    public static String intakeMotor = "IntakeMotor";
+    public static String intakeMotor = "intakeMotor";
+    public static String arm = "armMotor";
+    public static String pixelClawPivot = "pixelClawPivotServo";
+    public static String pixelClaw = "pixelClawServo";
+
 }
