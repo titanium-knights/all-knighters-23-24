@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.util.*;
 
-//Welcome to our TeleOp code
+//Welcome to our TeleOp code default
 @TeleOp
 public class TeleOp_Practice extends OpMode {
     //declare objects of subsystems
@@ -21,6 +21,6 @@ public class TeleOp_Practice extends OpMode {
 
     @Override //runs continuously
     public void loop() {
-
+        //conditionals for different buttons go here
     }
 }

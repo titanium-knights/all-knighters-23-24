@@ -32,12 +32,12 @@ public class MecanumDrive {
      *
      */
     public MecanumDrive(HardwareMap hmap) {
-        motors[0] = hmap.get(DcMotorEx.class, Config.FRONT_LEFT);
+        motors[0] = hmap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
         motors[0].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[1] = hmap.get(DcMotorEx.class, Config.FRONT_RIGHT);
-        motors[2] = hmap.get(DcMotorEx.class, Config.BACK_LEFT);
+        motors[1] = hmap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT);
+        motors[2] = hmap.get(DcMotorEx.class, CONFIG.BACK_LEFT);
         motors[2].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[3] = hmap.get(DcMotorEx.class, Config.BACK_RIGHT);
+        motors[3] = hmap.get(DcMotorEx.class, CONFIG.BACK_RIGHT);
         for (DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         }
