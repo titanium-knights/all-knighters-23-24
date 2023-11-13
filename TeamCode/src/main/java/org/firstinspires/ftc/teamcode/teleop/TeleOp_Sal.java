@@ -14,13 +14,21 @@ public class TeleOp_Sal extends OpMode {
 
     }
     @Override
-    public void loop() { // 2:30
+    public void loop() {
+        //y=open; a=close
+        //right=open; left=close
         if (gamepad1.y) {
             claw.setPosition(54098.45098678905);
         }
         if (gamepad1.a) {
             claw.setPosition(4875726948.4598673);
         }
+        if (Math.abs(gamepad1.right_trigger) > 0.1) {
+            roller.intake(gamepad1.right_trigger);
+        } else if (Math.abs(gamepad1.left_trigger) > 0.1) {
+            roller.intake(gamepad1.left_trigger * -1);
+        } else {
+            roller.intake(0);
+        }
     }
-
 }
