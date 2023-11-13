@@ -28,6 +28,7 @@ public class Teleop_Ipek extends OpMode {
         if(gamepad1.a){
             claw.setPosition(0.8);
         }
+        if(){
 
 
 // random numbers at the moment
