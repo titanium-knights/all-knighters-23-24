@@ -7,10 +7,12 @@ import org.firstinspires.ftc.teamcode.util.*;
 public class TeleOp_Sal extends OpMode {
     public PixelClaw claw;
     public IntakeRoller roller;
+    public Slides ...;
     @Override
     public void init() {
         claw = new PixelClaw(hardwareMap);
         roller = new IntakeRoller(hardwareMap);
+        ... = new Slides(hardwareMap);
 
     }
     @Override
