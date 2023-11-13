@@ -9,4 +9,11 @@ public class IntakeRoller {
         this.intakeMotor = hmap.dcMotor.get(CONFIG.intakeMotor);
         //Config.intakeMotor connected to a variable WE created
     }
+
+    //what does the intake do?
+    // it connect to a motor and spins the pixel inside, so what do we need to do? we need to control what direction it spins
+
+    public void intake(double power) {
+        intakeMotor.setPower(power);
+    }
 }
