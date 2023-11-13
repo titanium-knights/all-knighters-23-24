@@ -27,9 +27,20 @@ public class Teleop_Ipek extends OpMode {
         if(gamepad1.a){
             claw.setPosition(0.8);
         }
+        // random numbers at the moment
 
 
-// random numbers at the moment
+        if(Math.abs(gamepad1.right_trigger)> .1) {
+            intakeroller.intake(gamepad1.right_trigger);
+
+        }else if(Math.abs(gamepad1.left_trigger)> .1){
+            intakeroller.intake(-gamepad1.left_trigger);
+            //negetive gamepad, to go down
+        }else{
+            intakeroller.intake(0);
+        }
+        //else are for when you are pressing nothing
+
 
 
 
