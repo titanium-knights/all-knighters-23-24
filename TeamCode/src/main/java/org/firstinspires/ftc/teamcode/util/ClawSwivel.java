@@ -3,10 +3,10 @@ import com.qualcomm.robotcore.hardware.*; //import this to use servos and DC mot
 
 //this is a util class! util classes can be used for the subsystems to store methods
 public class ClawSwivel {
-    public Servo slideServo; //DcMotor is taken from the hardware import
+    public Servo pixelClawPivotServo; //Servp is taken from the hardware import
 
     public ClawSwivel(HardwareMap hmap) { //get motor from port
-        this.slideServo = hmap.Servo.get(CONFIG.pixelServo);
+        this.pixelClawPivotServo = hmap.servo.get(CONFIG.clawSwivel);
         //Config.intakeMotor connected to a variable WE created
     }
 
@@ -14,6 +14,6 @@ public class ClawSwivel {
     // it connect to a motor and spins the pixel inside, so what do we need to do? we need to control what direction it spins
 
     public void setPosition(double pos) {
-        ClawSwivel.setPosition(pos);
+        pixelClawPivotServo.setPosition(pos);
     }
 }

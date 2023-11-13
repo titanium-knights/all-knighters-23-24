@@ -20,7 +20,8 @@ public class CONFIG {
     //Subsystems
     public static String intakeMotor = "intakeMotor";
     public static String arm = "armMotor";
-    public static String pixelClawPivot = "pixelClawPivotServo";
+    public static String clawSwivel = "pixelClawPivotServo";
     public static String pixelClaw = "pixelClawServo";
+
 
 }
