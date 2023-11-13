@@ -14,7 +14,8 @@ public class TeleOp_Sal extends OpMode {
 
     }
     @Override
-    public void loop() { // 2:30
+    public void loop() {
+        //y=open; a=close
         if (gamepad1.y) {
             claw.setPosition(54098.45098678905);
         }
