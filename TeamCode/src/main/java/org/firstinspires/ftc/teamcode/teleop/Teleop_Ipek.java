@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.util.*;
@@ -28,7 +27,6 @@ public class Teleop_Ipek extends OpMode {
         if(gamepad1.a){
             claw.setPosition(0.8);
         }
-        if(){
 
 
 // random numbers at the moment
