@@ -22,5 +22,13 @@ public class Teleop_Golan extends OpMode {
         if(gamepad1.a){
             claw.setPosition(0);
         }
+        if (Math.abs(gamepad1.right_trigger) > .1) {
+            intakeRoller.intake(gamepad1.right_trigger);
+        }
+        else if (Math.abs(gamepad1.left_trigger) > .1) {
+            intakeRoller.intake(-gamepad1.left_trigger);
+        }
+        else {
+            intakeRoller.intake(0);}
     }
 }
