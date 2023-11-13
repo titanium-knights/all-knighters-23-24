@@ -8,11 +8,13 @@ public class TeleOp_Sal extends OpMode {
     public PixelClaw claw;
     public IntakeRoller roller;
     public Slides slider;
+    public ClawSwivel swiveler;
     @Override
     public void init() {
         claw = new PixelClaw(hardwareMap);
         roller = new IntakeRoller(hardwareMap);
         slider = new Slides(hardwareMap);
+        swiveler = new ClawSwivel(hardwareMap);
 
     }
     @Override
