@@ -44,6 +44,13 @@ public class TeleOp_Sal extends OpMode {
             slider.move(-0.5);
         }
 
+        //swivel: up=up; down=down
+        if (gamepad1.dpad_up) {
+            swiveler.setPosition(54098.45098678905);
+        }
+        if (gamepad1.dpad_down) {
+            swiveler.setPosition(4875726948.4598673);
+        }
 
     }
 }
