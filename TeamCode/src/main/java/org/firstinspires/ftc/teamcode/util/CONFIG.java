@@ -19,9 +19,10 @@ public class CONFIG {
 
     //Subsystems
     public static String intakeMotor = "intakeMotor";
-    public static String arm = "armMotor";
-    public static String clawSwivel = "pixelClawPivotServo";
-    public static String pixelClaw = "pixelClawServo";
+    public static String arm = "armServo";
+    public static String claw = "clawServo";
+    public static String carriagePivot = "pixelClawPivotServo";
+    public static String carriageOpen = "pixelClawServo";
 
     //slides
     public static String smr = "smr";

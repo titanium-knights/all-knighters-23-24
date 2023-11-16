@@ -47,6 +47,14 @@ public class TeleOp_PracticeDay extends OpMode { //class header, we will always 
             arm.setPower(0);
         }
 
+        //sliders: right=up; left=down
+        if(gamepad1.right_bumper) {
+//            slider.move(0.5);
+        }
+        if(gamepad1.left_bumper) {
+//            slider.move(-0.5);
+        }
+
 //        //CLAW PIVOT CONTROLS
 //        if (gamepad1.a) { //if click a, pickup position set
 //            pixelClaw.setPivotPos("PICKUP");
