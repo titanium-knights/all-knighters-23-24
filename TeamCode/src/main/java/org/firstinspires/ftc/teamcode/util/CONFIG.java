@@ -23,5 +23,10 @@ public class CONFIG {
     public static String clawSwivel = "pixelClawPivotServo";
     public static String pixelClaw = "pixelClawServo";
 
+    //slides
+    public static String smr = "smr";
+    public static String sml = "sml";
+
+
 
 }

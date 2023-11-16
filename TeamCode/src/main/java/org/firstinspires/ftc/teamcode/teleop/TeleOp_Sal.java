@@ -38,10 +38,10 @@ public class TeleOp_Sal extends OpMode {
 
         //sliders: right=up; left=down
         if(gamepad1.right_bumper) {
-            slider.move(0.5);
+//            slider.move(0.5);
         }
         if(gamepad1.left_bumper) {
-            slider.move(-0.5);
+//            slider.move(-0.5);
         }
 
         //swivel: up=up; down=down
