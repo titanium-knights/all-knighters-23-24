@@ -27,8 +27,8 @@ public class CONFIG {
     public static String carriageOpen = "pixelClawServo";
 
     //slides
-    public static String smr = "smr"; //ch 0
-    public static String sml = "sml"; //ch 1
+    public static String smr = "smr"; //eh 0
+    public static String sml = "sml"; //eh 1
 
 
 
