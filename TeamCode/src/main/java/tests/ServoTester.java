@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.util.CONFIG;
 @Config
 @TeleOp
 public class ServoTester extends OpMode {
-    public static String servoName = CONFIG.pixelClaw;
+    public static String servoName = CONFIG.carriageOpen;
     public static double pos = 0;
     Servo servo;
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
