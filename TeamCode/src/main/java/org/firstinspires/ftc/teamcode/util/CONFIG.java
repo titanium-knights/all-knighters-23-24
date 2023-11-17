@@ -18,13 +18,13 @@ public class CONFIG {
     public static String O_R = "fr"; //right odo, ch 1
 
     //Subsystems
-    public static String intakeMotor = "intakeMotor";
-    public static String arm = "armServo";
-    public static String claw = "clawServo";
+    public static String intakeMotor = "intakeMotor"; //eh 3
+    public static String arm = "armServo"; //ch 3
+    public static String claw = "clawServo"; //ch 2
 
     public static String clawSwivel = "";
-    public static String carriagePivot = "pixelClawPivotServo";
-    public static String carriageOpen = "pixelClawServo";
+    public static String carriagePivot = "carriagePivotServo"; //eh 1
+    public static String carriageFlap = "carriageFlapServo"; //eh 0
 
     //slides
     public static String smr = "smr"; //eh 0

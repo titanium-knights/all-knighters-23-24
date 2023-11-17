@@ -9,12 +9,12 @@ public class PixelClaw {
 
     public static double INTAKE_POS = 0;
     public static double OUTTAKE_POS = 0.1;
-    public static double HOLD_POS = 0;
-    public static double OPEN_POS = 0.1;
+    public static double HOLD_POS = .4;
+    public static double OPEN_POS = 0.7;
 
     public PixelClaw(HardwareMap hmap) {
         this.carriagePivot = hmap.servo.get(CONFIG.carriagePivot);
-        this.carriageOpen = hmap.servo.get(CONFIG.carriageOpen);
+        this.carriageOpen = hmap.servo.get(CONFIG.carriageFlap);
 
     }
 

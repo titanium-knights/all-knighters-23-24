@@ -8,8 +8,8 @@ public class ArmSystem {
     public Servo claw;
     public double ARM_DOWN = .1;
     public double ARM_INIT = .5;
-    public double CLAW_OPEN = .1;
-    public double CLAW_CLOSE = .2;
+    public double CLAW_OPEN = .9;
+    public double CLAW_CLOSE = .3;
 
 
     public ArmSystem(HardwareMap hmap) {

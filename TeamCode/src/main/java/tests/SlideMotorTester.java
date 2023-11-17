@@ -35,7 +35,7 @@ public class SlideMotorTester extends OpMode {
     @Override
     public void loop() {
         if(Math.abs(gamepad1.left_stick_y)>0.1){
-            smr.setPower(gamepad1.left_stick_y);
+            smr.setPower(-gamepad1.left_stick_y);
             sml.setPower(gamepad1.left_stick_y);
 
         }
