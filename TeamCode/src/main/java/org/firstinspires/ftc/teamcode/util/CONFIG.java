@@ -23,10 +23,10 @@ public class CONFIG {
     public static String claw = "clawServo"; //ch 2
 
     public static String clawSwivel = "";
-    public static String carriagePivot = "carriagePivotServoL"; //eh 1
-    public static String carriageFlap = "carriagePivotServoR"; //eh 2
+    public static String carriagePivotL = "carriagePivotServoL"; //eh 1
+    public static String carriagePivotR = "carriagePivotServoR"; //eh 2
 
-    public static String carriageFlag = "carriageFlapServo"; //eh 0
+    public static String carriageFlap = "carriageFlapServo"; //eh 0
 
     //slides
     public static String smr = "smr"; //eh 0
