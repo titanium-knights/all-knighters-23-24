@@ -22,6 +22,7 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
     PixelClaw pixelClaw;
     Slides slides;
     ArmSystem armSystem;
+    PlaneLauncher planeLauncher;
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -34,11 +35,13 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
         pixelClaw = new PixelClaw(hardwareMap);
         armSystem = new ArmSystem(hardwareMap);
         intakeRoller = new IntakeRoller(hardwareMap);
+        planeLauncher = new PlaneLauncher(hardwareMap);
     }
 
     @Override
     public void init() { //initializes, connects
         setupDevices();
+        armSystem.setArmPos(false, true);
     }
 
     @Override
@@ -95,12 +98,12 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
         }
 
 //        //ARM CONTROLS -- CONTROLLER 2
-//        if (gamepad2.x) {
-//            armSystem.setArmPos(true); //DOWN
-//        }
-//        if (gamepad2.b) { //place outtake
-//            armSystem.setArmPos(false);
-//        }
+        if (gamepad2.x) {
+            armSystem.setArmPos(true, false); //DOWN
+        }
+        if (gamepad2.b) { //place outtake
+            armSystem.setArmPos(false, false);
+        }
 
         //CLAW CONTROLS -- CONTROLLER 2
         if (gamepad2.a) {
@@ -108,6 +111,15 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
         }
         if (gamepad2.y) { //place
             armSystem.setClawOpen(false);
+        }
+
+        //PLANE LAUNCHER
+
+        if(gamepad1.left_bumper){
+            planeLauncher.launchPlane();
+        }
+        if(gamepad1.right_bumper){
+            planeLauncher.stopLaunch();
         }
 
 

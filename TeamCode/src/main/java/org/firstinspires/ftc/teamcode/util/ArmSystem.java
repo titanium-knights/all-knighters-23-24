@@ -6,8 +6,9 @@ import com.qualcomm.robotcore.hardware.*;
 public class ArmSystem {
     public Servo arm;
     public Servo claw;
-    public double ARM_DOWN = .1;
-    public double ARM_INIT = .5;
+    public double ARM_DOWN = 0;
+    public double ARM_INIT = 1;
+    public double ARM_DUMP = .4;
     public double CLAW_OPEN = .9;
     public double CLAW_CLOSE = .3;
 
@@ -17,12 +18,15 @@ public class ArmSystem {
         this.claw = hmap.servo.get(CONFIG.claw);
     }
 
-    public void setArmPos(boolean isDown)
+    public void setArmPos(boolean isDown, boolean isInit)
     {
-        if (isDown) {
-            arm.setPosition(ARM_DOWN);
-        } else {
+        if(isInit){
             arm.setPosition(ARM_INIT);
+        }
+        else if (isDown) {
+            arm.setPosition(ARM_DUMP);
+        } else {
+            arm.setPosition(ARM_DOWN);
         }
     }
 

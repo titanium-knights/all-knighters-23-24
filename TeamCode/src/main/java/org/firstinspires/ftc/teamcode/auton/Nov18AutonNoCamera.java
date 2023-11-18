@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 
-@Autonomous(name="InitialTimedPreloadAuton", group="Linear Opmode")
+@Autonomous(name="Nov18AutonNoCamera", group="Linear Opmode")
 @Config
 public class Nov18AutonNoCamera extends LinearOpMode {
 
