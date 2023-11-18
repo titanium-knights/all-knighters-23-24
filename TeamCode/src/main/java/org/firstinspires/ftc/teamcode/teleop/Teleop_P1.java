@@ -94,13 +94,13 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
             pixelClaw.setCarriageOpen(false); //closes the carriage
         }
 
-//        //ARM CONTROLS -- CONTROLLER 2
-//        if (gamepad2.x) {
-//            armSystem.setArmPos(true); //DOWN
-//        }
-//        if (gamepad2.b) { //place outtake
-//            armSystem.setArmPos(false);
-//        }
+        //ARM CONTROLS -- CONTROLLER 2
+        if (gamepad2.x) {
+            armSystem.setArmPos(true); //DOWN
+        }
+        if (gamepad2.b) { //place outtake
+            armSystem.setArmPos(false);
+        }
 
         //CLAW CONTROLS -- CONTROLLER 2
         if (gamepad2.a) {
