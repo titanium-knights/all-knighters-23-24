@@ -15,8 +15,8 @@ public class InitialTimedPreloadAuton extends LinearOpMode {
     protected MecanumDrive drive;
     protected GreenShroomVision vision;
 
-    public static int FORWARD13_TIME = 1000;
-    public static int FORWARD2_TIME = 700;
+    public static int FORWARD13_TIME = 600;
+    public static int FORWARD2_TIME = 800;
     public static int STRAFE_TIME = 400;
     public static int position;
 
@@ -41,14 +41,14 @@ public class InitialTimedPreloadAuton extends LinearOpMode {
                 sleep(FORWARD13_TIME);
                 break;
             case 2:
-                drive.strafeRightWithPower(0.8);
-                sleep(STRAFE_TIME);
                 drive.forwardWithPower(0.8);
                 sleep(FORWARD2_TIME);
                 break;
             case 3:
+                drive.strafeRightWithPower(0.8);
+                sleep(STRAFE_TIME);
                 drive.forwardWithPower(0.8);
-                sleep(FORWARD2_TIME);
+                sleep(FORWARD13_TIME);
                 break;
 
         }
