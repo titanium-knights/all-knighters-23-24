@@ -30,6 +30,11 @@ public class Slides {
         }
     }
 
+    /*
+    Checks if slides are within bounds by getting the average
+    If the slides are not in bounds, stop all movement and force into
+    a buffer.
+     */
     public void withinBounds() {
         if(getAverage()>MAX_LIMIT){ //if above the max limit, force the slides to be the buffer below the max using while
             while(getAverage()>(MAX_LIMIT-MAX_LIMIT_BUFFER)) {
@@ -45,15 +50,32 @@ public class Slides {
             }
         }
     }
-//    public void setPosition(int pos, double power) {
-//        smr.setTargetPosition(pos);
-//        smr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        smr.setPower(power);
-//
-//        sml.setTargetPosition(pos);
-//        sml.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        sml.setPower(power);
-//    }
+
+    /*
+    Runs to a position by setting target positions and changing the runmode, holds power
+     */
+    public void setPosition(int pos, double power) {
+        if (getAverage() == pos) {
+           stop();
+        } else {
+            smr.setTargetPosition(pos);
+            smr.setPower(power);
+            smr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            sml.setTargetPosition(-pos);
+            sml.setPower(-power);
+            sml.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+    }
+
+    public void stop() {
+        smr.setPower(0);
+        sml.setPower(0);
+
+        smr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sml.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
     public void setInit() {
         smr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

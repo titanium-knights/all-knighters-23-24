@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.CONFIG;
-import org.firstinspires.ftc.teamcode.util.PixelClaw;
+import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 
 @Config
 @TeleOp
@@ -19,14 +19,14 @@ public class PivotServoTesterSync extends OpMode {
     public static double pos = 0;
     Servo servoLeft;
     Servo servoRight;
-    PixelClaw pixelClaw;
+    PixelCarriage pixelCarriage;
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
     @Override
     public void init() {
         servoLeft = hardwareMap.get(Servo.class, servoLeftName);
         servoRight = hardwareMap.get(Servo.class, servoRightName);
-        pixelClaw = new PixelClaw(hardwareMap);
+        pixelCarriage = new PixelCarriage(hardwareMap);
 
     }
 
@@ -40,10 +40,10 @@ public class PivotServoTesterSync extends OpMode {
 
         //CARRIAGE FLAP CONTROLS -- CONTROLLER 1
         if (gamepad1.y) { //if click a, pickup position set
-            pixelClaw.setCarriageOpen(true); //opens the carriage
+            pixelCarriage.setCarriageOpen(true); //opens the carriage
         }
         if (gamepad1.a) { //place
-            pixelClaw.setCarriageOpen(false); //closes the carriage
+            pixelCarriage.setCarriageOpen(false); //closes the carriage
         }
     }
 }

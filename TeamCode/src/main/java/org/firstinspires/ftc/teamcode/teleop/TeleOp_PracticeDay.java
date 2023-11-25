@@ -18,13 +18,13 @@ public class TeleOp_PracticeDay extends OpMode { //class header, we will always 
     MecanumDrive drive; //no value
     IntakeRoller intakeRoller;
     Arm arm;
-    PixelClaw pixelClaw;
+    PixelCarriage pixelCarriage;
 
     public void setupDevices() {
         //hardwareMap = phone/ android app, connects the name of the ports to the actual object
         drive = new MecanumDrive(hardwareMap); //connecting ports to
         arm = new Arm(hardwareMap);
-        pixelClaw = new PixelClaw(hardwareMap);
+        pixelCarriage = new PixelCarriage(hardwareMap);
     }
     @Override
     public void init() { //initializes, connects
@@ -65,10 +65,10 @@ public class TeleOp_PracticeDay extends OpMode { //class header, we will always 
 
         //CLAW CONTROLS
         if (gamepad1.y) { //if click a, pickup position set
-            pixelClaw.setPosition(.1);
+            pixelCarriage.setPosition(.1);
         }
         if (gamepad1.a) { //place
-            pixelClaw.setPosition(0);
+            pixelCarriage.setPosition(0);
         }
 
 

@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.auton;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 
-@Autonomous(name="VisionTEst", group="Linear Opmode")
+@Autonomous(name="VisionTest", group="Linear Opmode")
 @Config
 public class VisionTest extends LinearOpMode {
 
@@ -16,8 +18,10 @@ public class VisionTest extends LinearOpMode {
 
     public static int position;
 
+    Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
+
     protected void setupDevices(){
-        vision = new GreenShroomVision(hardwareMap, null);
+        vision = new GreenShroomVision(hardwareMap, dashTelemetry);
     }
 
     @Override
@@ -26,8 +30,8 @@ public class VisionTest extends LinearOpMode {
         position = vision.getPosition();
         waitForStart();
 
-        telemetry.addData("Detected: ", position);
-        sleep(10000);
+        dashTelemetry.addData("Detected: ", position);
+        sleep(30000);
 
 
     }

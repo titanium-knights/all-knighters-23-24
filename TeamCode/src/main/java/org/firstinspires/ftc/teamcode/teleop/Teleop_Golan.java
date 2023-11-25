@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.util.*;
 
 public class Teleop_Golan extends OpMode {
-    public PixelClaw claw; //putting claw names the actual physical claw for use
+    public PixelCarriage claw; //putting claw names the actual physical claw for use
     public IntakeRoller intakeRoller;
 
     @Override
     public void init() {
-        claw=new PixelClaw(hardwareMap);
+        claw=new PixelCarriage(hardwareMap);
         intakeRoller=new IntakeRoller(hardwareMap);
     }
 

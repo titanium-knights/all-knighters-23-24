@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.util.*;
 
 public class TeleOp_Sal extends OpMode {
-    public PixelClaw claw;
+    public PixelCarriage claw;
     public IntakeRoller roller;
     public Slides slider;
     public ClawSwivel swiveler;
     @Override
     public void init() {
-        claw = new PixelClaw(hardwareMap);
+        claw = new PixelCarriage(hardwareMap);
         roller = new IntakeRoller(hardwareMap);
         slider = new Slides(hardwareMap);
         swiveler = new ClawSwivel(hardwareMap);

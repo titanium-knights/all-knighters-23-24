@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everything in the folder :)
 
 @TeleOp
-public class Teleop_P1 extends OpMode { //class header, we will always extend a TYPE of OpMode
+public class Teleop_P2 extends OpMode { //class header, we will always extend a TYPE of OpMode
     //public allows us to see this variable in the FTC Dashboard (a website that allows us to edit in realtime)
     //static = field that is shared across every instance of a class
     //double is a data type that allows us to use decimal points (others incl. int, string, float...)
@@ -18,7 +18,7 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
 
     //make instance of the classes (i.e, subsystems or dt)
     MecanumDrive drive; //no value
-    IntakeRoller intakeRoller;
+//    IntakeRoller intakeRoller;
     PixelCarriage pixelCarriage;
     Slides slides;
     ArmSystem armSystem;
@@ -34,7 +34,7 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
         slides = new Slides(hardwareMap);
         pixelCarriage = new PixelCarriage(hardwareMap);
         armSystem = new ArmSystem(hardwareMap);
-        intakeRoller = new IntakeRoller(hardwareMap);
+//        intakeRoller = new IntakeRoller(hardwareMap);
         planeLauncher = new PlaneLauncher(hardwareMap);
     }
 
@@ -52,15 +52,15 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
         //most of the loop code is nested in conditional statements
 
         //Intake CONTROLS -- CONTROLLER 1
-        if(Math.abs(gamepad1.right_trigger)> .1) {
-            intakeRoller.intake(gamepad1.right_trigger);
-
-        }else if(Math.abs(gamepad1.left_trigger)> .1){
-            intakeRoller.intake(-gamepad1.left_trigger);
-            //negative gamepad, to go down
-        }else{
-            intakeRoller.intake(0);
-        }
+//        if(Math.abs(gamepad1.right_trigger)> .1) {
+//            intakeRoller.intake(gamepad1.right_trigger);
+//
+//        }else if(Math.abs(gamepad1.left_trigger)> .1){
+//            intakeRoller.intake(-gamepad1.left_trigger);
+//            //negative gamepad, to go down
+//        }else{
+//            intakeRoller.intake(0);
+//        }
 
         //Slide CONTROLS -- CONTROLLER 2
         slides.withinBounds();
@@ -90,12 +90,12 @@ public class Teleop_P1 extends OpMode { //class header, we will always extend a 
         }
 
         //CARRIAGE FLAP CONTROLS -- CONTROLLER 1
-        if (gamepad1.y) { //if click a, pickup position set
-            pixelCarriage.setCarriageOpen(true); //opens the carriage
-        }
-        if (gamepad1.a) { //place
-            pixelCarriage.setCarriageOpen(false); //closes the carriage
-        }
+//        if (gamepad1.y) { //if click a, pickup position set
+//            pixelCarriage.setCarriageOpen(true); //opens the carriage
+//        }
+//        if (gamepad1.a) { //place
+//            pixelCarriage.setCarriageOpen(false); //closes the carriage
+//        }
 
 //        //ARM CONTROLS -- CONTROLLER 2
         if (gamepad2.x) {

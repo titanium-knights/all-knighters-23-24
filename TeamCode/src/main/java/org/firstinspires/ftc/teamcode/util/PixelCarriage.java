@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class PixelClaw {
+public class PixelCarriage {
     public Servo carriagePivotL; //servo
     public Servo carriagePivotR; //servo
 
@@ -17,7 +17,7 @@ public class PixelClaw {
     public static double HOLD_POS = .4;
     public static double OPEN_POS = 0.7;
 
-    public PixelClaw(HardwareMap hmap) {
+    public PixelCarriage(HardwareMap hmap) {
         this.carriagePivotL = hmap.servo.get(CONFIG.carriagePivotL);
         this.carriagePivotR = hmap.servo.get(CONFIG.carriagePivotR);
         this.carriageOpen = hmap.servo.get(CONFIG.carriageFlap);

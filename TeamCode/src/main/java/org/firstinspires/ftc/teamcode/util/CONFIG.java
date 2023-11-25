@@ -34,7 +34,7 @@ public class CONFIG {
 
     // plane
 
-    public static String plane_launcher = "plane_launcher";
+    public static String planeServo = "planeLauncher"; //ch 4
 
 
 

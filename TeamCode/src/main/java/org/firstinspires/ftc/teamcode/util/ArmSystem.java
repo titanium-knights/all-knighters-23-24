@@ -7,7 +7,7 @@ public class ArmSystem {
     public Servo arm;
     public Servo claw;
     public double ARM_DOWN = 0;
-    public double ARM_INIT = 1;
+    public double ARM_INIT = .88;
     public double ARM_DUMP = .4;
     public double CLAW_OPEN = .9;
     public double CLAW_CLOSE = .3;

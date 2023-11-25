@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.util.*;
 
 public class Teleop_Ipek extends OpMode {
-    public PixelClaw claw;
+    public PixelCarriage claw;
     public IntakeRoller intakeroller;
    //purple here->name
     //the files used before hand that your using here
     @Override
     public void init() {
-        claw=new PixelClaw(hardwareMap);
+        claw=new PixelCarriage(hardwareMap);
         intakeroller= new IntakeRoller(hardwareMap);
         //for every public BLANK  make a =new
     }
