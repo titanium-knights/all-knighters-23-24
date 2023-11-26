@@ -59,7 +59,7 @@ public class Teleop_P2_GP1 extends OpMode { //class header, we will always exten
         drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED_CURRENT); //go drive vroom
 
         //SLOW MODE
-        if (gamepad1.b) {
+        if (gamepad1.b) { //slowmode added
             isSlowmode = !isSlowmode;
         }
 
