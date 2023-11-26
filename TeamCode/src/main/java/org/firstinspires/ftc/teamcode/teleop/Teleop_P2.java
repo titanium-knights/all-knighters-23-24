@@ -90,12 +90,12 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         }
 
         //CARRIAGE FLAP CONTROLS -- CONTROLLER 1
-//        if (gamepad1.y) { //if click a, pickup position set
-//            pixelCarriage.setCarriageOpen(true); //opens the carriage
-//        }
-//        if (gamepad1.a) { //place
-//            pixelCarriage.setCarriageOpen(false); //closes the carriage
-//        }
+        if (gamepad1.y) { //if click a, pickup position set
+            pixelCarriage.setCarriageOpen(true); //opens the carriage
+        }
+        if (gamepad1.a) { //place
+            pixelCarriage.setCarriageOpen(false); //closes the carriage
+        }
 
 //        //ARM CONTROLS -- CONTROLLER 2
         if (gamepad2.x) {

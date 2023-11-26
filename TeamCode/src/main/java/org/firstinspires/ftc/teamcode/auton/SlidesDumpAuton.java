@@ -28,10 +28,12 @@ public class SlidesDumpAuton extends LinearOpMode {
     public static int SLIDE_POS_DOWN = 50;
     public static double SLIDE_POW = .4;
 
-    public static int FORWARD_TIME = 300;
-    public static int FORWARD2_TIME = 1050;
+    public static int STRAFE_TIME = 550;
 
-    public static int SIDE_TIME = 400;
+    public static int BACKWARD_13_TIME = 650;
+    public static int position;
+
+
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
 
@@ -45,6 +47,9 @@ public class SlidesDumpAuton extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         setupDevices();
+        position = vision.getPosition();
+        telemetry.addData("Detected: ", position);
+
         waitForStart();
 
         telemetry.addData("Slides 1 (right) Position", slides.getPositionR());
@@ -55,16 +60,45 @@ public class SlidesDumpAuton extends LinearOpMode {
         telemetry.addData("Slides (average) Position", slides.getAverage());
         dashTelemetry.addData("Slides (average) Position", slides.getAverage());
 
+        switch (position) {
+            case 1:
+                drive.strafeRightWithPower(POWER);
+                sleep(STRAFE_TIME);
+                drive.stop();
+                sleep(PAUSE_TIME);
+                drive.backwardWithPower(POWER);
+                sleep(BACKWARD_13_TIME);
+                drive.stop();
+                sleep(PAUSE_TIME);
+                break;
+            case 2:
+                drive.backwardWithPower(POWER);
+                sleep(BACKWARD_TIME);
+                drive.stop();
+                sleep(PAUSE_TIME);
+                break;
 
-        drive.backwardWithPower(POWER);
-        sleep(BACKWARD_TIME);
-        drive.stop();
-        sleep(PAUSE_TIME);
+            case 3:
+                drive.strafeLeftWithPower(POWER);
+                sleep(STRAFE_TIME);
+                drive.stop();
+                sleep(PAUSE_TIME);
+                drive.forwardWithPower(POWER);
+                sleep(BACKWARD_13_TIME);
+                drive.stop();
+                sleep(PAUSE_TIME);
+                break;
+
+        }
 
         slides.setPosition(SLIDE_POS_UP, SLIDE_POW);
         drive.stop();
         sleep(PAUSE_TIME);
 
+        drive.stop();
+        sleep(PAUSE_TIME);
+
+        //dumping
         carriage.setPivotIntake(false); //faces outtake
         drive.stop();
         sleep(PAUSE_TIME);
@@ -77,23 +111,6 @@ public class SlidesDumpAuton extends LinearOpMode {
         drive.stop();
         sleep(PAUSE_TIME);
 
-//        drive.forwardWithPower(POWER);
-//        sleep(FORWARD_TIME);
-//
-//        drive.stop();
-//        sleep(PAUSE_TIME);
-//
-////        drive.turnLeftWithPower(POWER);
-////        sleep(SIDE_TIME);
-////
-////        drive.stop();
-////        sleep(PAUSE_TIME);
-////
-////        drive.forwardWithPower(POWER);
-////        sleep(FORWARD2_TIME);
-////
-////        drive.stop();
-////        sleep(PAUSE_TIME);
     }
 
 
