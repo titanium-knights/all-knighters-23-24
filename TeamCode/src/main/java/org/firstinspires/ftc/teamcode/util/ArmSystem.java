@@ -13,6 +13,7 @@ public class ArmSystem {
     public Servo claw;
     public double ARM_DOWN = 0;
     public double ARM_INIT = .88;
+    public double ARM_PICKUP_STACK = .07;
     public double ARM_DUMP_MID = .37;
     public double ARM_DUMP_LOW = .25;
 
@@ -32,6 +33,9 @@ public class ArmSystem {
         }
         else if (isDown) {
             switch (am) {
+                case 0:
+                    arm.setPosition(ARM_PICKUP_STACK);
+                    break;
                 case 1:
                     arm.setPosition(ARM_DUMP_LOW);
                     break;

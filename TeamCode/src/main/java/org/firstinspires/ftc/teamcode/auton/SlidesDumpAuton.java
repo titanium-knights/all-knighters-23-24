@@ -31,6 +31,8 @@ public class SlidesDumpAuton extends LinearOpMode {
     public static double SLIDE_POW = .4;
 
     public static int STRAFE_TIME_LEFT = 425;
+    public static int STRAFE_TIME_CENTER = 25;
+
     public static int STRAFE_TIME_RIGHT = 400;
 
     public static int WAIT_VISION = 425;
@@ -85,6 +87,10 @@ public class SlidesDumpAuton extends LinearOpMode {
                 sleep(PAUSE_TIME);
                 break;
             case 2:
+                drive.strafeRightWithPower(POWER);
+                sleep(STRAFE_TIME_CENTER);
+                drive.stop();
+                sleep(PAUSE_TIME);
                 drive.backwardWithPower(POWER);
                 sleep(BACKWARD_TIME);
                 drive.stop();
