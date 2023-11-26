@@ -14,7 +14,7 @@ public class PixelCarriage {
 
     public static double INTAKE_POS_L = 1;
     public static double OUTTAKE_POS_L = .75;
-    public static double HOLD_POS = .4;
+    public static double HOLD_POS = .5;
     public static double OPEN_POS = 0.7;
 
     public PixelCarriage(HardwareMap hmap) {

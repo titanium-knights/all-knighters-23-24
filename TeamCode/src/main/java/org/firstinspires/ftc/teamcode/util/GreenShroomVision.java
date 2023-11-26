@@ -35,11 +35,11 @@ public class GreenShroomVision {
     }
     public int getPosition(){
         GreenShroomPipeline.CapstonePosition capstonePosition = pipeline.getAnalysis();
-        if(capstonePosition == GreenShroomPipeline.CapstonePosition.CENTER){
+        if(capstonePosition == GreenShroomPipeline.CapstonePosition.LEFT){
             return 1;
         }
-        else if (capstonePosition == GreenShroomPipeline.CapstonePosition.LEFT) {
-            return 0;
+        else if (capstonePosition == GreenShroomPipeline.CapstonePosition.RIGHT) {
+            return 3;
         }
         else{
             return 2;

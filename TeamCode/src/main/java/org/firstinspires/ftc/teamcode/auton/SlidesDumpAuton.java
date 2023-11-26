@@ -22,16 +22,18 @@ public class SlidesDumpAuton extends LinearOpMode {
     protected PixelCarriage carriage;
     public static double POWER = .8;
     public static int PAUSE_TIME = 600;
-    public static int BACKWARD_TIME = 550;
+    public static int BACKWARD_TIME = 500;
 
-    public static int SLIDE_POS_UP = 200;
+    public static int SLIDE_POS_UP = 400;
     public static int SLIDE_POS_DOWN = 50;
     public static double SLIDE_POW = .4;
 
-    public static int STRAFE_TIME = 550;
+    public static int STRAFE_TIME = 425;
+    public static int WAIT_VISION = 425;
 
-    public static int BACKWARD_13_TIME = 650;
+    public static int BACKWARD_13_TIME = 400;
     public static int position;
+
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -47,10 +49,17 @@ public class SlidesDumpAuton extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         setupDevices();
-        position = vision.getPosition();
-        telemetry.addData("Detected: ", position);
+//        sleep(WAIT_VISION);
+//        position = vision.getPosition();
+//        telemetry.addData("Detected: ", position);
+//        dashTelemetry.addData("Detected", position);
+//        dashTelemetry.update();
 
         waitForStart();
+        sleep(WAIT_VISION);
+        position = vision.getPosition();
+        telemetry.addData("Detected: ", position);
+        dashTelemetry.addData("Detected", position);
 
         telemetry.addData("Slides 1 (right) Position", slides.getPositionR());
         dashTelemetry.addData("Slides (right) Position", slides.getPositionR());
@@ -83,31 +92,40 @@ public class SlidesDumpAuton extends LinearOpMode {
                 sleep(STRAFE_TIME);
                 drive.stop();
                 sleep(PAUSE_TIME);
-                drive.forwardWithPower(POWER);
+                drive.backwardWithPower(POWER);
                 sleep(BACKWARD_13_TIME);
+                drive.stop();
+                sleep(PAUSE_TIME);
+                break;
+            default:
+                drive.backwardWithPower(POWER);
+                sleep(BACKWARD_TIME);
                 drive.stop();
                 sleep(PAUSE_TIME);
                 break;
 
         }
 
+
+        //dumping
         slides.setPosition(SLIDE_POS_UP, SLIDE_POW);
         drive.stop();
         sleep(PAUSE_TIME);
 
-        drive.stop();
-        sleep(PAUSE_TIME);
-
-        //dumping
         carriage.setPivotIntake(false); //faces outtake
         drive.stop();
         sleep(PAUSE_TIME);
+        sleep(PAUSE_TIME);
+
 
         slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW);
         drive.stop();
         sleep(PAUSE_TIME);
 
         carriage.setCarriageOpen(true); //opens the carriage
+        drive.stop();
+        sleep(PAUSE_TIME);
+
         drive.stop();
         sleep(PAUSE_TIME);
 
