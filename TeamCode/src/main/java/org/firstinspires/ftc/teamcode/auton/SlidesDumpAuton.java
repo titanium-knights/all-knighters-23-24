@@ -22,13 +22,17 @@ public class SlidesDumpAuton extends LinearOpMode {
     protected PixelCarriage carriage;
     public static double POWER = .8;
     public static int PAUSE_TIME = 600;
-    public static int BACKWARD_TIME = 500;
+    public static int BACKWARD_TIME = 550;
+    public static int FORWARD_TIME = 300;
+
 
     public static int SLIDE_POS_UP = 400;
     public static int SLIDE_POS_DOWN = 50;
     public static double SLIDE_POW = .4;
 
-    public static int STRAFE_TIME = 425;
+    public static int STRAFE_TIME_LEFT = 425;
+    public static int STRAFE_TIME_RIGHT = 400;
+
     public static int WAIT_VISION = 425;
 
     public static int BACKWARD_13_TIME = 400;
@@ -72,7 +76,7 @@ public class SlidesDumpAuton extends LinearOpMode {
         switch (position) {
             case 1:
                 drive.strafeRightWithPower(POWER);
-                sleep(STRAFE_TIME);
+                sleep(STRAFE_TIME_LEFT);
                 drive.stop();
                 sleep(PAUSE_TIME);
                 drive.backwardWithPower(POWER);
@@ -89,7 +93,7 @@ public class SlidesDumpAuton extends LinearOpMode {
 
             case 3:
                 drive.strafeLeftWithPower(POWER);
-                sleep(STRAFE_TIME);
+                sleep(STRAFE_TIME_RIGHT);
                 drive.stop();
                 sleep(PAUSE_TIME);
                 drive.backwardWithPower(POWER);
@@ -117,7 +121,6 @@ public class SlidesDumpAuton extends LinearOpMode {
         sleep(PAUSE_TIME);
         sleep(PAUSE_TIME);
 
-
         slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW);
         drive.stop();
         sleep(PAUSE_TIME);
@@ -125,6 +128,17 @@ public class SlidesDumpAuton extends LinearOpMode {
         carriage.setCarriageOpen(true); //opens the carriage
         drive.stop();
         sleep(PAUSE_TIME);
+
+        carriage.setCarriageOpen(true); //opens the carriage
+        drive.stop();
+        sleep(PAUSE_TIME * 2);
+
+        carriage.setPivotIntake(false); //faces outtake
+        drive.stop();
+        sleep(PAUSE_TIME);
+
+//        drive.forwardWithPower(POWER);
+//        sleep(FORWARD_TIME);
 
         drive.stop();
         sleep(PAUSE_TIME);

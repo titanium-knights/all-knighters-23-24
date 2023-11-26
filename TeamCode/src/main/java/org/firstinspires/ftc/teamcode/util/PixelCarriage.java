@@ -15,7 +15,7 @@ public class PixelCarriage {
     public static double INTAKE_POS_L = 1;
     public static double OUTTAKE_POS_L = .75;
     public static double HOLD_POS = .5;
-    public static double OPEN_POS = 0.7;
+    public static double OPEN_POS = 0.8;
 
     public PixelCarriage(HardwareMap hmap) {
         this.carriagePivotL = hmap.servo.get(CONFIG.carriagePivotL);
@@ -47,6 +47,11 @@ public class PixelCarriage {
         } else {
             carriageOpen.setPosition(HOLD_POS);
         }
+    }
+
+    public void setOuttake(boolean isIntake, boolean isOpen) {
+        setPivotIntake(isIntake);
+        setCarriageOpen(isOpen);
     }
 
 }
