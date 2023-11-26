@@ -41,7 +41,7 @@ public class PTGAuton_BLUE extends LinearOpMode {
         drive.stop();
         sleep(PAUSE_TIME);
 
-        drive.turnLeftWithPower(POWER);
+        drive.turnRightWithPower(POWER);
         sleep(SIDE_TIME);
 
         drive.stop();
