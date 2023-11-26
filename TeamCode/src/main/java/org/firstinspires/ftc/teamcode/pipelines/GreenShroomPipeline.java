@@ -34,6 +34,8 @@ public class GreenShroomPipeline extends OpenCvPipeline {
     public static double X_POSITION_RIGHT = 920;
     public static double Y_POSITION = 270;
 
+    public static double Y_POSITION_OFFSET = 50;
+
     /*
      * The core values which define the location and size of the sample regions
      */
@@ -65,10 +67,10 @@ public class GreenShroomPipeline extends OpenCvPipeline {
      */
     Point region1_pointA = new Point(
             X_POSITION_LEFT,
-            Y_POSITION);
+            Y_POSITION + Y_POSITION_OFFSET);
     Point region1_pointB = new Point(
             X_POSITION_LEFT + REGION_WIDTH,
-            Y_POSITION + REGION_HEIGHT);
+            Y_POSITION + REGION_HEIGHT + Y_POSITION_OFFSET);
     Point region2_pointA = new Point(
             X_POSITION_CENTER,
             Y_POSITION);
@@ -77,10 +79,10 @@ public class GreenShroomPipeline extends OpenCvPipeline {
             Y_POSITION + REGION_HEIGHT);
     Point region3_pointA = new Point(
             X_POSITION_RIGHT,
-            Y_POSITION);
+            Y_POSITION + Y_POSITION_OFFSET);
     Point region3_pointB = new Point(
             X_POSITION_RIGHT + REGION_WIDTH,
-            Y_POSITION + REGION_HEIGHT);
+            Y_POSITION + REGION_HEIGHT + Y_POSITION_OFFSET);
 
     /*
      * Working variables

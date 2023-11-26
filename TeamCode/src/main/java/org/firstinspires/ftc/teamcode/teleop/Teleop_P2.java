@@ -14,11 +14,15 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
     //static = field that is shared across every instance of a class
     //double is a data type that allows us to use decimal points (others incl. int, string, float...)
 
-    public static double DRIVE_SPEED = .8;
+    public static double DRIVE_SPEED_FAST = .8;
+    public static double DRIVE_SPEED_SLOW = .4;
+    public static double DRIVE_SPEED_CURRENT = DRIVE_SPEED_FAST;
+
+    public static boolean isSlowmode = false;
 
     //make instance of the classes (i.e, subsystems or dt)
     MecanumDrive drive; //no value
-//    IntakeRoller intakeRoller;
+    //    IntakeRoller intakeRoller;
     PixelCarriage pixelCarriage;
     Slides slides;
     ArmSystem armSystem;
@@ -46,23 +50,23 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
 
     @Override
     public void loop() { //constantly doing, repeating
-        drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED); //go drive vroom
+        if (isSlowmode) {
+            DRIVE_SPEED_CURRENT = DRIVE_SPEED_SLOW;
+        } else {
+            DRIVE_SPEED_CURRENT = DRIVE_SPEED_FAST;
+        }
 
-        //gamepad controls return a float or boolean (either you press it .1 to 0 or you hit or dont hit it)
-        //most of the loop code is nested in conditional statements
+        drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED_CURRENT); //go drive vroom
 
-        //Intake CONTROLS -- CONTROLLER 1
-//        if(Math.abs(gamepad1.right_trigger)> .1) {
-//            intakeRoller.intake(gamepad1.right_trigger);
-//
-//        }else if(Math.abs(gamepad1.left_trigger)> .1){
-//            intakeRoller.intake(-gamepad1.left_trigger);
-//            //negative gamepad, to go down
-//        }else{
-//            intakeRoller.intake(0);
-//        }
+        //SLOW MODE
+        if (gamepad1.b) { //slowmode added
+            isSlowmode = !isSlowmode;
+        }
 
-        //Slide CONTROLS -- CONTROLLER 2
+        telemetry.addData("isSlowmode: ", isSlowmode);
+        dashTelemetry.addData("isSlowmode: ", isSlowmode);
+
+        //Slide CONTROLS -- CONTROLLER 1
         slides.withinBounds();
         if (gamepad2.left_trigger > .1) { //move down if the left trigger is pressed down, set power accordingly
             slides.setPower(-gamepad2.left_trigger);
@@ -80,28 +84,21 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         telemetry.addData("Slides (average) Position", slides.getAverage());
         dashTelemetry.addData("Slides (average) Position", slides.getAverage());
 
-
-        //CARRIAGE PIVOT CONTROLS -- CONTROLLER 1
-        if (gamepad1.x) {
-            pixelCarriage.setPivotIntake(true); //faces intake
-        }
-        if (gamepad1.b) {
-            pixelCarriage.setPivotIntake(false); //faces outtake
-        }
-
-        //CARRIAGE FLAP CONTROLS -- CONTROLLER 1
-        if (gamepad1.y) { //if click a, pickup position set
-            pixelCarriage.setCarriageOpen(true); //opens the carriage
-        }
-        if (gamepad1.a) { //place
-            pixelCarriage.setCarriageOpen(false); //closes the carriage
-        }
-
 //        //ARM CONTROLS -- CONTROLLER 2
         if (gamepad2.x) {
             armSystem.setArmPos(true, false); //DOWN
         }
-        if (gamepad2.b) { //place outtake
+
+        if (gamepad2.dpad_down) {
+            armSystem.setArmPos(true, false, 0); //DOWN LOW
+        }
+        if (gamepad2.dpad_left) {
+            armSystem.setArmPos(true, false, 1); //PICK UP STACK
+        }
+        if (gamepad2.dpad_up) {
+            armSystem.setArmPos(true, false, 2); //DOWN MID
+        }
+        if (gamepad2.dpad_right) {
             armSystem.setArmPos(false, false);
         }
 
@@ -113,9 +110,11 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
             armSystem.setClawOpen(false);
         }
 
+        if (gamepad2.right_bumper) {
+            pixelCarriage.setPivotIntake(true); //moves carriage intake side
+        }
         //PLANE LAUNCHER
-
-        if(gamepad1.left_bumper){
+        if(gamepad2.left_bumper){
             planeLauncher.launchPlane();
         }
 
