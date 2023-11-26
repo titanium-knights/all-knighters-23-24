@@ -63,6 +63,9 @@ public class Teleop_P2_GP1 extends OpMode { //class header, we will always exten
             isSlowmode = !isSlowmode;
         }
 
+        telemetry.addData("isSlowmode: ", isSlowmode);
+        dashTelemetry.addData("isSlowmode: ", isSlowmode);
+
         //Slide CONTROLS -- CONTROLLER 1
         slides.withinBounds();
         if (gamepad1.left_trigger > .1) { //move down if the left trigger is pressed down, set power accordingly
