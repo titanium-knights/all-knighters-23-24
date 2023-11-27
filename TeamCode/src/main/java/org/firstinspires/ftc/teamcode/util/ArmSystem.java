@@ -14,7 +14,7 @@ public class ArmSystem {
     public double ARM_DOWN = 0;
     public double ARM_INIT = .88;
     public double ARM_PICKUP_STACK = .07;
-    public double ARM_DUMP_MID = .37;
+    public double ARM_DUMP_MID = .47;
     public double ARM_DUMP_LOW = .25;
 
     public double CLAW_OPEN = .9;
