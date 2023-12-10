@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.*;
 public class Slides {
     public DcMotor slidesMotor; //lift right
 
-    public static int MAX_LIMIT = -1300; //actual encoder
+    public static int MAX_LIMIT = -1400; //actual encoder
     public static int MAX_LIMIT_BUFFER = 150;
     public static int MIN_LIMIT = 20;
     public static int MIN_LIMIT_BUFFER = 25;
@@ -19,10 +19,7 @@ public class Slides {
     }
 
     public void setPower(double power) {
-        if(getPosition()>MAX_LIMIT){ //if under max limit, operate slides normally
-            //these powers are opposite due to how they are set up mechanically
             slidesMotor.setPower(power);
-        }
     }
 
     /*

@@ -26,7 +26,7 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
     IntakeRoller intakeRoller;
     PixelCarriage pixelCarriage;
     Slides slides;
-//    PlaneLauncher planeLauncher;
+    PlaneLauncher planeLauncher;
     HighHang highHang;
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -39,7 +39,7 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         slides = new Slides(hardwareMap);
         pixelCarriage = new PixelCarriage(hardwareMap);
         intakeRoller = new IntakeRoller(hardwareMap);
-//        planeLauncher = new PlaneLauncher(hardwareMap);
+        planeLauncher = new PlaneLauncher(hardwareMap);
         highHang = new HighHang(hardwareMap);
     }
 
@@ -67,7 +67,6 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         dashTelemetry.addData("isSlowmode: ", isSlowmode);
 
         //Slide CONTROLS -- CONTROLLER 1
-        slides.withinBounds();
         if (gamepad2.left_trigger > .1) { //move down if the left trigger is pressed down, set power accordingly
             slides.setPower(gamepad2.left_trigger);
         } else if (gamepad2.right_trigger > .1) { //move up if right trigger is pressed down, set power accordingly
@@ -83,6 +82,9 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         //HANGING CONTROLS -- CONTROLLER 1 D pad up
         if (gamepad1.dpad_up) {
             highHang.goToHang(); //goes to the hanging position
+        }
+        if (gamepad1.dpad_down) {
+            highHang.goBackDown(); //goes to the hanging position
         }
 
         //INTAKE CONTROLLERS, CONTROLLER 1 TRIGGERS
@@ -112,9 +114,10 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         }
 
         //PLANE LAUNCHER
-//        if(gamepad2.left_bumper){
-//            planeLauncher.launchPlane();
-//        }
+        if(gamepad2.dpad_up){
+            planeLauncher.launchPlane();
+        }
+
 
 
     }
