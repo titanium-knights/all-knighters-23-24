@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
-import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
 
 @Autonomous(name="SlidesDumpAuton", group="Linear Opmode")
 @Config
@@ -18,7 +18,7 @@ public class SlidesDumpAuton extends LinearOpMode {
 
     protected MecanumDrive drive;
     protected GreenShroomVision vision;
-    protected Slides slides;
+    protected SlidesTwoMotors slidesTwoMotors;
     protected PixelCarriage carriage;
     public static double POWER = .8;
     public static int PAUSE_TIME = 600;
@@ -48,7 +48,7 @@ public class SlidesDumpAuton extends LinearOpMode {
     protected void setupDevices(){
         drive = new MecanumDrive(hardwareMap);
         vision = new GreenShroomVision(hardwareMap, dashTelemetry);
-        slides = new Slides(hardwareMap);
+        slidesTwoMotors = new SlidesTwoMotors(hardwareMap);
         carriage = new PixelCarriage(hardwareMap);
 
     }
@@ -67,13 +67,13 @@ public class SlidesDumpAuton extends LinearOpMode {
         telemetry.addData("Detected: ", position);
         dashTelemetry.addData("Detected", position);
 
-        telemetry.addData("Slides 1 (right) Position", slides.getPositionR());
-        dashTelemetry.addData("Slides (right) Position", slides.getPositionR());
-        telemetry.addData("Slides 2 (left) Position", slides.getPositionL());
-        dashTelemetry.addData("Slides 2 (left) Position", slides.getPositionL());
+        telemetry.addData("Slides 1 (right) Position", slidesTwoMotors.getPositionR());
+        dashTelemetry.addData("Slides (right) Position", slidesTwoMotors.getPositionR());
+        telemetry.addData("Slides 2 (left) Position", slidesTwoMotors.getPositionL());
+        dashTelemetry.addData("Slides 2 (left) Position", slidesTwoMotors.getPositionL());
 
-        telemetry.addData("Slides (average) Position", slides.getAverage());
-        dashTelemetry.addData("Slides (average) Position", slides.getAverage());
+        telemetry.addData("Slides (average) Position", slidesTwoMotors.getAverage());
+        dashTelemetry.addData("Slides (average) Position", slidesTwoMotors.getAverage());
 
         switch (position) {
             case 1:
@@ -118,7 +118,7 @@ public class SlidesDumpAuton extends LinearOpMode {
 
 
         //dumping
-        slides.setPosition(SLIDE_POS_UP, SLIDE_POW);
+        slidesTwoMotors.setPosition(SLIDE_POS_UP, SLIDE_POW);
         drive.stop();
         sleep(PAUSE_TIME);
 
@@ -127,7 +127,7 @@ public class SlidesDumpAuton extends LinearOpMode {
         sleep(PAUSE_TIME);
         sleep(PAUSE_TIME);
 
-        slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW);
+        slidesTwoMotors.setPosition(SLIDE_POS_DOWN, SLIDE_POW);
         drive.stop();
         sleep(PAUSE_TIME);
 

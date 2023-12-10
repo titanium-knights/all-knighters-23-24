@@ -27,7 +27,7 @@ public class Teleop_Basic extends OpMode { //class header, we will always extend
 
     //make instance of the classes (i.e, subsystems or dt)
     MecanumDrive drive; //no value
-    Slides slides;
+    SlidesTwoMotors slidesTwoMotors;
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -36,7 +36,7 @@ public class Teleop_Basic extends OpMode { //class header, we will always extend
     public void setupDevices() {
         //hardwareMap = phone/ android app, connects the name of the ports to the actual object
         drive = new MecanumDrive(hardwareMap); //connecting ports to
-        slides = new Slides(hardwareMap);
+        slidesTwoMotors = new SlidesTwoMotors(hardwareMap);
     }
 
     @Override
@@ -48,30 +48,30 @@ public class Teleop_Basic extends OpMode { //class header, we will always extend
     public void loop() { //constantly doing, repeating
         drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED); //go drive vroom
 
-        telemetry.addData("Slides 1 (right) Position", slides.getPositionR());
-        dashTelemetry.addData("Slides (right) Position", slides.getPositionR());
-        telemetry.addData("Slides 2 (left) Position", slides.getPositionL());
-        dashTelemetry.addData("Slides 2 (left) Position", slides.getPositionL());
+        telemetry.addData("Slides 1 (right) Position", slidesTwoMotors.getPositionR());
+        dashTelemetry.addData("Slides (right) Position", slidesTwoMotors.getPositionR());
+        telemetry.addData("Slides 2 (left) Position", slidesTwoMotors.getPositionL());
+        dashTelemetry.addData("Slides 2 (left) Position", slidesTwoMotors.getPositionL());
 
-        telemetry.addData("Slides (average) Position", slides.getAverage());
-        dashTelemetry.addData("Slides (average) Position", slides.getAverage());
+        telemetry.addData("Slides (average) Position", slidesTwoMotors.getAverage());
+        dashTelemetry.addData("Slides (average) Position", slidesTwoMotors.getAverage());
 
         if (gamepad1.a) {
-            slides.setPosition(SLIDE_POS1, SLIDE_POW);
+            slidesTwoMotors.setPosition(SLIDE_POS1, SLIDE_POW);
         }
 
         if (gamepad1.y) {
-            slides.setPosition(SLIDE_POS2, SLIDE_POW);
+            slidesTwoMotors.setPosition(SLIDE_POS2, SLIDE_POW);
         }
 
         if (gamepad1.x) {
-            slides.setPosition(SLIDE_POS1, SLIDE_POW);
-            slides.stop();
+            slidesTwoMotors.setPosition(SLIDE_POS1, SLIDE_POW);
+            slidesTwoMotors.stop();
         }
 
         if (gamepad1.b) {
-            slides.setPosition(SLIDE_POS2, SLIDE_POW);
-            slides.stop();
+            slidesTwoMotors.setPosition(SLIDE_POS2, SLIDE_POW);
+            slidesTwoMotors.stop();
         }
 
 

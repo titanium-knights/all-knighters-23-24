@@ -16,7 +16,7 @@ public class PivotServoTester extends OpMode {
     public static String servoRightName = CONFIG.carriagePivotR;
 
     public static double pos_L = 0;
-    public static double pos_R = 0;
+    public static double pos_R = 1;
 
     Servo servoLeft;
     Servo servoRight;

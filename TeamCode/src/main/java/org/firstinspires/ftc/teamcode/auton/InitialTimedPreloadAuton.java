@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
-import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
 
 @Autonomous(name="InitialTimedPreloadAuton", group="Linear Opmode")
 @Config
@@ -17,7 +17,7 @@ public class InitialTimedPreloadAuton extends LinearOpMode {
     protected MecanumDrive drive;
     protected GreenShroomVision vision;
 
-    protected Slides slides;
+    protected SlidesTwoMotors slidesTwoMotors;
 
     protected PixelCarriage carriage;
 
@@ -37,7 +37,7 @@ public class InitialTimedPreloadAuton extends LinearOpMode {
     protected void setupDevices(){
         drive = new MecanumDrive(hardwareMap);
         vision = new GreenShroomVision(hardwareMap, null);
-        slides = new Slides(hardwareMap);
+        slidesTwoMotors = new SlidesTwoMotors(hardwareMap);
         carriage = new PixelCarriage(hardwareMap);
     }
 

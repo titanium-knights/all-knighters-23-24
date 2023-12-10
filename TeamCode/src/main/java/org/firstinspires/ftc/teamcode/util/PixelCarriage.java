@@ -10,12 +10,12 @@ public class PixelCarriage {
     public Servo carriageOpen; //servo
 
     public static double INTAKE_POS_R = 1;
-    public static double OUTTAKE_POS_R = 0.25;
+    public static double OUTTAKE_POS_R = 0.65;
 
     public static double INTAKE_POS_L = 0;
-    public static double OUTTAKE_POS_L = .75;
-    public static double HOLD_POS = .5;
-    public static double OPEN_POS = 0.8;
+    public static double OUTTAKE_POS_L = .35;
+    public static double HOLD_POS = .2;
+    public static double OPEN_POS = 0.5;
 
     public PixelCarriage(HardwareMap hmap) {
         this.carriagePivotL = hmap.servo.get(CONFIG.carriagePivotL);

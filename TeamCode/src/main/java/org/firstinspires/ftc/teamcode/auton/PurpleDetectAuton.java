@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.auton;
 
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -16,7 +14,7 @@ import org.firstinspires.ftc.teamcode.rr.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.rr.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
-import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
 
 @Autonomous(name = "PurpleDetectAuton", group = "Linear OpMode")
 @Config
@@ -25,7 +23,7 @@ public class PurpleDetectAuton extends LinearOpMode{
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
 
-    protected Slides slides;
+    protected SlidesTwoMotors slidesTwoMotors;
 
     protected PixelCarriage carriage;
     TrajectorySequence path;
@@ -38,14 +36,16 @@ public class PurpleDetectAuton extends LinearOpMode{
     public static int VISION_ANG_RIGHT = 90;
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d BEFORE_TURN = new Vector2d(START_X+28, START_Y+0);
+    public static Vector2d BEFORE_TURN = new Vector2d(START_X+0, START_Y-28);
+
+    public static Vector2d TO_PARK = new Vector2d(START_X+50, 0);
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
     protected void setupDevices(){
         drive = new SampleMecanumDrive(hardwareMap);
         vision = new GreenShroomVision(hardwareMap, null);
-        slides = new Slides(hardwareMap);
+        slidesTwoMotors = new SlidesTwoMotors(hardwareMap);
         carriage = new PixelCarriage(hardwareMap);
     }
 
@@ -65,7 +65,10 @@ public class PurpleDetectAuton extends LinearOpMode{
                 .addTemporalMarker(()->{
 //                    slides.setPosition(LIFT_LOWER_1, LIFT_POWER_DOWN);
 //                    carriage.dump();
-                });
+                })
+                .lineToConstantHeading(TO_PARK);
+        ;
+
 
         path = analysis.build();
 

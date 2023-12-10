@@ -7,13 +7,13 @@ import org.firstinspires.ftc.teamcode.util.*;
 public class TeleOp_Sal extends OpMode {
     public PixelCarriage claw;
     public IntakeRoller roller;
-    public Slides slider;
+    public SlidesTwoMotors slider;
     public ClawSwivel swiveler;
     @Override
     public void init() {
         claw = new PixelCarriage(hardwareMap);
         roller = new IntakeRoller(hardwareMap);
-        slider = new Slides(hardwareMap);
+        slider = new SlidesTwoMotors(hardwareMap);
         swiveler = new ClawSwivel(hardwareMap);
 
     }

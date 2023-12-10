@@ -24,7 +24,7 @@ public class Teleop_P2_GP1 extends OpMode { //class header, we will always exten
     MecanumDrive drive; //no value
     //    IntakeRoller intakeRoller;
     PixelCarriage pixelCarriage;
-    Slides slides;
+    SlidesTwoMotors slidesTwoMotors;
     ArmSystem armSystem;
     PlaneLauncher planeLauncher;
 
@@ -35,7 +35,7 @@ public class Teleop_P2_GP1 extends OpMode { //class header, we will always exten
     public void setupDevices() {
         //hardwareMap = phone/ android app, connects the name of the ports to the actual object
         drive = new MecanumDrive(hardwareMap); //connecting ports to
-        slides = new Slides(hardwareMap);
+        slidesTwoMotors = new SlidesTwoMotors(hardwareMap);
         pixelCarriage = new PixelCarriage(hardwareMap);
         armSystem = new ArmSystem(hardwareMap);
 //        intakeRoller = new IntakeRoller(hardwareMap);
@@ -67,22 +67,22 @@ public class Teleop_P2_GP1 extends OpMode { //class header, we will always exten
         dashTelemetry.addData("isSlowmode: ", isSlowmode);
 
         //Slide CONTROLS -- CONTROLLER 1
-        slides.withinBounds();
+        slidesTwoMotors.withinBounds();
         if (gamepad1.left_trigger > .1) { //move down if the left trigger is pressed down, set power accordingly
-            slides.setPower(-gamepad1.left_trigger);
+            slidesTwoMotors.setPower(-gamepad1.left_trigger);
         } else if (gamepad1.right_trigger > .1) { //move up if right trigger is pressed down, set power accordingly
-            slides.setPower(gamepad1.right_trigger);
+            slidesTwoMotors.setPower(gamepad1.right_trigger);
         } else { //if no triggers, set power to 0, worm gear should hold arm in place
-            slides.setPower(0);
+            slidesTwoMotors.setPower(0);
         }
         //slides project onto phone
-        telemetry.addData("Slides 1 (right) Position", slides.getPositionR());
-        dashTelemetry.addData("Slides (right) Position", slides.getPositionR());
-        telemetry.addData("Slides 2 (left) Position", slides.getPositionL());
-        dashTelemetry.addData("Slides 2 (left) Position", slides.getPositionL());
+        telemetry.addData("Slides 1 (right) Position", slidesTwoMotors.getPositionR());
+        dashTelemetry.addData("Slides (right) Position", slidesTwoMotors.getPositionR());
+        telemetry.addData("Slides 2 (left) Position", slidesTwoMotors.getPositionL());
+        dashTelemetry.addData("Slides 2 (left) Position", slidesTwoMotors.getPositionL());
 
-        telemetry.addData("Slides (average) Position", slides.getAverage());
-        dashTelemetry.addData("Slides (average) Position", slides.getAverage());
+        telemetry.addData("Slides (average) Position", slidesTwoMotors.getAverage());
+        dashTelemetry.addData("Slides (average) Position", slidesTwoMotors.getAverage());
 
 //        //ARM CONTROLS -- CONTROLLER 2
         if (gamepad1.x) {
