@@ -35,6 +35,7 @@ public class CONFIG {
     public static String carriagePivotR = "carriagePivotServoR"; //eh 3
 
     public static String carriageFlap = "carriageFlapServo"; //eh 4
+    public static String intakeServo = "intakePivotServo"; //eh 2
 
 
 

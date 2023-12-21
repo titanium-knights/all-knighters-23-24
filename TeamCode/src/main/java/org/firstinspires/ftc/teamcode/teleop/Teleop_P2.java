@@ -96,6 +96,13 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
             intakeRoller.intake(0);
         }
 
+        //INTAKE STACK CONTROLLERS, CONTROLLER 1 TRIGGERS
+        if (gamepad1.y) {
+            intakeRoller.getFromStack(false); //idle
+        }
+        if (gamepad1.a) {
+            intakeRoller.getFromStack(true); //getStack
+        }
 
         //CARRIAGE PIVOT CONTROLS -- CONTROLLER 1
         if (gamepad2.x) {
