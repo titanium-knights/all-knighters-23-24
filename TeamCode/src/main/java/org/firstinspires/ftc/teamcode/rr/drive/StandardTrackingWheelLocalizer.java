@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.rr.util.Encoder;
 
 import java.util.Arrays;
 import java.util.List;
+import org.firstinspires.ftc.teamcode.util.CONFIG;
+
 
 /*
  * Sample tracking wheel localizer implementation assuming the standard configuration:
@@ -27,12 +29,12 @@ import java.util.List;
  */
 @Config
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
-    public static double TICKS_PER_REV = 0;
-    public static double WHEEL_RADIUS = 2; // in
+    public static double TICKS_PER_REV = 8192;
+    public static double WHEEL_RADIUS = 0.6889764; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
-    public static double LATERAL_DISTANCE = 10; // in; distance between the left and right wheels
-    public static double FORWARD_OFFSET = 4; // in; offset of the lateral wheel
+    public static double LATERAL_DISTANCE = 11.375; // in; distance between the left and right wheels
+    public static double FORWARD_OFFSET = 8.5; // in; offset of the lateral wheel
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
 
@@ -48,9 +50,9 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         lastEncPositions = lastTrackingEncPositions;
         lastEncVels = lastTrackingEncVels;
 
-        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "leftEncoder"));
-        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "rightEncoder"));
-        frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "frontEncoder"));
+        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, CONFIG.O_L));
+        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, CONFIG.O_R));
+        frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, CONFIG.O_C));
 
         // TODO: reverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
     }

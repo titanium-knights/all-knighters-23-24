@@ -13,9 +13,9 @@ public class CONFIG {
     public static String BACK_RIGHT = "br"; //ch 2
 
     //Odometry
-    public static String O_C = "bl"; //center odo, ch 2
-    public static String O_L = "fl"; //left odo, ch 0
-    public static String O_R = "fr"; //right odo, ch 1
+    public static String O_C = "fl"; //ch 1
+    public static String O_L = "fr"; //ch 3
+    public static String O_R = "bl"; //ch 0
 
     //Subsystems
     public static String intakeMotor = "intakeMotor"; //eh 0

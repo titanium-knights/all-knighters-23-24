@@ -49,6 +49,9 @@ import static org.firstinspires.ftc.teamcode.rr.drive.DriveConstants.kA;
 import static org.firstinspires.ftc.teamcode.rr.drive.DriveConstants.kStatic;
 import static org.firstinspires.ftc.teamcode.rr.drive.DriveConstants.kV;
 
+//new imports
+import org.firstinspires.ftc.teamcode.util.CONFIG;
+
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
@@ -99,10 +102,10 @@ public class SampleMecanumDrive extends MecanumDrive {
                 DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
+        leftRear = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_LEFT);
+        rightRear = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_RIGHT);
+        rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
