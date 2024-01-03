@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.*;
 public class HighHang {
     public DcMotor highHangMotor;
     public double HANG_POWER = 1;
-    public int HANGING_POS = 1900;
-    public int LOWER_HANGING = 600;
+    public int HANGING_POS = -1900;
+    public int LOWER_HANGING = -600;
 
 
     public HighHang(HardwareMap hmap) {

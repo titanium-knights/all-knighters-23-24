@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everything in the folder :)
 
 
-@TeleOp
+@TeleOp(name = "00 TELE_OP")
 public class Teleop_P2 extends OpMode { //class header, we will always extend a TYPE of OpMode
     //public allows us to see this variable in the FTC Dashboard (a website that allows us to edit in realtime)
     //static = field that is shared across every instance of a class
@@ -89,9 +89,9 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
 
         //INTAKE CONTROLLERS, CONTROLLER 1 TRIGGERS
         if (gamepad1.left_trigger > .1) { //move down if the left trigger is pressed down, set power accordingly
-            intakeRoller.intake(gamepad1.left_trigger);
+            intakeRoller.intake(-gamepad1.left_trigger);
         } else if (gamepad1.right_trigger > .1) { //move up if right trigger is pressed down, set power accordingly
-            intakeRoller.intake(-gamepad1.right_trigger);
+            intakeRoller.intake(gamepad1.right_trigger);
         } else { //if no triggers, set power to 0, worm gear should hold arm in place
             intakeRoller.intake(0);
         }
