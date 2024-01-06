@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 @Autonomous(name = "41 - BLUE - DumpBothPreload", group = "Linear OpMode")
 @Config
 
-public class BLUEDumpBothPreload extends LinearOpMode{
+public class DumpBothPreloadBLUE extends LinearOpMode{
     /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 

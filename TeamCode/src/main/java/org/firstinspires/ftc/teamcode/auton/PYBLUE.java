@@ -19,10 +19,10 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "41 - RED - DumpBothPreload", group = "Linear OpMode")
+@Autonomous(name = "61 - BLUE - PY", group = "Linear OpMode")
 @Config
 
-public class REDDumpBothPreload extends LinearOpMode{
+public class PYBLUE extends LinearOpMode{
     /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
