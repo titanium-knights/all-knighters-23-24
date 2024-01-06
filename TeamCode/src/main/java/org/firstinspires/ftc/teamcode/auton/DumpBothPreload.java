@@ -1,0 +1,149 @@
+package org.firstinspires.ftc.teamcode.auton;
+
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.rr.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.rr.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.rr.trajectorysequence.TrajectorySequenceBuilder;
+import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
+import org.firstinspires.ftc.teamcode.util.HighHang;
+import org.firstinspires.ftc.teamcode.util.IntakeRoller;
+import org.firstinspires.ftc.teamcode.util.PixelCarriage;
+import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
+
+@Autonomous(name = "00 - DumpBothPreload", group = "Linear OpMode")
+@Config
+
+public class DumpBothPreload extends LinearOpMode{
+    /*
+    Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
+
+    Cases for autonomous:
+    a. Min score if missed detection: 5 (auton pixel score) * 2 (purple, yellow) + 5 (parking) + 3 (teleop recount) * 2 (purple, yellow) = 21
+    b. Min score if missed, placing onto floor: 4 (pixel total) + 5 (parking)
+    c. Max score if detected correctly onto board: 5 (auton pixel score, purple) * 2 + 20 (correct detection) + 5 (parking) + 3 (teleop recount) * 2 (purple, yellow) = 41
+    d. Max score if detected BOTH correctly and placed in corresponding spot, max score w/o cycling: 61 (consider c)
+     */
+
+    protected SampleMecanumDrive drive;
+    protected GreenShroomVision vision;
+
+    protected Slides slides;
+
+    protected PixelCarriage carriage;
+    protected IntakeRoller intake;
+    protected HighHang highhang;
+
+
+    public static int SLIDE_POS_UP = -1200;
+    public static int SLIDE_POS_DOWN = -50;
+    public static double SLIDE_POW = .4;
+
+    TrajectorySequence path;
+
+    //backboard movement
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(24, 28, -90);
+
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(28, 28);
+
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(20, 28);
+
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(24, 28);
+
+    public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
+
+    public static Vector2d TO_PARK_1 = new Vector2d(20, 0); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(0, 52); //parking position ( full square)
+
+
+
+    public static int position = 1; //default visual detect
+
+    Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
+
+    protected void setupDevices(){
+        drive = new SampleMecanumDrive(hardwareMap);
+        vision = new GreenShroomVision(hardwareMap, null);
+        slides = new Slides(hardwareMap);
+        carriage = new PixelCarriage(hardwareMap);
+        intake = new IntakeRoller(hardwareMap);
+        highhang = new HighHang(hardwareMap);
+    }
+
+    public void initTraj() {
+//        position = vision.getPosition();
+        if (position == 1) {
+            BACKBOARD_ADJUST = BACKBOARD_LEFT;
+        } else if (position == 3) {
+            BACKBOARD_ADJUST = BACKBOARD_RIGHT;
+        } // no need for center, as it is defaulted to pos = 2
+
+        TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
+                .lineToLinearHeading(BACKBOARD_DEFAULT)
+                .waitSeconds(0)
+                .addTemporalMarker(()->{
+                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
+                });
+//                //dumping sequence
+//                .waitSeconds(2)
+//                .addTemporalMarker(() -> {
+//                    carriage.setPivotIntake(false); //faces outtake
+//                })
+//                .waitSeconds(1)
+//                .addTemporalMarker(()-> {
+//                    carriage.setCarriageOpen(true);
+//                })//opens the carriage
+//                .waitSeconds(1)
+//                .addTemporalMarker(()->{
+//                    carriage.setPivotIntake(true); //faces outtake
+//                }) // <-- end of dumping sequence -->;
+//                .waitSeconds(1) //slides down
+//                .addTemporalMarker(()->{
+//                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
+//                })
+//                .lineTo(TO_PARK_1)
+//                .lineTo(TO_PARK_2);
+
+
+        dumpBothPath.build();
+
+    }
+    @Override
+    public void runOpMode() throws InterruptedException {
+        setupDevices();
+
+        waitForStart();
+
+        highhang.goToCamera();
+        sleep(5000); //wait five seconds
+        position = vision.getPosition(); //get position by new camera position
+
+        //print positions
+        telemetry.addData("Detected: ", position);
+        dashTelemetry.addData("Detected", position);
+
+        initTraj(); //init new traj. with the updated values
+
+        telemetry.update();
+
+        drive.setPoseEstimate(path.start());
+        drive.followTrajectorySequence(path);
+
+        highhang.goToReset();
+
+        while (opModeIsActive() && !Thread.currentThread().isInterrupted() && drive.isBusy()) {
+            drive.update();
+        }
+
+    }
+}
+
+

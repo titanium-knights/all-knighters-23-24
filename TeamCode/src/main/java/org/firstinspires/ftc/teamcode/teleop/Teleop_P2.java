@@ -66,7 +66,7 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         telemetry.addData("isSlowmode: ", isSlowmode);
         dashTelemetry.addData("isSlowmode: ", isSlowmode);
 
-        //Slide CONTROLS -- CONTROLLER 1
+        //Slide CONTROLS -- CONTROLLER 2
         if (gamepad2.left_trigger > .1) { //move down if the left trigger is pressed down, set power accordingly
             slides.setPower(gamepad2.left_trigger);
         } else if (gamepad2.right_trigger > .1) { //move up if right trigger is pressed down, set power accordingly
@@ -96,15 +96,15 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
             intakeRoller.intake(0);
         }
 
-        //INTAKE STACK CONTROLLERS, CONTROLLER 1 TRIGGERS
-        if (gamepad1.y) {
-            intakeRoller.getFromStack(false); //idle
-        }
-        if (gamepad1.a) {
-            intakeRoller.getFromStack(true); //getStack
-        }
+//        //INTAKE STACK CONTROLLERS
+//        if (gamepad1.y) {
+//            intakeRoller.getFromStack(false); //idle
+//        }
+//        if (gamepad1.a) {
+//            intakeRoller.getFromStack(true); //getStack
+//        }
 
-        //CARRIAGE PIVOT CONTROLS -- CONTROLLER 1
+        //CARRIAGE PIVOT CONTROLS -- CONTROLLER 2
         if (gamepad2.x) {
             pixelCarriage.setPivotIntake(true); //faces intake
         }
@@ -112,7 +112,7 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
             pixelCarriage.setPivotIntake(false); //faces outtake
         }
 
-        //CARRIAGE FLAP CONTROLS -- CONTROLLER 1
+        //CARRIAGE FLAP CONTROLS -- CONTROLLER 2
         if (gamepad2.y) { //if click a, pickup position set
             pixelCarriage.setCarriageOpen(true); //opens the carriage
         }
