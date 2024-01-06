@@ -29,12 +29,12 @@ public class GreenShroomPipeline extends OpenCvPipeline {
     public final Scalar GREEN = new Scalar(0, 255, 0);
 
     // values based on resolution of camera
-    public static double X_POSITION_LEFT = 80;
-    public static double X_POSITION_CENTER = 515;
-    public static double X_POSITION_RIGHT = 920;
-    public static double Y_POSITION = 270;
+    public static double X_POSITION_LEFT = 90;
+    public static double X_POSITION_CENTER = 480;
+    public static double X_POSITION_RIGHT = 900;
+    public static double Y_POSITION = 110;
 
-    public static double Y_POSITION_OFFSET = 50;
+    public static double Y_POSITION_OFFSET = 150;
 
     /*
      * The core values which define the location and size of the sample regions
@@ -44,8 +44,8 @@ public class GreenShroomPipeline extends OpenCvPipeline {
     static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(X_POSITION_RIGHT, Y_POSITION);
 
     // values based on resolution of camera
-    static final int REGION_WIDTH = 40 * 1280 / 360 * 2;
-    static final int REGION_HEIGHT = 70 * 720 / 240;
+    static final int REGION_WIDTH = 38 * 1280 / 360 * 2;
+    static final int REGION_HEIGHT = 60 * 720 / 240;
 
     /*
      * Points which actually define the sample region rectangles, derived from above
