@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.util.HighHang;
 import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
-import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
+
 
 @Autonomous(name = "00 - DumpBothPreload", group = "Linear OpMode")
 @Config
@@ -43,35 +43,34 @@ public class DumpBothPreload extends LinearOpMode{
     protected HighHang highhang;
 
 
-    public static int SLIDE_POS_UP = -1200;
+    public static int SLIDE_POS_UP = -900;
     public static int SLIDE_POS_DOWN = -50;
     public static double SLIDE_POW = .4;
 
     TrajectorySequence path;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(24, 28, -90);
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(24, 37, Math.toRadians(-90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(28, 28);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(24, 37);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(20, 28);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 37);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(24, 28);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, 37);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(20, 0); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(0, 52); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(0, 37); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(0, 42); //parking position ( full square)
 
+    Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
 
     public static int position = 1; //default visual detect
 
-    Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
-
     protected void setupDevices(){
         drive = new SampleMecanumDrive(hardwareMap);
-        vision = new GreenShroomVision(hardwareMap, null);
+        vision = new GreenShroomVision(hardwareMap, dashTelemetry);
         slides = new Slides(hardwareMap);
         carriage = new PixelCarriage(hardwareMap);
         intake = new IntakeRoller(hardwareMap);
@@ -87,33 +86,43 @@ public class DumpBothPreload extends LinearOpMode{
         } // no need for center, as it is defaulted to pos = 2
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
+                .waitSeconds(1)
+                .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
+                    highhang.goToReset(); //go down
+                })
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
-                .waitSeconds(0)
+                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
+                .waitSeconds(3)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                });
+                })
 //                //dumping sequence
-//                .waitSeconds(2)
-//                .addTemporalMarker(() -> {
-//                    carriage.setPivotIntake(false); //faces outtake
-//                })
-//                .waitSeconds(1)
-//                .addTemporalMarker(()-> {
-//                    carriage.setCarriageOpen(true);
-//                })//opens the carriage
-//                .waitSeconds(1)
-//                .addTemporalMarker(()->{
-//                    carriage.setPivotIntake(true); //faces outtake
-//                }) // <-- end of dumping sequence -->;
-//                .waitSeconds(1) //slides down
-//                .addTemporalMarker(()->{
-//                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
-//                })
-//                .lineTo(TO_PARK_1)
-//                .lineTo(TO_PARK_2);
+                .waitSeconds(3)
+                .addTemporalMarker(() -> {
+                    carriage.setPivotIntake(false); //faces outtake
+                })
+                .waitSeconds(3)
+                .addTemporalMarker(()-> {
+                    carriage.setCarriageOpen(true);
+                })//opens the carriage
+                .waitSeconds(3)
+                .addTemporalMarker(()->{
+                    carriage.setPivotIntake(true); //faces outtake
+                }) // <-- end of dumping sequence -->;
+                .waitSeconds(3) //slides down
+                .addTemporalMarker(()->{
+                    carriage.setCarriageOpen(false); //close carriage
+                }) //end of all
+                .waitSeconds(1) //slides down
+                .addTemporalMarker(()->{
+                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
+                })
+                .lineTo(TO_PARK_1)
+                .lineTo(TO_PARK_2)
+                .waitSeconds(3);
 
 
-        dumpBothPath.build();
+        path = dumpBothPath.build();
 
     }
     @Override
@@ -127,8 +136,8 @@ public class DumpBothPreload extends LinearOpMode{
         position = vision.getPosition(); //get position by new camera position
 
         //print positions
-        telemetry.addData("Detected: ", position);
         dashTelemetry.addData("Detected", position);
+        dashTelemetry.addData("SLIDES POS", slides.getPosition());
 
         initTraj(); //init new traj. with the updated values
 
@@ -136,8 +145,6 @@ public class DumpBothPreload extends LinearOpMode{
 
         drive.setPoseEstimate(path.start());
         drive.followTrajectorySequence(path);
-
-        highhang.goToReset();
 
         while (opModeIsActive() && !Thread.currentThread().isInterrupted() && drive.isBusy()) {
             drive.update();

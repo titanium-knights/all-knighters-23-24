@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.hardware.*;
 public class HighHang {
     public DcMotor highHangMotor;
     public double HANG_POWER = 1;
-    public int HANGING_POS = 1900;
-    public int LOWER_HANGING = 600;
+    public int HANGING_POS = -1900;
+    public int LOWER_HANGING = -600;
 
-    public int CAMERA_POS = 1200;
-    public int CAMERA_RESET = 0;
+    public int CAMERA_POS = -1200;
+    public int CAMERA_RESET = -20;
 
 
     public HighHang(HardwareMap hmap) {
