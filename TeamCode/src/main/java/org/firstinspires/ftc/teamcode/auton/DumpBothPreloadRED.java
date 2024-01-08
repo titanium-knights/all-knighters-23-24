@@ -43,18 +43,18 @@ public class DumpBothPreloadRED extends LinearOpMode{
     protected HighHang highhang;
 
 
-    public static int SLIDE_POS_UP = -900;
+    public static int SLIDE_POS_UP = -700;
     public static int SLIDE_POS_DOWN = -50;
     public static double SLIDE_POW = .4;
 
     TrajectorySequence path;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(24, -37, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(24, -37, Math.toRadians(90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(24, -37);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(33, -37);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, -37);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(25, -37);
 
     public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -37);
 

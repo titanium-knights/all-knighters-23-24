@@ -19,10 +19,10 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "61 - BLUE - PY", group = "Linear OpMode")
+@Autonomous(name = "61 - Red - PY", group = "Linear OpMode")
 @Config
 
-public class PYBLUE extends LinearOpMode{
+public class PYRED extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -64,18 +64,18 @@ public class PYBLUE extends LinearOpMode{
     public static int INTAKE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 40, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, -40, Math.toRadians(90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 40);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, -40);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 40);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, -40);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, 40);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -40);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(0, 37); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(0, 42); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(0, -37); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(0, -42); //parking position ( full square)
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
