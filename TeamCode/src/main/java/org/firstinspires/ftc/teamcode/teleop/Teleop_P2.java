@@ -21,6 +21,8 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
 
     public static boolean isSlowmode = false;
 
+    public static boolean pokeyWasUp = true;
+
     //make instance of the classes (i.e, subsystems or dt)
     MecanumDrive drive; //no value
     IntakeRoller intakeRoller;
@@ -28,6 +30,8 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
     Slides slides;
     PlaneLauncher planeLauncher;
     HighHang highHang;
+
+    Pokey pokey;
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -41,6 +45,7 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         intakeRoller = new IntakeRoller(hardwareMap);
         planeLauncher = new PlaneLauncher(hardwareMap);
         highHang = new HighHang(hardwareMap);
+        pokey = new Pokey(hardwareMap);
     }
 
     @Override
@@ -79,11 +84,11 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         telemetry.addData("Slides Position", slides.getPosition());
         dashTelemetry.addData("Slides Position", slides.getPosition());
 
-        //HANGING CONTROLS -- CONTROLLER 1 D pad up
-        if (gamepad1.dpad_up) {
+        //HANGING CONTROLS -- CONTROLLER 1 bumper
+        if (gamepad1.right_bumper) {
             highHang.goToHang(); //goes to the hanging position
         }
-        if (gamepad1.dpad_down) {
+        if (gamepad1.left_bumper) {
             highHang.goBackDown(); //goes to the hanging position
         }
 
@@ -125,8 +130,25 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
             planeLauncher.launchPlane();
         }
 
+        //reset pokey
+        if(gamepad1.dpad_up) {
+            pokey.resetPosition(false);
+        }
+        if (gamepad1.dpad_down) {
+            pokey.resetPosition(true);
+        }
+        if (gamepad1.dpad_right) {
+            pokey.increment(1);
+        }
+        if (gamepad1.dpad_left) {
+            pokey.increment(-1);
+        }
 
 
-    }
+
+
+
+
+        }
 
 }
