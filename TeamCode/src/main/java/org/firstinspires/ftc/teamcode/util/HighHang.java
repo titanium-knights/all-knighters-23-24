@@ -7,9 +7,9 @@ public class HighHang {
     public DcMotor highHangMotor;
     public double HANG_POWER = 1;
     public int HANGING_POS = -1900;
-    public int LOWER_HANGING = -600;
+    public int LOWER_HANGING = -500;
 
-    public int CAMERA_POS = -1200;
+    public int CAMERA_POS = -1300;
     public int CAMERA_RESET = -20;
 
 

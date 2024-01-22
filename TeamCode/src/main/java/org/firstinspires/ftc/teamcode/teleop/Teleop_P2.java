@@ -132,10 +132,10 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
 
         //reset pokey
         if(gamepad1.dpad_up) {
-            pokey.resetPosition(false);
+            pokey.resetPosition(true);
         }
         if (gamepad1.dpad_down) {
-            pokey.resetPosition(true);
+            pokey.resetPosition(false);
         }
         if (gamepad1.dpad_right) {
             pokey.increment(1);

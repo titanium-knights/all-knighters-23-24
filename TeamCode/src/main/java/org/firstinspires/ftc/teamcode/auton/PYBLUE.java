@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "61 - BLUE - PY", group = "Linear OpMode")
+@Autonomous(name = "51 - BLUE - PY", group = "Linear OpMode")
 @Config
 
 public class PYBLUE extends LinearOpMode{
@@ -56,7 +56,7 @@ public class PYBLUE extends LinearOpMode{
     public static int VISION_ANG_RIGHT = -90;
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
 
     public static Vector2d RESET_HOME = new Vector2d(0, 0);
 
@@ -68,9 +68,9 @@ public class PYBLUE extends LinearOpMode{
 
     public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 40);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 40);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(30, 40);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, 40);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, 40);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 

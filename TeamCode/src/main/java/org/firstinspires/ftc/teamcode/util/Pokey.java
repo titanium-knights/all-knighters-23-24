@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.*;
 @Config
 public class Pokey {
     public Servo pokey;
-    public static double UP_POS = 0.25;
-    public static double DOWN_POS = .8;
+    public static double UP_POS = .9;
+    public static double DOWN_POS = .18;
     public static double PIXEL_STACK = .75;
     public static double TAP_BACKBOARD = .4;
 
@@ -21,9 +21,9 @@ public class Pokey {
 //        pokey.setPower(pow);
 //    }
 
-    public void resetPosition(boolean isUp)
+    public void resetPosition(boolean goUp)
     {
-        if (isUp) {
+        if (goUp) {
             pokey.setPosition(UP_POS);
         } else {
             pokey.setPosition(DOWN_POS);
