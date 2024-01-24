@@ -19,11 +19,11 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "41 - BLUE - DumpBothPreload", group = "Linear OpMode")
+@Autonomous(name = "51 - BLUE - PY", group = "Linear OpMode")
 @Config
 
-public class DumpBothPreloadBLUE extends LinearOpMode{
-    /*
+public class RR_Close_PY_BLUE extends LinearOpMode{
+     /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
     Cases for autonomous:
@@ -45,20 +45,32 @@ public class DumpBothPreloadBLUE extends LinearOpMode{
 
     public static int SLIDE_POS_UP = -700;
 
-    public static int SLIDE_POS_UP_2 = -500;
+    public static int SLIDE_POS_UP_2 = -300;
     public static int SLIDE_POS_DOWN = -50;
     public static double SLIDE_POW = .4;
 
     TrajectorySequence path;
 
+    public static int VISION_ANG_LEFT = 90;
+    public static int VISION_ANG_CENTER = 0;
+    public static int VISION_ANG_RIGHT = -90;
+
+    public static int VISION_ANG; //actual angle
+    public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
+
+    public static Vector2d RESET_HOME = new Vector2d(0, 0);
+
+    public static double INTAKE_POW = .8;
+    public static int INTAKE_TIME = 2;
+
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 39, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 40, Math.toRadians(-90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(24, 39);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 40);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 39);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(30, 40);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, 39);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, 40);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
@@ -80,21 +92,34 @@ public class DumpBothPreloadBLUE extends LinearOpMode{
     }
 
     public void initTraj() {
+
+
 //        position = vision.getPosition();
         if (position == 1) {
+            VISION_ANG = VISION_ANG_LEFT;
             BACKBOARD_ADJUST = BACKBOARD_LEFT;
         } else if (position == 3) {
+            VISION_ANG = VISION_ANG_RIGHT;
             BACKBOARD_ADJUST = BACKBOARD_RIGHT;
         } // no need for center, as it is defaulted to pos = 2
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
-                .waitSeconds(1)
+                .lineToConstantHeading(PURPLE_CENTER)
+                .turn(Math.toRadians(VISION_ANG))
+                .addTemporalMarker(() -> {
+                    intake.intake(-INTAKE_POW);
+                })
+                .waitSeconds(INTAKE_TIME)
+                .addTemporalMarker(() -> {
+                    intake.intake(0); //stop intake
+                })
+                .lineToConstantHeading(RESET_HOME) //go back home (start pos)
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
                     highhang.goToReset(); //go down
                 })
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-                .waitSeconds(3)
+                .waitSeconds(2)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
@@ -111,15 +136,15 @@ public class DumpBothPreloadBLUE extends LinearOpMode{
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
-                .waitSeconds(3)
+                .waitSeconds(1)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
-                .waitSeconds(3)
+                .waitSeconds(2)
                 .addTemporalMarker(()->{
                     carriage.setPivotIntake(true); //faces outtake
                 }) // <-- end of dumping sequence -->;
-                .waitSeconds(3) //slides down
+                .waitSeconds(1) //slides down
                 .addTemporalMarker(()->{
                     carriage.setCarriageOpen(false); //close carriage
                 }) //end of all
@@ -129,7 +154,7 @@ public class DumpBothPreloadBLUE extends LinearOpMode{
                 })
                 .lineTo(TO_PARK_1)
                 .lineTo(TO_PARK_2)
-                .waitSeconds(3);
+                .waitSeconds(1);
 
 
         path = dumpBothPath.build();
@@ -142,7 +167,7 @@ public class DumpBothPreloadBLUE extends LinearOpMode{
         waitForStart();
 
         highhang.goToCamera();
-        sleep(5000); //wait five seconds
+        sleep(3000); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
 
         //print positions

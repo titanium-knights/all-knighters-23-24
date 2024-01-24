@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 
 @Autonomous(name="PTGAuton_RED", group="Linear Opmode")
 @Config
-public class PTGAuton_RED extends LinearOpMode {
+public class TIME_PTGAuton_RED extends LinearOpMode {
 
     protected MecanumDrive drive;
     public static double POWER = .8;

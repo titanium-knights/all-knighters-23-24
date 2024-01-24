@@ -12,17 +12,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.rr.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.rr.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.rr.trajectorysequence.TrajectorySequenceBuilder;
-import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 import org.firstinspires.ftc.teamcode.util.HighHang;
 import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
-import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
 
 @Autonomous(name = "00 - PurpleDetectAuton", group = "Linear OpMode")
 @Config
 
-public class PurpleDetectAuton extends LinearOpMode{
+public class RR_Close_INTAKE_PurpleDetectAuton extends LinearOpMode{
     protected SampleMecanumDrive drive;
 //    protected GreenShroomVision vision;
 

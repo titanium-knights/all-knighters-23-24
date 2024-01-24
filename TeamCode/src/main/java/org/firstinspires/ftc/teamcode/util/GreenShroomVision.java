@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.util;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -9,10 +11,14 @@ import org.firstinspires.ftc.teamcode.pipelines.GreenShroomPipeline;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 
 public class GreenShroomVision {
     OpenCvCamera camera;
     public GreenShroomPipeline pipeline;
+
+    Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
     public GreenShroomVision(HardwareMap hmap, Telemetry telemetry) {
         int cameraMonitorViewId = hmap.appContext.getResources().getIdentifier("cameraMonitorViewId",
@@ -35,6 +41,9 @@ public class GreenShroomVision {
     }
     public int getPosition(){
         GreenShroomPipeline.CapstonePosition capstonePosition = pipeline.getAnalysis();
+        dashTelemetry.addData("Capstone Position: ", capstonePosition);
+        telemetry.addData("Capstone Position: ", capstonePosition);
+
         if(capstonePosition == GreenShroomPipeline.CapstonePosition.LEFT){
             return 1;
         }

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everything in the folder :)
+@Deprecated
 
 public class Teleop_P2_GP1 extends OpMode { //class header, we will always extend a TYPE of OpMode
     //public allows us to see this variable in the FTC Dashboard (a website that allows us to edit in realtime)

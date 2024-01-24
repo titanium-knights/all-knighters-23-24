@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everyth
 
 
 @TeleOp(name = "00 TELE_OP")
-public class Teleop_P2 extends OpMode { //class header, we will always extend a TYPE of OpMode
+public class _TeleOp_P3 extends OpMode { //class header, we will always extend a TYPE of OpMode
     //public allows us to see this variable in the FTC Dashboard (a website that allows us to edit in realtime)
     //static = field that is shared across every instance of a class
     //double is a data type that allows us to use decimal points (others incl. int, string, float...)
@@ -35,6 +35,29 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
+    /*
+    All controls:
+
+    Gamepad 1:
+        DPAD: right (pokey up), left (pokey down), up (up preset), down (down preset)
+        Joysticks: driving
+        Bumpers: right (highHang up), left (highHang down)
+        Triggers: right (intake), left (outtake)
+        A: NONE
+        Y: NONE
+        B: slow mode toggle
+        X: NONE
+
+    Gamepad 2:
+        DPAD: right (NONE), left (NONE), up (plane shoot), down (NONE)
+        Joysticks: NONE
+        Bumpers: NONE
+        Triggers: right (slides up), left (slides down)
+        A: close carriage (down)
+        Y: open carriage (up)
+        B: carriage pivot towards outtake (left)
+        X: carriage pivot towards intake (right)
+     */
 
 
     public void setupDevices() {
@@ -100,14 +123,6 @@ public class Teleop_P2 extends OpMode { //class header, we will always extend a 
         } else { //if no triggers, set power to 0, worm gear should hold arm in place
             intakeRoller.intake(0);
         }
-
-//        //INTAKE STACK CONTROLLERS
-//        if (gamepad1.y) {
-//            intakeRoller.getFromStack(false); //idle
-//        }
-//        if (gamepad1.a) {
-//            intakeRoller.getFromStack(true); //getStack
-//        }
 
         //CARRIAGE PIVOT CONTROLS -- CONTROLLER 2
         if (gamepad2.x) {

@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.util.*;
 
+@Deprecated
+
 public class Teleop_Golan extends OpMode {
     public PixelCarriage claw; //putting claw names the actual physical claw for use
     public IntakeRoller intakeRoller;

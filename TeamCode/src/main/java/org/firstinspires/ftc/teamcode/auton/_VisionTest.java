@@ -7,12 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 
 @Autonomous(name="VisionTest", group="Linear Opmode")
 @Config
-public class VisionTest extends LinearOpMode {
+public class _VisionTest extends LinearOpMode {
 
     protected GreenShroomVision vision;
 

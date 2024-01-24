@@ -10,16 +10,9 @@ public class Pokey {
     public static double PIXEL_STACK = .75;
     public static double TAP_BACKBOARD = .4;
 
-
-
     public Pokey(HardwareMap hmap) {
-
         this.pokey = hmap.servo.get(CONFIG.pokey);
     }
-
-//    public void setPower(double pow) {
-//        pokey.setPower(pow);
-//    }
 
     public void resetPosition(boolean goUp)
     {
@@ -28,7 +21,6 @@ public class Pokey {
         } else {
             pokey.setPosition(DOWN_POS);
         }
-
     }
 
     public void increment(int multiplier) {

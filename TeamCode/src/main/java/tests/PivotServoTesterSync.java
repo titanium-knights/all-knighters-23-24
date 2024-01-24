@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 @TeleOp
 public class PivotServoTesterSync extends OpMode {
     public static String servoLeftName = CONFIG.carriagePivotL;
-    public static String servoRightName = CONFIG.carriagePivotR;
+//    public static String servoRightName = CONFIG.carriagePivotR;
 
     public static double pos = 0;
     Servo servoLeft;
@@ -25,7 +25,7 @@ public class PivotServoTesterSync extends OpMode {
     @Override
     public void init() {
         servoLeft = hardwareMap.get(Servo.class, servoLeftName);
-        servoRight = hardwareMap.get(Servo.class, servoRightName);
+//        servoRight = hardwareMap.get(Servo.class, servoRightName);
         pixelCarriage = new PixelCarriage(hardwareMap);
 
     }
@@ -35,7 +35,7 @@ public class PivotServoTesterSync extends OpMode {
         servoRight.setPosition(1-pos);
         servoLeft.setPosition(pos);
         telemetry.addData("Servo (left) position", servoLeft.getPosition());
-        telemetry.addData("Servo (right) position", servoRight.getPosition());
+//        telemetry.addData("Servo (right) position", servoRight.getPosition());
         telemetry.update();
 
         //CARRIAGE FLAP CONTROLS -- CONTROLLER 1

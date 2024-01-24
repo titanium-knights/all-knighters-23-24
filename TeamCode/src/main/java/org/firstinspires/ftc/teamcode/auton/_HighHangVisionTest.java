@@ -8,12 +8,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.HighHang;
-import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 
 @Autonomous(name="HighHangVisionTest", group="Linear Opmode")
 @Config
-public class HighhangVisionTest extends LinearOpMode {
+public class _HighHangVisionTest extends LinearOpMode {
 
     protected GreenShroomVision vision;
     protected HighHang highhang;

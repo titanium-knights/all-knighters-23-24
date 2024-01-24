@@ -20,10 +20,10 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "51 - RED - PY_POKEY", group = "Linear OpMode")
+@Autonomous(name = "(FAR) 20 - RED - Detect Only", group = "Linear OpMode")
 @Config
 
-public class PYPokeyRED extends LinearOpMode{
+public class RR_Far_DetectOnly_RED extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -68,11 +68,11 @@ public class PYPokeyRED extends LinearOpMode{
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, -39, Math.toRadians(90));
 
-    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(18, -39);
+    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(20, -39);
 
-    public static Vector2d BACKBOARD_LEFT = new Vector2d(33 , -39);
+    public static Vector2d BACKBOARD_LEFT = new Vector2d(33, -39);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, -39);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -39);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
@@ -126,44 +126,6 @@ public class PYPokeyRED extends LinearOpMode{
                 })
                 .waitSeconds(1)
                 .lineToConstantHeading(RESET_HOME) //go back home (start pos)
-                .lineToLinearHeading(BACKBOARD_DEFAULT)
-                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
-//                //dumping sequence
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    carriage.setPivotIntake(false); //faces outtake
-                })
-                .waitSeconds(1.5)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
-                })
-                .waitSeconds(1.5)
-//                //dumping sequence
-                .addTemporalMarker(()-> {
-                    carriage.setCarriageOpen(true);
-                })//opens the carriage
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
-                .waitSeconds(2)
-                .addTemporalMarker(()->{
-                    carriage.setPivotIntake(true); //faces outtake
-                }) // <-- end of dumping sequence -->;
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    carriage.setCarriageOpen(false); //close carriage
-                }) //end of all
-                .waitSeconds(1) //slides down
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
-                })
-                .lineTo(TO_PARK_1)
-                .lineTo(TO_PARK_2)
                 .waitSeconds(1);
 
 

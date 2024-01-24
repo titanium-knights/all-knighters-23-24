@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
@@ -15,7 +14,8 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 
 @Autonomous(name="IntakeSlidesAuton", group="Linear Opmode")
 @Config
-public class IntakeSlidesAuton extends LinearOpMode {
+
+public class TIME_IntakeSlidesAuton extends LinearOpMode {
 
     protected MecanumDrive drive;
 //    protected GreenShroomVision vision;

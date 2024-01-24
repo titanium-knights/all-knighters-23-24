@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
 
 //@Autonomous(name="InitialTimedPreloadAuton", group="Linear Opmode")
 @Config
+@Deprecated
 public class InitialTimedPreloadAuton extends LinearOpMode {
 
     protected MecanumDrive drive;

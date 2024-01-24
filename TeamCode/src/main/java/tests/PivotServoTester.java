@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.util.CONFIG;
 @TeleOp
 public class PivotServoTester extends OpMode {
     public static String servoLeftName = CONFIG.carriagePivotL;
-    public static String servoRightName = CONFIG.carriagePivotR;
+//    public static String servoRightName = CONFIG.carriagePivotR;
 
     public static double pos_L = 0;
     public static double pos_R = 1;
@@ -25,7 +25,7 @@ public class PivotServoTester extends OpMode {
     @Override
     public void init() {
         servoLeft = hardwareMap.get(Servo.class, servoLeftName);
-        servoRight = hardwareMap.get(Servo.class, servoRightName);
+//        servoRight = hardwareMap.get(Servo.class, servoRightName);
     }
 
     @Override

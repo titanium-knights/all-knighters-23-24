@@ -20,10 +20,10 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "(FAR) 51 - BLUE - PY_Far", group = "Linear OpMode")
+@Autonomous(name = "(FAR) 51 - RED - PY_Far", group = "Linear OpMode")
 @Config
 
-public class PY_FarBLUE extends LinearOpMode{
+public class RR_Far_PY_RED extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -60,26 +60,26 @@ public class PY_FarBLUE extends LinearOpMode{
 
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
-    public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(-90));
-    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, 48);
+    public static Vector2d PURPLE_CENTER = new Vector2d(26, 0);
+    public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(90));
+    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, -48);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, 88, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, -89, Math.toRadians(90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 88);
+    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(22, -89);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(30, 88);
+    public static Vector2d BACKBOARD_LEFT = new Vector2d(33, -89);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(25, 88);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(25, -89);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(50, 85); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(50, 90); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(50, -85); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(50, -90); //parking position ( full square)
 
 
 

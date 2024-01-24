@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.util;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.*;
-@Config
+@Deprecated
 public class ArmSystem {
     enum ARM_HEIGHT {
         LOW,

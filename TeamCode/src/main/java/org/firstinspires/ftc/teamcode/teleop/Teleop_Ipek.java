@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.util.*;
 
+@Deprecated
+
 public class Teleop_Ipek extends OpMode {
     public PixelCarriage claw;
     public IntakeRoller intakeroller;

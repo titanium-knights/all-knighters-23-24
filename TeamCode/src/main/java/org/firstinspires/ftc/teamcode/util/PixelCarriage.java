@@ -5,21 +5,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class PixelCarriage {
     public Servo carriagePivotL; //servo
-    public Servo carriagePivotR; //servo
+//    public Servo carriagePivotR; //servo
 
     public Servo carriageOpen; //servo
 
-    public static double INTAKE_POS_R = .02;
-    public static double OUTTAKE_POS_R = 0.9;
+    public static double INTAKE_POS_R = .1;
+    public static double OUTTAKE_POS_R = 0.7;
 
-    public static double INTAKE_POS_L = .98;
-    public static double OUTTAKE_POS_L = .1;
+    public static double INTAKE_POS_L = .92;
+    public static double OUTTAKE_POS_L = .32;
     public static double HOLD_POS = .2;
     public static double OPEN_POS = 0.5;
 
     public PixelCarriage(HardwareMap hmap) {
         this.carriagePivotL = hmap.servo.get(CONFIG.carriagePivotL);
-        this.carriagePivotR = hmap.servo.get(CONFIG.carriagePivotR);
+//        this.carriagePivotR = hmap.servo.get(CONFIG.carriagePivotR);
         this.carriageOpen = hmap.servo.get(CONFIG.carriageFlap);
 
     }
@@ -31,11 +31,11 @@ public class PixelCarriage {
     public void setPivotIntake(boolean isIntake)
     {
         if (isIntake) {
-            carriagePivotR.setPosition(INTAKE_POS_R);
+//            carriagePivotR.setPosition(INTAKE_POS_R);
             carriagePivotL.setPosition(INTAKE_POS_L);
 
         } else {
-            carriagePivotR.setPosition(OUTTAKE_POS_R);
+//            carriagePivotR.setPosition(OUTTAKE_POS_R);
             carriagePivotL.setPosition(OUTTAKE_POS_L);
         }
     }
