@@ -180,7 +180,7 @@ public class RR_Close_PYPokey_RED extends LinearOpMode{
         position = vision.getPosition(); //get position by new camera position
         telemetry.update();
         //print positions
-        dashTelemetry.addData("Detected", position);
+//        dashTelemetry.addData("Detected", position);
 
         initTraj(); //init new traj. with the updated values
 

@@ -18,7 +18,7 @@ public class GreenShroomVision {
     OpenCvCamera camera;
     public GreenShroomPipeline pipeline;
 
-    Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
+//    Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
     public GreenShroomVision(HardwareMap hmap, Telemetry telemetry) {
         int cameraMonitorViewId = hmap.appContext.getResources().getIdentifier("cameraMonitorViewId",
@@ -41,8 +41,8 @@ public class GreenShroomVision {
     }
     public int getPosition(){
         GreenShroomPipeline.CapstonePosition capstonePosition = pipeline.getAnalysis();
-        dashTelemetry.addData("Capstone Position: ", capstonePosition);
-        telemetry.addData("Capstone Position: ", capstonePosition);
+//        dashTelemetry.addData("Capstone Position: ", capstonePosition);
+//        telemetry.addData("Capstone Position: ", capstonePosition);
 
         if(capstonePosition == GreenShroomPipeline.CapstonePosition.LEFT){
             return 1;
