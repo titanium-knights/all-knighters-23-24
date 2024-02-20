@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everything in the folder :)
 
 
@@ -21,6 +22,9 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
 
     public static boolean isSlowmode = false;
 
+    public static int pixelIn = 0;
+    public static double distanceSensorDistance = 6;
+
     public static boolean pokeyWasUp = true;
 
     //make instance of the classes (i.e, subsystems or dt)
@@ -33,6 +37,8 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
 
     Pokey pokey;
     PokeyClaw pokeyClaw;
+
+    DistanceTester distanceTester;
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -71,6 +77,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         highHang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
+        distanceTester = new DistanceTester(hardwareMap);
     }
 
     @Override
@@ -126,6 +133,17 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
             intakeRoller.intake(0);
         }
 
+        if(distanceTester.returnDistance1() < distanceSensorDistance && distanceTester.returnDistance2() < distanceSensorDistance){
+            pixelIn = 2;
+        } else if (distanceTester.returnDistance1() < distanceSensorDistance || distanceTester.returnDistance2() < distanceSensorDistance){
+            pixelIn = 1;
+        } else {
+            pixelIn = 0;
+        }
+
+        telemetry.addData("pixelIn: ", pixelIn);
+        dashTelemetry.addData("pixelIn: ", pixelIn);
+
         //CARRIAGE PIVOT CONTROLS -- CONTROLLER 2
         if (gamepad2.x) {
             pixelCarriage.setPivotIntake(true); //faces intake
@@ -168,7 +186,6 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         if (gamepad1.b) {
             pokeyClaw.openClaw(true);
         }
-
 
 
 

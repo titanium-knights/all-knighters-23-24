@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "51 - BLUE - PY_POKEY_CLAW", group = "Linear OpMode")
+@Autonomous(name = "51 - BLUE - PY_POKEY_CLAW - CLOSE", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
@@ -48,16 +48,16 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
     protected PokeyClaw pokeyClaw;
 
 
-    public static int SLIDE_POS_UP = -700;
+    public static int SLIDE_POS_UP = -800;
 
-    public static int SLIDE_POS_UP_2 = -300;
+    public static int SLIDE_POS_UP_2 = -400;
     public static int SLIDE_POS_DOWN = -50;
     public static double SLIDE_POW = .4;
 
     TrajectorySequence path;
 
     public static int VISION_ANG_LEFT = 45;
-    public static int VISION_ANG_CENTER = 0;
+    public static int VISION_ANG_CENTER = 15;
     public static int VISION_ANG_RIGHT = -110;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
@@ -139,16 +139,16 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
 //                //dumping sequence
-                .waitSeconds(1)
+                .waitSeconds(3)
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(3)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })
                 .waitSeconds(1.5)
-//                //dumping sequence
+                //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage

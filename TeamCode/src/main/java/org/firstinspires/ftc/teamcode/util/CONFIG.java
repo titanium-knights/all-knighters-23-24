@@ -46,4 +46,7 @@ public class CONFIG {
     public static String pokeyServo = "pokey"; // ch 2
     public static String pokeyClawServo = "pokeyClaw"; // ch 3
 
+    public static String distanceTester1 = "distance1"; // ch ic2 0
+    public static String distanceTester2 = "distance2"; // ch ic2 1
+
 }
