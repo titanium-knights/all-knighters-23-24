@@ -32,6 +32,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
     HighHang highHang;
 
     Pokey pokey;
+    PokeyClaw pokeyClaw;
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -69,6 +70,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         planeLauncher = new PlaneLauncher(hardwareMap);
         highHang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
+        pokeyClaw = new PokeyClaw(hardwareMap);
     }
 
     @Override
@@ -153,10 +155,10 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
             pokey.resetPosition(false);
         }
         if (gamepad1.dpad_right) {
-            pokey.increment(1);
+            pokeyClaw.openClaw(true);
         }
         if (gamepad1.dpad_left) {
-            pokey.increment(-1);
+            pokeyClaw.openClaw(false);
         }
 
 

@@ -9,7 +9,7 @@ public class PokeyClaw {
     public static double CLOSE_POS = .18;
 
     public PokeyClaw(HardwareMap hmap) {
-        this.pokeyClaw = hmap.servo.get(CONFIG.pokey);
+        this.pokeyClaw = hmap.servo.get(CONFIG.pokeyClawServo);
     }
 
     public void increment(int multiplier) {

@@ -29,7 +29,6 @@ public class CONFIG {
     //Servos
     public static String arm = "armServo"; //ch 3
     public static String claw = "clawServo"; //ch 2
-    public static String pokey = "pokey"; //ch 4
 
     public static String clawSwivel = "";
     public static String carriagePivotL = "carriagePivotServoL"; //eh 5
@@ -44,6 +43,7 @@ public class CONFIG {
 
     public static String planeServo = "planeLauncher"; //ch 0
 
-
+    public static String pokeyServo = "pokey"; // ch 2
+    public static String pokeyClawServo = "pokeyClaw"; // ch 3
 
 }

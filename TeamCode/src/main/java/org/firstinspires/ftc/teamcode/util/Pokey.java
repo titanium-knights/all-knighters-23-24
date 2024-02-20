@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.hardware.*;
 @Config
 public class Pokey {
     public Servo pokey;
-    public static double UP_POS = .9;
-    public static double DOWN_POS = .18;
-    public static double PIXEL_STACK = .75;
-    public static double TAP_BACKBOARD = .4;
+    public static double UP_POS = .43;
+    public static double DOWN_POS = 1;
+    public static double PIXEL_STACK = .85;
+    public static double TAP_BACKBOARD = .7;
 
     public Pokey(HardwareMap hmap) {
-        this.pokey = hmap.servo.get(CONFIG.pokey);
+        this.pokey = hmap.servo.get(CONFIG.pokeyServo);
     }
 
     public void resetPosition(boolean goUp)
