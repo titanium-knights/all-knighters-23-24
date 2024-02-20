@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.*;
 @Config
 public class PokeyClaw {
     public Servo pokeyClaw;
-    public static double OPEN_POS = .9;
-    public static double CLOSE_POS = .18;
+    public static double OPEN_POS = .85;
+    public static double CLOSE_POS = .98;
 
     public PokeyClaw(HardwareMap hmap) {
         this.pokeyClaw = hmap.servo.get(CONFIG.pokeyClawServo);

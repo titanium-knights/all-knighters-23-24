@@ -89,7 +89,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED_CURRENT); //go drive vroom
 
         //SLOW MODE
-        if (gamepad1.b) { //slowmode added
+        if (gamepad1.a) { //slowmode added
             isSlowmode = !isSlowmode;
         }
 
@@ -155,10 +155,18 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
             pokey.resetPosition(false);
         }
         if (gamepad1.dpad_right) {
-            pokeyClaw.openClaw(true);
+            pokey.increment(1);
         }
         if (gamepad1.dpad_left) {
+            pokey.increment(-1);
+        }
+
+
+        if (gamepad1.x) {
             pokeyClaw.openClaw(false);
+        }
+        if (gamepad1.b) {
+            pokeyClaw.openClaw(true);
         }
 
 

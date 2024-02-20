@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.*;
 @Config
 public class Pokey {
     public Servo pokey;
-    public static double UP_POS = .43;
-    public static double DOWN_POS = 1;
+    public static double UP_POS = .4;
+    public static double DOWN_POS = 0.8;
     public static double PIXEL_STACK = .85;
     public static double TAP_BACKBOARD = .7;
 
@@ -28,7 +28,7 @@ public class Pokey {
         If multiplier is negative, then the increment is down
          */
         double currentPos = pokey.getPosition();
-        pokey.setPosition(currentPos+(multiplier*.01));
+        pokey.setPosition(currentPos+(multiplier*.005));
     }
 
 
