@@ -139,11 +139,11 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
 //                //dumping sequence
-                .waitSeconds(3)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(3)
+                .waitSeconds(2)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })

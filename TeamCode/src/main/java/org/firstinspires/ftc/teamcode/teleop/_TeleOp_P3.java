@@ -188,9 +188,6 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         }
 
 
-
-
-
-        }
+    }
 
 }

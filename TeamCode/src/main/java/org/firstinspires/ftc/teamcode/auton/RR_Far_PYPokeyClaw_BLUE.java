@@ -57,7 +57,7 @@ public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
     TrajectorySequence path;
 
     public static int VISION_ANG_LEFT = 60;
-    public static int VISION_ANG_CENTER = 0;
+    public static int VISION_ANG_CENTER = 15;
     public static int VISION_ANG_RIGHT = -90;
 
 

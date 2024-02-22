@@ -57,7 +57,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
     TrajectorySequence path;
 
     public static int VISION_ANG_LEFT = 45;
-    public static int VISION_ANG_CENTER = 0;
+    public static int VISION_ANG_CENTER = 15;
     public static int VISION_ANG_RIGHT = -100;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
