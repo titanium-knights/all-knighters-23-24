@@ -23,7 +23,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
     public static boolean isSlowmode = false;
 
     public static int pixelIn = 0;
-    public static double distanceSensorDistance = 6;
+    public static double distanceSensorDistance = 4;
 
     public static boolean pokeyWasUp = true;
 
@@ -135,10 +135,14 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
 
         if(distanceTester.returnDistance1() < distanceSensorDistance && distanceTester.returnDistance2() < distanceSensorDistance){
             pixelIn = 2;
+            gamepad1.setLedColor(0, 255, 0, 1000);
+
         } else if (distanceTester.returnDistance1() < distanceSensorDistance || distanceTester.returnDistance2() < distanceSensorDistance){
             pixelIn = 1;
+            gamepad1.setLedColor(255, 255, 0, 1000);
         } else {
             pixelIn = 0;
+            gamepad1.setLedColor(255, 0, 0, 1000);
         }
 
         telemetry.addData("pixelIn: ", pixelIn);
