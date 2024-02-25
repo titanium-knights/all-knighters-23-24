@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everything in the folder :)
 
 
@@ -21,6 +22,9 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
 
     public static boolean isSlowmode = false;
 
+    public static int pixelIn = 0;
+    public static double distanceSensorDistance = 4;
+
     public static boolean pokeyWasUp = true;
 
     public static boolean isPixelIn = false;
@@ -34,6 +38,9 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
     HighHang highHang;
 
     Pokey pokey;
+    PokeyClaw pokeyClaw;
+
+    DistanceTester distanceTester;
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -71,6 +78,8 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         planeLauncher = new PlaneLauncher(hardwareMap);
         highHang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
+        pokeyClaw = new PokeyClaw(hardwareMap);
+        distanceTester = new DistanceTester(hardwareMap);
     }
 
     @Override
@@ -100,7 +109,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         dashTelemetry.addData("pixelInCarriage: ", isPixelIn);
 
         //SLOW MODE
-        if (gamepad1.b) { //slowmode added
+        if (gamepad1.a) { //slowmode added
             isSlowmode = !isSlowmode;
         }
 
@@ -136,6 +145,21 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         } else { //if no triggers, set power to 0, worm gear should hold arm in place
             intakeRoller.intake(0);
         }
+
+        if(distanceTester.returnDistance1() < distanceSensorDistance && distanceTester.returnDistance2() < distanceSensorDistance){
+            pixelIn = 2;
+            gamepad1.setLedColor(0, 255, 0, 1000);
+
+        } else if (distanceTester.returnDistance1() < distanceSensorDistance || distanceTester.returnDistance2() < distanceSensorDistance){
+            pixelIn = 1;
+            gamepad1.setLedColor(255, 255, 0, 1000);
+        } else {
+            pixelIn = 0;
+            gamepad1.setLedColor(255, 0, 0, 1000);
+        }
+
+        telemetry.addData("pixelIn: ", pixelIn);
+        dashTelemetry.addData("pixelIn: ", pixelIn);
 
         //CARRIAGE PIVOT CONTROLS -- CONTROLLER 2
         if (gamepad2.x) {
@@ -173,10 +197,14 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         }
 
 
-
-
-
-
+        if (gamepad1.x) {
+            pokeyClaw.openClaw(false);
         }
+        if (gamepad1.b) {
+            pokeyClaw.openClaw(true);
+        }
+
+
+    }
 
 }
