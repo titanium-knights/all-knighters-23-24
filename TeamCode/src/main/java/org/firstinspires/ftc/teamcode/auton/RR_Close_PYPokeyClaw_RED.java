@@ -56,7 +56,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 45;
+    public static int VISION_ANG_LEFT = 35;
     public static int VISION_ANG_CENTER = 15;
     public static int VISION_ANG_RIGHT = -100;
 
@@ -68,18 +68,18 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
     public static int INTAKE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, -39, Math.toRadians(90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(26, -39, Math.toRadians(90));
 
     public static Vector2d BACKBOARD_RIGHT  = new Vector2d(18, -39);
 
-    public static Vector2d BACKBOARD_LEFT = new Vector2d(33 , -39);
+    public static Vector2d BACKBOARD_LEFT = new Vector2d(34 , -39);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, -39);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -39);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(0, -37); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(0, -42); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(4, -37); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(4, -42); //parking position ( full square)
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -119,7 +119,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(false);
                 })
@@ -127,20 +127,20 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(.25)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(true);
                 })
-                .waitSeconds(1)
+                .waitSeconds(.5)
                 .lineToConstantHeading(RESET_HOME) //go back home (start pos)
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-                .waitSeconds(1)
+                .waitSeconds(1.25)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
 //                //dumping sequence
-                .waitSeconds(1)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
@@ -149,15 +149,15 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })
                 .waitSeconds(1.5)
-//                //dumping sequence
+                //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
-                .waitSeconds(1)
+                .waitSeconds(1.5)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
-                .waitSeconds(2)
+                .waitSeconds(1)
                 .addTemporalMarker(()->{
                     carriage.setPivotIntake(true); //faces outtake
                 }) // <-- end of dumping sequence -->;
@@ -165,14 +165,13 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                 .addTemporalMarker(()->{
                     carriage.setCarriageOpen(false); //close carriage
                 }) //end of all
-                .waitSeconds(1) //slides down
+                .waitSeconds(.5) //slides down
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
                 })
                 .lineTo(TO_PARK_1)
                 .lineTo(TO_PARK_2)
                 .waitSeconds(1);
-
 
         path = dumpBothPath.build();
 

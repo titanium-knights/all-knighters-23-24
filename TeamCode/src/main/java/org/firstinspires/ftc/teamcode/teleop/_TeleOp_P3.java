@@ -23,7 +23,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
     public static boolean isSlowmode = false;
 
     public static int pixelIn = 0;
-    public static double distanceSensorDistance = 4;
+    public static double distanceSensorDistance = 5;
 
     public static boolean pokeyWasUp = true;
 
