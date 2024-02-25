@@ -2,9 +2,12 @@ package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class PixelCarriage {
     public Servo carriagePivotL; //servo
+    public DistanceSensor distance; //distance sensor
 //    public Servo carriagePivotR; //servo
 
     public Servo carriageOpen; //servo
@@ -21,7 +24,7 @@ public class PixelCarriage {
         this.carriagePivotL = hmap.servo.get(CONFIG.carriagePivotL);
 //        this.carriagePivotR = hmap.servo.get(CONFIG.carriagePivotR);
         this.carriageOpen = hmap.servo.get(CONFIG.carriageFlap);
-
+        this.distance = hmap.get(DistanceSensor.class, CONFIG.distanceSensor);
     }
 
     public void setPosition(double pos) {
@@ -49,9 +52,10 @@ public class PixelCarriage {
         }
     }
 
-    public void setOuttake(boolean isIntake, boolean isOpen) {
-        setPivotIntake(isIntake);
-        setCarriageOpen(isOpen);
+    public boolean isPixelInCarriage() {
+        if (distance.getDistance(DistanceUnit.CM) < 1) {
+            return true;
+        } return false;
     }
 
 }

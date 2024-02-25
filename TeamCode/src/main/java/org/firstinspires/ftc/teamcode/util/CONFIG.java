@@ -38,6 +38,8 @@ public class CONFIG {
     public static String carriageFlap = "carriageFlapServo"; //eh 4
     public static String intakeServo = "intakePivotServo"; //eh 2
 
+    public static String distanceSensor = "distanceSensor";
+
 
 
     // plane

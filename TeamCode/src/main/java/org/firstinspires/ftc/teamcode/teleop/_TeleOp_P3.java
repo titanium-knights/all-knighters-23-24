@@ -23,6 +23,8 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
 
     public static boolean pokeyWasUp = true;
 
+    public static boolean isPixelIn = false;
+
     //make instance of the classes (i.e, subsystems or dt)
     MecanumDrive drive; //no value
     IntakeRoller intakeRoller;
@@ -85,6 +87,17 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         }
 
         drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED_CURRENT); //go drive vroom
+
+        if (pixelCarriage.isPixelInCarriage()) {
+            gamepad1.rumble(1000);
+            gamepad2.rumble(1000);
+            isPixelIn = true;
+        } else {
+            isPixelIn = false;
+        }
+
+        telemetry.addData("pixelInCarriage: ", isPixelIn);
+        dashTelemetry.addData("pixelInCarriage: ", isPixelIn);
 
         //SLOW MODE
         if (gamepad1.b) { //slowmode added
