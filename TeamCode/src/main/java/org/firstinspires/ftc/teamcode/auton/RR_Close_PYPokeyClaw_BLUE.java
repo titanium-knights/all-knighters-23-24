@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "51 - BLUE - PY_POKEY_CLAW - CLOSE", group = "Linear OpMode")
+@Autonomous(name = "(00) 51 - BLUE - PY_POKEY_CLAW - CLOSE", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
@@ -58,7 +58,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
 
     public static int VISION_ANG_LEFT = 45;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -110;
+    public static int VISION_ANG_RIGHT = -60;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
     public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
@@ -66,9 +66,10 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
+    public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 39, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 37, Math.toRadians(-90));
 
     public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 39);
 
@@ -118,19 +119,19 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(false);
                 })
-                .waitSeconds(1)
+                .waitSeconds(1.25)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(.25)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(true);
                 })
-                .waitSeconds(1)
+                .waitSeconds(.5)
                 .lineToConstantHeading(RESET_HOME) //go back home (start pos)
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
@@ -143,7 +144,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(2)
+                .waitSeconds(CARRIAGE_RAISE_TIME)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })
@@ -152,11 +153,11 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
-                .waitSeconds(1)
+                .waitSeconds(1.5)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
-                .waitSeconds(2)
+                .waitSeconds(1)
                 .addTemporalMarker(()->{
                     carriage.setPivotIntake(true); //faces outtake
                 }) // <-- end of dumping sequence -->;
@@ -164,7 +165,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 .addTemporalMarker(()->{
                     carriage.setCarriageOpen(false); //close carriage
                 }) //end of all
-                .waitSeconds(1) //slides down
+                .waitSeconds(.5) //slides down
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
                 })
