@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "(FAR) 51 - BLUE - PY_POKEY_CLAW - FAR", group = "Linear OpMode")
+@Autonomous(name = "(00 FAR) 51 - BLUE - PY_POKEY_CLAW - FAR", group = "Linear OpMode")
 @Config
 
 public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
@@ -68,6 +68,7 @@ public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
+    public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, 88, Math.toRadians(-90));
@@ -143,7 +144,7 @@ public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(CARRIAGE_RAISE_TIME)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })

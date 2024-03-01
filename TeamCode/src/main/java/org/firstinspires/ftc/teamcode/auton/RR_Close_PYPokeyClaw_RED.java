@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "51 - RED - PY_POKEY_CLAW - CLOSE", group = "Linear OpMode")
+@Autonomous(name = "(00) 51 - RED - PY_POKEY_CLAW - CLOSE", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
@@ -47,7 +47,6 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
     protected Pokey pokey;
     protected PokeyClaw pokeyClaw;
 
-
     public static int SLIDE_POS_UP = -700;
 
     public static int SLIDE_POS_UP_2 = -300;
@@ -56,16 +55,17 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 35;
+    public static int VISION_ANG_LEFT = 40;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -100;
+    public static int VISION_ANG_RIGHT = -90;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(26, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
     public static Vector2d RESET_HOME = new Vector2d(0, 0);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
+    public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(26, -39, Math.toRadians(90));
@@ -123,7 +123,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(false);
                 })
-                .waitSeconds(1)
+                .waitSeconds(1.25)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
@@ -144,7 +144,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(CARRIAGE_RAISE_TIME)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })

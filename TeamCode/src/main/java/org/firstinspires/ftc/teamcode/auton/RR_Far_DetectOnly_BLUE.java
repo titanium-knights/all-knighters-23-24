@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.util.HighHang;
 import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.Pokey;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
+import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
@@ -44,6 +45,7 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
     protected HighHang highhang;
 
     protected Pokey pokey;
+    protected PokeyClaw pokeyClaw;
 
 
     public static int SLIDE_POS_UP = -700;
@@ -54,9 +56,9 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 45;
-    public static int VISION_ANG_CENTER = 0;
-    public static int VISION_ANG_RIGHT = -110;
+    public static int VISION_ANG_LEFT = 40;
+    public static int VISION_ANG_CENTER = 15;
+    public static int VISION_ANG_RIGHT = -90;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
     public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
@@ -93,6 +95,7 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
+        pokeyClaw = new PokeyClaw(hardwareMap);
     }
 
     public void initTraj() {
@@ -116,14 +119,20 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
-                .waitSeconds(1)
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(false);
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(0.75)
+                .addTemporalMarker(() -> {
+                    pokeyClaw.openClaw(true);
+                })
+                .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(true);
                 })
+                .waitSeconds(.5)
+                .lineToConstantHeading(RESET_HOME) //go back home (start pos)
                 .waitSeconds(1);
 
 
@@ -136,7 +145,7 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
         waitForStart();
 
         highhang.goToCamera();
-        sleep(2000); //wait two seconds
+        sleep(3500); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
         telemetry.update();
         //print positions

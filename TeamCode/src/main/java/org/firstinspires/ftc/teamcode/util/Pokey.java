@@ -7,6 +7,7 @@ public class Pokey {
     public Servo pokey;
     public static double UP_POS = 0.2;
     public static double DOWN_POS = 0.85;
+    public static double HALF_POS = 0.75;
 
     public Pokey(HardwareMap hmap) {
         this.pokey = hmap.servo.get(CONFIG.pokeyServo);
@@ -27,6 +28,10 @@ public class Pokey {
          */
         double currentPos = pokey.getPosition();
         pokey.setPosition(currentPos+(multiplier*.01));
+    }
+
+    public void goToHalfPosition(){
+        pokey.setPosition(HALF_POS);
     }
 
 

@@ -21,10 +21,10 @@ import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "(00 FAR) 51 - RED - PY_POKEY_CLAW - FAR", group = "Linear OpMode")
+@Autonomous(name = "(FAR) HALFDOWN - 51 - BLUE - PY_POKEY_CLAW - FAR", group = "Linear OpMode")
 @Config
 
-public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
+public class RR_Far_PYPokeyClaw_BLUE_HALFDOWN extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -56,33 +56,33 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 30;
+    public static int VISION_ANG_LEFT = 60;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -60;
+    public static int VISION_ANG_RIGHT = -90;
 
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(20, 0);
-    public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(90));
-    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, -48);
+    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
+    public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(-90));
+    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, 48);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
     public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, -86, Math.toRadians(90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, 88, Math.toRadians(-90));
 
-    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(20, -86);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 88);
 
-    public static Vector2d BACKBOARD_LEFT = new Vector2d(33, -86);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(30, 88);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(25, -86);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(25, 88);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(50, -86); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(50, -90); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(50, 85); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(50, 90); //parking position ( full square)
 
 
 
@@ -118,17 +118,17 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
                     highhang.goToReset(); //go down
                 })
+                .addTemporalMarker(() -> {
+                    pokey.goToHalfPosition();
+                })
+                .waitSeconds(1)
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    pokey.resetPosition(false);
-                })
-                .waitSeconds(1.25)
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
-                .waitSeconds(0.25)
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(true);
                 })
@@ -148,25 +148,23 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })
-                .waitSeconds(1.5)
 //                //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
-                .waitSeconds(1.5)
+                .waitSeconds(1)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
-                .waitSeconds(1)
+                .waitSeconds(2)
                 .addTemporalMarker(()->{
                     carriage.setPivotIntake(true); //faces outtake
                 }) // <-- end of dumping sequence -->;
-
                 .waitSeconds(.5) //slides down
                 .addTemporalMarker(()->{
                     carriage.setCarriageOpen(false); //close carriage
                 }) //end of all
-                .waitSeconds(.5) //slides down
+                .waitSeconds(1) //slides down
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
                 })
@@ -187,7 +185,7 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
         waitForStart();
 
         highhang.goToCamera();
-        sleep(3500); //wait two seconds
+        sleep(3000); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
 
         //print positions

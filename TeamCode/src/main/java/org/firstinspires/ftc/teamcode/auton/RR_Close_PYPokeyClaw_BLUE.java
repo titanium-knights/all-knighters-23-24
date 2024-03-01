@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "51 - BLUE - PY_POKEY_CLAW - CLOSE", group = "Linear OpMode")
+@Autonomous(name = "(00) 51 - BLUE - PY_POKEY_CLAW - CLOSE", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
@@ -58,7 +58,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
 
     public static int VISION_ANG_LEFT = 45;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -80;
+    public static int VISION_ANG_RIGHT = -60;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
     public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
@@ -66,6 +66,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
+    public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 37, Math.toRadians(-90));
@@ -122,7 +123,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(false);
                 })
-                .waitSeconds(.75)
+                .waitSeconds(1.25)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
@@ -143,7 +144,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(CARRIAGE_RAISE_TIME)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })
