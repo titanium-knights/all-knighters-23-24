@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.util.Pokey;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 @Autonomous(name = "(FAR) 20 - RED - Detect Only", group = "Linear OpMode")
@@ -37,6 +38,7 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
 
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
+    protected WebcamServo webcamServo;
 
     protected Slides slides;
 
@@ -100,6 +102,8 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
         highhang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
+
     }
 
     public void initTraj() {
@@ -186,8 +190,8 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
 
         waitForStart();
 
-        highhang.goToCamera();
-        sleep(3500); //wait two seconds
+        webcamServo.resetPosition(true);
+        sleep(3000); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
 
         //print positions

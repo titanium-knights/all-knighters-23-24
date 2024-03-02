@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.util.Pokey;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 @Autonomous(name = "(00 FAR) 51 - RED - PY_POKEY_CLAW - FAR", group = "Linear OpMode")
@@ -37,6 +38,9 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
 
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
+
+    protected WebcamServo webcamServo;
+
 
     protected Slides slides;
 
@@ -64,7 +68,7 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
     public static int VISION_ANG; //actual angle
     public static Vector2d PURPLE_CENTER = new Vector2d(20, 0);
     public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(90));
-    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, -48);
+    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, -35);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
@@ -100,6 +104,7 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
         highhang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
     }
 
     public void initTraj() {
@@ -116,7 +121,7 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    highhang.goToReset(); //go down
+                    webcamServo.resetPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
@@ -170,8 +175,8 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
                 })
-                .lineTo(TO_PARK_1)
-                .lineTo(TO_PARK_2)
+//                .lineTo(TO_PARK_1)
+//                .lineTo(TO_PARK_2)
                 .waitSeconds(1);
 
 
@@ -182,12 +187,13 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         setupDevices();
 
+        webcamServo.resetPosition(true);
         pokeyClaw.openClaw(false);
 
         waitForStart();
 
-        highhang.goToCamera();
-        sleep(3500); //wait two seconds
+        webcamServo.resetPosition(false);
+        sleep(7500); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
 
         //print positions

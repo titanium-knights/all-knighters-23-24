@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.Pokey;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 @Autonomous(name = "51 - RED - PY_POKEY", group = "Linear OpMode")
@@ -36,6 +37,8 @@ public class RR_Close_PYPokey_RED extends LinearOpMode{
 
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
+
+    protected WebcamServo webcamServo;
 
     protected Slides slides;
 
@@ -93,6 +96,7 @@ public class RR_Close_PYPokey_RED extends LinearOpMode{
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
     }
 
     public void initTraj() {
@@ -112,7 +116,7 @@ public class RR_Close_PYPokey_RED extends LinearOpMode{
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    highhang.goToReset(); //go down
+                    webcamServo.resetPosition(true); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
@@ -175,7 +179,7 @@ public class RR_Close_PYPokey_RED extends LinearOpMode{
         setupDevices();
         waitForStart();
 
-        highhang.goToCamera();
+        webcamServo.resetPosition(true);
         sleep(3500); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
         telemetry.update();
