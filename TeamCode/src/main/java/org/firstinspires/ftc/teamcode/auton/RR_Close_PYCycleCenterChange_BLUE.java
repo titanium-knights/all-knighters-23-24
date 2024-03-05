@@ -50,11 +50,12 @@ public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
     TrajectorySequence path;
 
     public static int VISION_ANG_LEFT = 45;
-    public static int VISION_ANG_CENTER = -15;
-    public static int VISION_ANG_RIGHT = -60;
-
+    public static int VISION_ANG_CENTER = 15;
+    public static int VISION_ANG_RIGHT = -170;
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
-    public static Pose2d PURPLE_CENTER = new Pose2d(48, 0, Math.toRadians(-90));
+
+    public static Pose2d PURPLE_CENTER = new Pose2d(24, 0, Math.toRadians(0));
+    public static Pose2d PURPLE_CENTER_RIGHT = new Pose2d(26, 30, Math.toRadians(-90));
     public static Vector2d RESET_HOME = new Vector2d(0, 0);
 
     public static double INTAKE_POW = .8;
@@ -104,6 +105,7 @@ public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
         } else if (position == 3) {
             VISION_ANG = VISION_ANG_RIGHT;
             BACKBOARD_ADJUST = BACKBOARD_RIGHT;
+            PURPLE_CENTER = PURPLE_CENTER_RIGHT;
         } else {
             // no need for center, as it is defaulted to pos = 2
             VISION_ANG = VISION_ANG_CENTER;
