@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.util;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.*;
 @Config
+@Deprecated
 public class Pokey {
     public Servo pokey;
     public static double UP_POS = 0.2;

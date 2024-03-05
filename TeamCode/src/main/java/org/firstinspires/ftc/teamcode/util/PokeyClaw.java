@@ -8,8 +8,14 @@ public class PokeyClaw {
     public static double OPEN_POS = .85;
     public static double CLOSE_POS = .98;
 
+    public Servo pokey;
+    public static double UP_POS = 0.2;
+    public static double DOWN_POS = 0.85;
+    public static double HALF_POS = 0.75;
+
     public PokeyClaw(HardwareMap hmap) {
         this.pokeyClaw = hmap.servo.get(CONFIG.pokeyClawServo);
+        this.pokey = hmap.servo.get(CONFIG.pokeyServo);
     }
 
     public void increment(int multiplier) {
@@ -30,6 +36,21 @@ public class PokeyClaw {
             pokeyClaw.setPosition(CLOSE_POS);
         }
     }
+
+    public void goToHalfPosition(){
+        pokey.setPosition(HALF_POS);
+    }
+
+    public void resetPosition(boolean goUp)
+    {
+        if (goUp) {
+            pokey.setPosition(UP_POS);
+        } else {
+            pokey.setPosition(DOWN_POS);
+        }
+    }
+
+
 
 
 }
