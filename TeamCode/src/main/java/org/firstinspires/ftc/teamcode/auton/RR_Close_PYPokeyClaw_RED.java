@@ -46,7 +46,6 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
     protected IntakeRoller intake;
     protected HighHang highhang;
 
-    protected Pokey pokey;
     protected PokeyClaw pokeyClaw;
 
     public static int SLIDE_POS_UP = -700;
@@ -96,7 +95,6 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
         carriage = new PixelCarriage(hardwareMap);
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
-        pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
         webcamServo = new WebcamServo(hardwareMap);
     }
@@ -124,7 +122,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                 .turn(Math.toRadians(VISION_ANG))
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
-                    pokey.resetPosition(false);
+                    pokeyClaw.goToHalfPosition();
                 })
                 .waitSeconds(1.25)
                 .addTemporalMarker(() -> {
@@ -132,7 +130,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                 })
                 .waitSeconds(.25)
                 .addTemporalMarker(() -> {
-                    pokey.resetPosition(true);
+                    pokeyClaw.resetPosition(true);
                 })
                 .waitSeconds(.5)
                 .lineToConstantHeading(RESET_HOME) //go back home (start pos)
