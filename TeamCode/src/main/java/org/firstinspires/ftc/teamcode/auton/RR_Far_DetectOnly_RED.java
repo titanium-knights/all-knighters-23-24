@@ -46,7 +46,6 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
     protected IntakeRoller intake;
     protected HighHang highhang;
 
-    protected Pokey pokey;
     protected PokeyClaw pokeyClaw;
 
 
@@ -100,7 +99,6 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
         carriage = new PixelCarriage(hardwareMap);
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
-        pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
         webcamServo = new WebcamServo(hardwareMap);
 
@@ -126,7 +124,7 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
                 .turn(Math.toRadians(VISION_ANG))
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
-                    pokey.resetPosition(false);
+                    pokeyClaw.goToHalfPosition();
                 })
                 .waitSeconds(1.25)
                 .addTemporalMarker(() -> {
@@ -134,7 +132,7 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    pokey.resetPosition(true);
+                    pokeyClaw.resetPosition(true);
                 });
 //                .lineToLinearHeading(RESET_HOME)
 //                .lineToConstantHeading(RESET_HOME_CLOSE)
@@ -187,12 +185,10 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
         setupDevices();
 
         pokeyClaw.openClaw(false);
-
         webcamServo.setPosition(true);
+        position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
-
-        position = vision.getPosition(); //get position by new camera position
 
         //print positions
         dashTelemetry.addData("Detected", position);

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.old_autons;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -17,13 +17,15 @@ import org.firstinspires.ftc.teamcode.util.HighHang;
 import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.Pokey;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
+import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 @Config
 @Deprecated
 
-public class RR_Close_PYPokey_BLUE extends LinearOpMode{
+public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -42,8 +44,10 @@ public class RR_Close_PYPokey_BLUE extends LinearOpMode{
     protected PixelCarriage carriage;
     protected IntakeRoller intake;
     protected HighHang highhang;
+    protected WebcamServo webcamServo;
 
     protected Pokey pokey;
+    protected PokeyClaw pokeyClaw;
 
 
     public static int SLIDE_POS_UP = -700;
@@ -54,30 +58,34 @@ public class RR_Close_PYPokey_BLUE extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 45;
-    public static int VISION_ANG_CENTER = 0;
-    public static int VISION_ANG_RIGHT = -110;
+    public static int VISION_ANG_LEFT = 60;
+    public static int VISION_ANG_CENTER = 15;
+    public static int VISION_ANG_RIGHT = -90;
 
-    public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
-    public static Vector2d RESET_HOME = new Vector2d(0, 0);
+
+    public static int VISION_ANG; //actual angle
+    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
+    public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(-90));
+    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, 48);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
+    public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 39, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, 88, Math.toRadians(-90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 39);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 88);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 39);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(30, 88);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, 39);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(25, 88);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(0, 37); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(0, 42); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(50, 85); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(50, 90); //parking position ( full square)
+
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -93,6 +101,8 @@ public class RR_Close_PYPokey_BLUE extends LinearOpMode{
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
+        pokeyClaw = new PokeyClaw(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
     }
 
     public void initTraj() {
@@ -105,14 +115,11 @@ public class RR_Close_PYPokey_BLUE extends LinearOpMode{
         } else if (position == 3) {
             VISION_ANG = VISION_ANG_RIGHT;
             BACKBOARD_ADJUST = BACKBOARD_RIGHT;
-         } else {
-            // no need for center, as it is defaulted to pos = 2
-            VISION_ANG = VISION_ANG_CENTER;
-        }
+        } // no need for center, as it is defaulted to pos = 2
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    highhang.goToReset(); //go down
+                    webcamServo.setPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
@@ -120,28 +127,30 @@ public class RR_Close_PYPokey_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(false);
                 })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    pokeyClaw.openClaw(true);
+                })
                 .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(true);
                 })
-                .waitSeconds(1)
-                .lineToConstantHeading(RESET_HOME) //go back home (start pos)
+                .lineToLinearHeading(RESET_HOME)
+                .lineToConstantHeading(RESET_HOME_CLOSE)
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-                .waitSeconds(1)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
 //                //dumping sequence
-                .waitSeconds(1)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(CARRIAGE_RAISE_TIME)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })
-                .waitSeconds(1.5)
 //                //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
@@ -173,20 +182,24 @@ public class RR_Close_PYPokey_BLUE extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
         setupDevices();
+
+        pokeyClaw.openClaw(false);
+        webcamServo.setPosition(true); //go down
+
         waitForStart();
 
-        highhang.goToCamera();
-        sleep(3500); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
-        telemetry.update();
+
         //print positions
         dashTelemetry.addData("Detected", position);
+        dashTelemetry.addData("SLIDES POS", slides.getPosition());
 
         initTraj(); //init new traj. with the updated values
 
+        telemetry.update();
+
         drive.setPoseEstimate(path.start());
         drive.followTrajectorySequence(path);
-
 
         while (opModeIsActive() && !Thread.currentThread().isInterrupted() && drive.isBusy()) {
             drive.update();
