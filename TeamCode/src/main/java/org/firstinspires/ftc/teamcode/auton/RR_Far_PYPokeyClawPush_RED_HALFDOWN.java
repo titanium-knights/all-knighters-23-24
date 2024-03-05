@@ -48,7 +48,6 @@ public class RR_Far_PYPokeyClawPush_RED_HALFDOWN extends LinearOpMode{
     protected IntakeRoller intake;
     protected HighHang highhang;
 
-    protected Pokey pokey;
     protected PokeyClaw pokeyClaw;
 
 
@@ -101,7 +100,6 @@ public class RR_Far_PYPokeyClawPush_RED_HALFDOWN extends LinearOpMode{
         carriage = new PixelCarriage(hardwareMap);
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
-        pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
         webcamServo = new WebcamServo(hardwareMap);
     }
@@ -123,7 +121,7 @@ public class RR_Far_PYPokeyClawPush_RED_HALFDOWN extends LinearOpMode{
                     webcamServo.setPosition(false); //go down
                 })
                 .addTemporalMarker(() -> {
-                    pokey.goToHalfPosition();
+                    pokeyClaw.goToHalfPosition();
                 })
                 .waitSeconds(1)
                 .lineToConstantHeading(PURPLE_CENTER)
@@ -134,7 +132,7 @@ public class RR_Far_PYPokeyClawPush_RED_HALFDOWN extends LinearOpMode{
                 })
                 .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
-                    pokey.resetPosition(true);
+                    pokeyClaw.resetPosition(true);
                 })
                 .lineToLinearHeading(RESET_HOME)
                 .lineToConstantHeading(RESET_HOME_CLOSE)
