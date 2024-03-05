@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
-@Autonomous(name = "00 - PurpleDetectAuton", group = "Linear OpMode")
 @Config
+@Deprecated
 
 public class RR_Close_INTAKE_PurpleDetectAuton extends LinearOpMode{
     protected SampleMecanumDrive drive;

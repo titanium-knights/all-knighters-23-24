@@ -19,8 +19,8 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "Far side", group = "Linear OpMode")
 @Config
+@Deprecated
 
 public class RR_Far_SideDumpBothPreload_BLUE extends LinearOpMode{
     /*

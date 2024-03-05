@@ -22,10 +22,10 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(FAR) 20 - RED - Detect Only", group = "Linear OpMode")
+@Autonomous(name = "51 (FAR) - BLUE - PY", group = "Linear OpMode")
 @Config
 
-public class RR_Far_DetectOnly_RED extends LinearOpMode{
+public class RR_Far_PYPokeyClawPush_BLUE_HALFDOWN extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -38,13 +38,14 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
 
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
-    protected WebcamServo webcamServo;
 
     protected Slides slides;
 
     protected PixelCarriage carriage;
     protected IntakeRoller intake;
     protected HighHang highhang;
+
+    protected WebcamServo webcamServo;
 
     protected Pokey pokey;
     protected PokeyClaw pokeyClaw;
@@ -58,33 +59,33 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 30;
+    public static int VISION_ANG_LEFT = 60;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -60;
+    public static int VISION_ANG_RIGHT = -90;
 
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(20, 0);
-    public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(90));
-    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, -48);
+    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
+    public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(-90));
+    public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, 48);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
     public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, -86, Math.toRadians(90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, 88, Math.toRadians(-90));
 
-    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(20, -86);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 88);
 
-    public static Vector2d BACKBOARD_LEFT = new Vector2d(33, -86);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(30, 88);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(25, -86);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(25, 88);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(50, -86); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(50, -90); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(50, 85); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(50, 90); //parking position ( full square)
 
 
 
@@ -103,7 +104,6 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
         pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
         webcamServo = new WebcamServo(hardwareMap);
-
     }
 
     public void initTraj() {
@@ -120,63 +120,61 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    highhang.goToReset(); //go down
+                    webcamServo.setPosition(false); //go down
                 })
+                .addTemporalMarker(() -> {
+                    pokey.goToHalfPosition();
+                })
+                .waitSeconds(1)
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    pokey.resetPosition(false);
-                })
-                .waitSeconds(1.25)
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
-                .waitSeconds(0.25)
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     pokey.resetPosition(true);
-                });
-//                .lineToLinearHeading(RESET_HOME)
-//                .lineToConstantHeading(RESET_HOME_CLOSE)
-//                .lineToLinearHeading(BACKBOARD_DEFAULT)
-//                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-//                .addTemporalMarker(()->{
-//                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-//                })
-////                //dumping sequence
-//                .waitSeconds(2)
-//                .addTemporalMarker(() -> {
-//                    carriage.setPivotIntake(false); //faces outtake
-//                })
-//                .waitSeconds(CARRIAGE_RAISE_TIME)
-//                .addTemporalMarker(()->{
-//                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
-//                })
-//                .waitSeconds(1.5)
-////                //dumping sequence
-//                .addTemporalMarker(()-> {
-//                    carriage.setCarriageOpen(true);
-//                })//opens the carriage
-//                .waitSeconds(1.5)
-//                .addTemporalMarker(()->{
-//                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-//                })
-//                .waitSeconds(1)
-//                .addTemporalMarker(()->{
-//                    carriage.setPivotIntake(true); //faces outtake
-//                }) // <-- end of dumping sequence -->;
-//
-//                .waitSeconds(.5) //slides down
-//                .addTemporalMarker(()->{
-//                    carriage.setCarriageOpen(false); //close carriage
-//                }) //end of all
-//                .waitSeconds(.5) //slides down
-//                .addTemporalMarker(()->{
-//                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
-//                })
-//                .lineTo(TO_PARK_1)
-//                .lineTo(TO_PARK_2)
-//                .waitSeconds(1);
+                })
+                .lineToLinearHeading(RESET_HOME)
+                .lineToConstantHeading(RESET_HOME_CLOSE)
+                .lineToLinearHeading(BACKBOARD_DEFAULT)
+                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
+                .addTemporalMarker(()->{
+                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
+                })
+//                //dumping sequence
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    carriage.setPivotIntake(false); //faces outtake
+                })
+                .waitSeconds(CARRIAGE_RAISE_TIME)
+                .addTemporalMarker(()->{
+                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
+                })
+//                //dumping sequence
+                .addTemporalMarker(()-> {
+                    carriage.setCarriageOpen(true);
+                })//opens the carriage
+                .waitSeconds(1)
+                .addTemporalMarker(()->{
+                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(()->{
+                    carriage.setPivotIntake(true); //faces outtake
+                }) // <-- end of dumping sequence -->;
+                .waitSeconds(.5) //slides down
+                .addTemporalMarker(()->{
+                    carriage.setCarriageOpen(false); //close carriage
+                }) //end of all
+                .waitSeconds(1) //slides down
+                .addTemporalMarker(()->{
+                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
+                })
+                .lineTo(TO_PARK_1)
+                .lineTo(TO_PARK_2)
+                .waitSeconds(1);
 
 
         path = dumpBothPath.build();
@@ -187,8 +185,7 @@ public class RR_Far_DetectOnly_RED extends LinearOpMode{
         setupDevices();
 
         pokeyClaw.openClaw(false);
-
-        webcamServo.setPosition(true);
+        webcamServo.setPosition(true); //go down
 
         waitForStart();
 

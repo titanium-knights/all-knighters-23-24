@@ -19,10 +19,11 @@ import org.firstinspires.ftc.teamcode.util.Pokey;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(00 FAR) 51 - BLUE - PY_POKEY_CLAW - FAR", group = "Linear OpMode")
 @Config
+@Deprecated
 
 public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
      /*
@@ -43,6 +44,7 @@ public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
     protected PixelCarriage carriage;
     protected IntakeRoller intake;
     protected HighHang highhang;
+    protected WebcamServo webcamServo;
 
     protected Pokey pokey;
     protected PokeyClaw pokeyClaw;
@@ -100,6 +102,7 @@ public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
         highhang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
     }
 
     public void initTraj() {
@@ -116,7 +119,7 @@ public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    highhang.goToReset(); //go down
+                    webcamServo.setPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
@@ -181,11 +184,10 @@ public class RR_Far_PYPokeyClaw_BLUE extends LinearOpMode{
         setupDevices();
 
         pokeyClaw.openClaw(false);
+        webcamServo.setPosition(true); //go down
 
         waitForStart();
 
-        highhang.goToCamera();
-        sleep(3000); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
 
         //print positions

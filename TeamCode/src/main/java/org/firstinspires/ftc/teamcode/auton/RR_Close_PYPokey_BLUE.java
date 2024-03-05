@@ -20,8 +20,8 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "51 - BLUE - PY_POKEY", group = "Linear OpMode")
 @Config
+@Deprecated
 
 public class RR_Close_PYPokey_BLUE extends LinearOpMode{
      /*

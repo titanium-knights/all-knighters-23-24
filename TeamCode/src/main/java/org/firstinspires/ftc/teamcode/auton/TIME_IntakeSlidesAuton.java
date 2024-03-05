@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
-@Autonomous(name="IntakeSlidesAuton", group="Linear Opmode")
 @Config
+@Deprecated
 
 public class TIME_IntakeSlidesAuton extends LinearOpMode {
 

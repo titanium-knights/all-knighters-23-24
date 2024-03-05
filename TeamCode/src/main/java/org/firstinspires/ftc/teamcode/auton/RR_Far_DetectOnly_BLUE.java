@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.util.Pokey;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 @Autonomous(name = "(FAR) 20 - BLUE - Detect Only", group = "Linear OpMode")
@@ -46,6 +47,8 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
 
     protected Pokey pokey;
     protected PokeyClaw pokeyClaw;
+
+    protected WebcamServo webcamServo;
 
 
     public static int SLIDE_POS_UP = -700;
@@ -96,6 +99,7 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
         highhang = new HighHang(hardwareMap);
         pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
     }
 
     public void initTraj() {
@@ -115,7 +119,7 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    highhang.goToReset(); //go down
+                    webcamServo.setPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
@@ -142,10 +146,9 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
         setupDevices();
-        waitForStart();
+        webcamServo.setPosition(true); //go up
 
-        highhang.goToCamera();
-        sleep(3500); //wait two seconds
+        waitForStart();
         position = vision.getPosition(); //get position by new camera position
         telemetry.update();
         //print positions

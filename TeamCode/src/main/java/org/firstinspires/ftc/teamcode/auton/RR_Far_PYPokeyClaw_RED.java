@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(00 FAR) 51 - RED - PY_POKEY_CLAW - FAR", group = "Linear OpMode")
 @Config
+@Deprecated
 
 public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
      /*
@@ -121,7 +121,7 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    webcamServo.resetPosition(false); //go down
+                    webcamServo.setPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
@@ -187,12 +187,12 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         setupDevices();
 
-        webcamServo.resetPosition(true);
+        webcamServo.setPosition(true);
         pokeyClaw.openClaw(false);
 
         waitForStart();
 
-        webcamServo.resetPosition(false);
+        webcamServo.setPosition(false);
         sleep(7500); //wait two seconds
         position = vision.getPosition(); //get position by new camera position
 

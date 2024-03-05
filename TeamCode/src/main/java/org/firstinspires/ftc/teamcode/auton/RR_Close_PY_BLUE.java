@@ -17,11 +17,11 @@ import org.firstinspires.ftc.teamcode.util.HighHang;
 import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "51 - BLUE - PY", group = "Linear OpMode")
 @Config
-
+@Deprecated
 public class RR_Close_PY_BLUE extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
@@ -41,6 +41,8 @@ public class RR_Close_PY_BLUE extends LinearOpMode{
     protected PixelCarriage carriage;
     protected IntakeRoller intake;
     protected HighHang highhang;
+
+    protected WebcamServo webcamServo;
 
 
     public static int SLIDE_POS_UP = -700;
@@ -89,6 +91,7 @@ public class RR_Close_PY_BLUE extends LinearOpMode{
         carriage = new PixelCarriage(hardwareMap);
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
     }
 
     public void initTraj() {

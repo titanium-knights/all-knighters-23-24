@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.util.HighHang;
 import org.firstinspires.ftc.teamcode.util.IntakeRoller;
 import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
+import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 @Autonomous(name = "41 - BLUE - DumpBothPreload", group = "Linear OpMode")
@@ -41,6 +42,8 @@ public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
     protected PixelCarriage carriage;
     protected IntakeRoller intake;
     protected HighHang highhang;
+
+    protected WebcamServo webcamServo;
 
 
     public static int SLIDE_POS_UP = -700;
@@ -77,6 +80,7 @@ public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
         carriage = new PixelCarriage(hardwareMap);
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
+        webcamServo = new WebcamServo(hardwareMap);
     }
 
     public void initTraj() {
@@ -139,10 +143,9 @@ public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         setupDevices();
 
+        webcamServo.setPosition(true);
         waitForStart();
 
-        highhang.goToCamera();
-        sleep(5000); //wait five seconds
         position = vision.getPosition(); //get position by new camera position
 
         //print positions

@@ -12,7 +12,7 @@ public class WebcamServo {
         this.webcamServo = hmap.servo.get(CONFIG.webcamServo);
     }
 
-    public void resetPosition(boolean goUp)
+    public void setPosition(boolean goUp)
     {
         if (goUp) {
             webcamServo.setPosition(UP_POS);

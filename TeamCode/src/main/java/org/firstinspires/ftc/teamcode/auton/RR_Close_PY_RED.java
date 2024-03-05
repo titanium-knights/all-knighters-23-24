@@ -19,8 +19,8 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Autonomous(name = "51 - Red - PY", group = "Linear OpMode")
 @Config
+@Deprecated
 
 public class RR_Close_PY_RED extends LinearOpMode{
      /*
