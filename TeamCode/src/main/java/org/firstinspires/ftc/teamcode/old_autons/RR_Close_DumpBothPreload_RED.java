@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.old_autons;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -20,10 +20,11 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "41 - BLUE - DumpBothPreload", group = "Linear OpMode")
+//@Autonomous(name = "41 - RED - DumpBothPreload", group = "Linear OpMode")
 @Config
+@Deprecated
 
-public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
+public class RR_Close_DumpBothPreload_RED extends LinearOpMode{
     /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -47,26 +48,24 @@ public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
 
 
     public static int SLIDE_POS_UP = -700;
-
-    public static int SLIDE_POS_UP_2 = -500;
     public static int SLIDE_POS_DOWN = -50;
     public static double SLIDE_POW = .4;
 
     TrajectorySequence path;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 39, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(24, -37, Math.toRadians(90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(24, 39);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(33, -37);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 39);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(25, -37);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, 39);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -37);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(0, 37); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(0, 42); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(0, -37); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(0, -42); //parking position ( full square)
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -94,7 +93,7 @@ public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .waitSeconds(1)
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
-                    highhang.goToReset(); //go down
+                    webcamServo.setPosition(false); //go down
                 })
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
@@ -108,17 +107,9 @@ public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
                     carriage.setPivotIntake(false); //faces outtake
                 })
                 .waitSeconds(3)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
-                })
-//                //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
-                .waitSeconds(3)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
                 .waitSeconds(3)
                 .addTemporalMarker(()->{
                     carriage.setPivotIntake(true); //faces outtake
@@ -144,8 +135,8 @@ public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
         setupDevices();
 
         webcamServo.setPosition(true);
-        waitForStart();
 
+        waitForStart();
         position = vision.getPosition(); //get position by new camera position
 
         //print positions

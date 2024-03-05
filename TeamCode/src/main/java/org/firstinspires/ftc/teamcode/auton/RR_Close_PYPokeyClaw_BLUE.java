@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(CLOSE) 51 - BLUE - PY", group = "Linear OpMode")
+@Autonomous(name = "51 (CLOSE) - BLUE - PY", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
