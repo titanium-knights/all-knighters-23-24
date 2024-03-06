@@ -21,14 +21,14 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(CLOSE) 51 - BLUE - PY_Cycle", group = "Linear OpMode")
+@Autonomous(name = "00 TESTER", group = "Linear OpMode")
 @Config
 
-public class RR_Close_PYCycle_BLUE extends LinearOpMode{
-
+public class _TesterFile extends LinearOpMode{
 
         protected SampleMecanumDrive drive;
         protected GreenShroomVision vision;
+        protected WebcamServo webcamServo;
 
         protected Slides slides;
 
@@ -38,20 +38,17 @@ public class RR_Close_PYCycle_BLUE extends LinearOpMode{
 
         protected PokeyClaw pokeyClaw;
 
-        protected WebcamServo webcamServo;
+        public static int SLIDE_POS_UP = -700;
 
-
-        public static int SLIDE_POS_UP = -800;
-
-        public static int SLIDE_POS_UP_2 = -400;
+        public static int SLIDE_POS_UP_2 = -300;
         public static int SLIDE_POS_DOWN = -50;
         public static double SLIDE_POW = .4;
 
         TrajectorySequence path;
 
-        public static int VISION_ANG_LEFT = 45;
+        public static int VISION_ANG_LEFT = 40;
         public static int VISION_ANG_CENTER = 15;
-        public static int VISION_ANG_RIGHT = -60;
+        public static int VISION_ANG_RIGHT = -90;
 
         public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
         public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
@@ -62,21 +59,22 @@ public class RR_Close_PYCycle_BLUE extends LinearOpMode{
         public static double CARRIAGE_RAISE_TIME = 2;
 
         //backboard movement
-        public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 37, Math.toRadians(-90));
+        public static Pose2d BACKBOARD_DEFAULT = new Pose2d(26, -39, Math.toRadians(90));
 
-        public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 39);
+        public static Vector2d BACKBOARD_RIGHT  = new Vector2d(18, -39);
 
-        public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 39);
+        public static Vector2d BACKBOARD_LEFT = new Vector2d(34 , -39);
 
-        public static Vector2d BACKBOARD_CENTER = new Vector2d(26, 39);
+        public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -39);
 
         public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-        public static Pose2d BEFORE_STACK_WAIT = new Pose2d(30, 30, Math.toRadians(-90));
-        public static Vector2d STACK_WAIT = new Vector2d(48, -72);
 
-        public static Vector2d TO_PARK_1 = new Vector2d(0, 37); //parking position ( full square)
-        public static Vector2d TO_PARK_2 = new Vector2d(0, 42); //parking position ( full square)
+        public static Pose2d BEFORE_STACK_WAIT = new Pose2d(36, -30, Math.toRadians(90));
+        public static Vector2d STACK_WAIT = new Vector2d(60, 72);
+
+        public static Vector2d TO_PARK_1 = new Vector2d(4, -37); //parking position ( full square)
+        public static Vector2d TO_PARK_2 = new Vector2d(4, -42); //parking position ( full square)
 
 
         Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -170,6 +168,8 @@ public class RR_Close_PYCycle_BLUE extends LinearOpMode{
                     })
                     .waitSeconds(1) //slides down
                     .lineToLinearHeading(BEFORE_STACK_WAIT)
+                    .lineToLinearHeading(BACKBOARD_DEFAULT)
+
                     //dumping sequence
                     .addTemporalMarker(()-> {
                         carriage.setCarriageOpen(true);
@@ -201,8 +201,6 @@ public class RR_Close_PYCycle_BLUE extends LinearOpMode{
             webcamServo.setPosition(true);
             position = vision.getPosition(); //get position by new camera position
 
-            telemetry.addData("Detected", position);
-
             waitForStart();
 
             telemetry.update();
@@ -221,5 +219,8 @@ public class RR_Close_PYCycle_BLUE extends LinearOpMode{
 
         }
     }
+
+
+
 
 

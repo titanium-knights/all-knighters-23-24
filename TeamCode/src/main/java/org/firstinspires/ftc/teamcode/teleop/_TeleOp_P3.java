@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everything in the folder :)
 
 
@@ -16,7 +15,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
     //static = field that is shared across every instance of a class
     //double is a data type that allows us to use decimal points (others incl. int, string, float...)
 
-    public static double DRIVE_SPEED_FAST = .8;
+    public static double DRIVE_SPEED_FAST = 1;
     public static double DRIVE_SPEED_SLOW = .4;
     public static double DRIVE_SPEED_CURRENT = DRIVE_SPEED_FAST;
 
@@ -25,7 +24,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
     public static int pixelIn = 0;
     public static double distanceSensorDistance = 5;
 
-    public static boolean pokeyWasUp = true;
+//    public static boolean pokeyWasUp = true;
 
     public static boolean isPixelIn = false;
 
@@ -37,8 +36,9 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
     PlaneLauncher planeLauncher;
     HighHang highHang;
 
-    Pokey pokey;
     PokeyClaw pokeyClaw;
+
+    StackIntake stackIntake;
 
     DistanceTester distanceTester;
 
@@ -46,26 +46,25 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
 
     /*
     All controls:
-
     Gamepad 1:
-        DPAD: right (pokey up), left (pokey down), up (up preset), down (down preset)
+        DPAD: right (manual flip flop out), left (manual flip flop in), up (plane shoot), down (NONE)
         Joysticks: driving
         Bumpers: right (highHang up), left (highHang down)
         Triggers: right (intake), left (outtake)
-        A: NONE
+        A: slow mode toggle
         Y: NONE
-        B: slow mode toggle
+        B: stack intake flip flop
         X: NONE
 
     Gamepad 2:
-        DPAD: right (NONE), left (NONE), up (plane shoot), down (NONE)
+        DPAD: right (pokey up), left (pokey down), up (up preset), down (down preset)
         Joysticks: NONE
-        Bumpers: NONE
+        Bumpers: right (carriage to outtake), left (carriage to intake)
         Triggers: right (slides up), left (slides down)
         A: close carriage (down)
         Y: open carriage (up)
-        B: carriage pivot towards outtake (left)
-        X: carriage pivot towards intake (right)
+        B: pokey (open claw)
+        X: pokey (close claw)
      */
 
 
@@ -77,9 +76,9 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         intakeRoller = new IntakeRoller(hardwareMap);
         planeLauncher = new PlaneLauncher(hardwareMap);
         highHang = new HighHang(hardwareMap);
-        pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
         distanceTester = new DistanceTester(hardwareMap);
+        stackIntake = new StackIntake(hardwareMap);
     }
 
     @Override
@@ -96,7 +95,7 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         }
 
         drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED_CURRENT); //go drive vroom
-
+//
 //        if (pixelCarriage.isPixelInCarriage()) {
 //            gamepad1.rumble(1000);
 //            gamepad2.rumble(1000);
@@ -162,10 +161,10 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         dashTelemetry.addData("pixelIn: ", pixelIn);
 
         //CARRIAGE PIVOT CONTROLS -- CONTROLLER 2
-        if (gamepad2.x) {
+        if (gamepad2.left_bumper) {
             pixelCarriage.setPivotIntake(true); //faces intake
         }
-        if (gamepad2.b) {
+        if (gamepad2.right_bumper) {
             pixelCarriage.setPivotIntake(false); //faces outtake
         }
 
@@ -178,30 +177,42 @@ public class _TeleOp_P3 extends OpMode { //class header, we will always extend a
         }
 
         //PLANE LAUNCHER
-        if(gamepad2.dpad_up){
+        if(gamepad1.dpad_up){
             planeLauncher.launchPlane();
         }
 
-        //reset pokey
-        if(gamepad1.dpad_up) {
-            pokey.resetPosition(true);
-        }
-        if (gamepad1.dpad_down) {
-            pokey.resetPosition(false);
-        }
-        if (gamepad1.dpad_right) {
-            pokey.increment(1);
-        }
+        //FLIP FLOP MANUAL CONTROLS
         if (gamepad1.dpad_left) {
-            pokey.increment(-1);
+            stackIntake.flipFlop(false);
+        }
+        if (gamepad1.dpad_right){
+            stackIntake.flipFlop(true);
+        }
+
+        //reset pokey
+        if(gamepad2.dpad_up) {
+            pokeyClaw.resetPosition(true);
+        }
+        if (gamepad2.dpad_down) {
+            pokeyClaw.resetPosition(false);
+        }
+        if (gamepad2.dpad_right) {
+            pokeyClaw.increment(1);
+        }
+        if (gamepad2.dpad_left) {
+            pokeyClaw.increment(-1);
         }
 
 
-        if (gamepad1.x) {
+        if (gamepad2.x) {
             pokeyClaw.openClaw(false);
         }
-        if (gamepad1.b) {
+        if (gamepad2.b) {
             pokeyClaw.openClaw(true);
+        }
+
+        if (gamepad1.b) {
+            stackIntake.flipFlop();
         }
 
 

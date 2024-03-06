@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Config
+//@Config
 @Deprecated
 
 public class RR_Close_PYPokey_RED extends LinearOpMode{

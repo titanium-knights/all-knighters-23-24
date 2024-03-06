@@ -25,16 +25,6 @@ import org.firstinspires.ftc.teamcode.util.WebcamServo;
 @Config
 
 public class RR_Close_PYCycle_RED extends LinearOpMode{
-     /*
-    Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
-
-    Cases for autonomous:
-    a. Min score if missed detection: 5 (auton pixel score) * 2 (purple, yellow) + 5 (parking) + 3 (teleop recount) * 2 (purple, yellow) = 21
-    b. Min score if missed, placing onto floor: 4 (pixel total) + 5 (parking)
-    c. Max score if detected correctly onto board: 5 (auton pixel score, purple) * 2 + 20 (correct detection) + 5 (parking) + 3 (teleop recount) * 2 (purple, yellow) = 41
-    d. Max score if detected BOTH correctly and placed in corresponding spot, max score w/o cycling: 61 (consider c)
-     */
-
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
     protected WebcamServo webcamServo;
@@ -79,8 +69,8 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
 
-    public static Pose2d BEFORE_STACK_WAIT = new Pose2d(36, -30, Math.toRadians(-90));
-    public static Vector2d STACK_WAIT = new Vector2d(48, 72);
+    public static Pose2d BEFORE_STACK_WAIT = new Pose2d(36, -30, Math.toRadians(90));
+    public static Vector2d STACK_WAIT = new Vector2d(60, 72);
 
     public static Vector2d TO_PARK_1 = new Vector2d(4, -37); //parking position ( full square)
     public static Vector2d TO_PARK_2 = new Vector2d(4, -42); //parking position ( full square)
@@ -126,7 +116,7 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     pokeyClaw.goToHalfPosition();
                 })
-                .waitSeconds(1.25)
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
@@ -141,7 +131,7 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
                 .waitSeconds(1)
 
 //                //dumping sequence
-                .waitSeconds(1.5)
+                .waitSeconds(1)
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                 })
@@ -150,8 +140,6 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
                     carriage.setPivotIntake(false); //faces outtake
                 })
                 .waitSeconds(CARRIAGE_RAISE_TIME)
-
-                .waitSeconds(1.5)
                 //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
@@ -177,6 +165,12 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
                 })
                 .waitSeconds(1) //slides down
                 .lineToLinearHeading(BEFORE_STACK_WAIT)
+                .addTemporalMarker(()->{
+                    intake.intake(0);
+                })
+                .lineToLinearHeading(BACKBOARD_DEFAULT)
+                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
+
                 //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
@@ -206,10 +200,10 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
 
         pokeyClaw.openClaw(false);
         webcamServo.setPosition(true);
+        position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
 
-        position = vision.getPosition(); //get position by new camera position
         telemetry.update();
         //print positions
         dashTelemetry.addData("Detected", position);

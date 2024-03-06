@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.robotcore.hardware.*; //import this to use servos and DC motors
 
 //this is a util class! util classes can be used for the subsystems to store methods
+@Deprecated
 public class ClawSwivel {
     public Servo pixelClawPivotServo; //Servp is taken from the hardware import
 

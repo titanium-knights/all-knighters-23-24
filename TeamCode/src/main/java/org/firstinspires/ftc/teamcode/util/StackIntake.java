@@ -13,10 +13,8 @@ public class StackIntake {
     public static double R_OUT = 0.2;
 
     public StackIntake(HardwareMap hmap) {
-
         this.stackIntakeL = hmap.servo.get(CONFIG.stackIntakeL);
         this.stackIntakeR = hmap.servo.get(CONFIG.stackIntakeR);
-
     }
 
 //    public void flipFlopOut() {
@@ -38,6 +36,16 @@ public class StackIntake {
 
         stackIntakeL.setPosition(L_IN);
         stackIntakeL.setPosition(R_IN);
+    }
+
+    public void flipFlop(boolean goOut) {
+        if (goOut) {
+            stackIntakeL.setPosition(L_OUT);
+            stackIntakeL.setPosition(R_OUT);
+        } else {
+            stackIntakeL.setPosition(L_IN);
+            stackIntakeL.setPosition(R_IN);
+        }
     }
 
 }

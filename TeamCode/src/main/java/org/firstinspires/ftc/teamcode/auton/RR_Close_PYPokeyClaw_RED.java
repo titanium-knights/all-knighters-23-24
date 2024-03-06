@@ -183,10 +183,10 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
 
         pokeyClaw.openClaw(false);
         webcamServo.setPosition(true);
+        position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
 
-        position = vision.getPosition(); //get position by new camera position
         telemetry.update();
         //print positions
 //        dashTelemetry.addData("Detected", position);

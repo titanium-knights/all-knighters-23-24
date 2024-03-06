@@ -59,7 +59,10 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
 
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
+
+    public static Pose2d PURPLE_CENTER = new Pose2d(28, 0, Math.toRadians(0));
+    public static Pose2d PURPLE_CENTER_CENTER = new Pose2d(40, 30, Math.toRadians(-180));
+
     public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(-90));
     public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, 48);
 
@@ -68,7 +71,7 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
     public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(27, 88, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(48, 88, Math.toRadians(-90));
 
     public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 88);
 
@@ -81,9 +84,8 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
     public static Vector2d TO_PARK_1 = new Vector2d(50, 85); //parking position ( full square)
     public static Vector2d TO_PARK_2 = new Vector2d(50, 90); //parking position ( full square)
 
-    public static Pose2d PIXEL_STACK = new Pose2d(27, 88, Math.toRadians(-90));
 
-
+    public static Pose2d STACK_WAIT = new Pose2d(48, -24, Math.toRadians(-90));
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
@@ -97,7 +99,6 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
         carriage = new PixelCarriage(hardwareMap);
         intake = new IntakeRoller(hardwareMap);
         highhang = new HighHang(hardwareMap);
-        pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
         webcamServo = new WebcamServo(hardwareMap);
     }
@@ -112,17 +113,19 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
         } else if (position == 3) {
             VISION_ANG = VISION_ANG_RIGHT;
             BACKBOARD_ADJUST = BACKBOARD_RIGHT;
-        } // no need for center, as it is defaulted to pos = 2
+        } else {
+            PURPLE_CENTER = PURPLE_CENTER_CENTER;
+        }
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
                     webcamServo.setPosition(false); //go down
                 })
                 .addTemporalMarker(() -> {
-                    pokey.goToHalfPosition();
+                    pokeyClaw.goToHalfPosition();
                 })
                 .waitSeconds(1)
-                .lineToConstantHeading(PURPLE_CENTER)
+                .lineToLinearHeading(PURPLE_CENTER)
                 .turn(Math.toRadians(VISION_ANG))
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
@@ -130,10 +133,9 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
                 })
                 .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
-                    pokey.resetPosition(true);
+                    pokeyClaw.resetPosition(true);
                 })
-                .lineToLinearHeading(RESET_HOME)
-                .lineToConstantHeading(RESET_HOME_CLOSE)
+                .lineToLinearHeading(STACK_WAIT)
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
                 .addTemporalMarker(()->{
@@ -148,15 +150,11 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
                 })
+                .waitSeconds(1.5)
 //                //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
-                .waitSeconds(2)
                 .addTemporalMarker(()->{
                     carriage.setPivotIntake(true); //faces outtake
                 }) // <-- end of dumping sequence -->;
@@ -182,10 +180,9 @@ public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
 
         pokeyClaw.openClaw(false);
         webcamServo.setPosition(true); //go down
+        position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
-
-        position = vision.getPosition(); //get position by new camera position
 
         //print positions
         dashTelemetry.addData("Detected", position);

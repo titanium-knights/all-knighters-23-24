@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.SlidesTwoMotors;
 
 //@Autonomous(name="InitialTimedPreloadAuton", group="Linear Opmode")
-@Config
+//@Config
 @Deprecated
 public class InitialTimedPreloadAuton extends LinearOpMode {
 

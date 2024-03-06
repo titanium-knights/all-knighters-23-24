@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(CLOSE) 51 - BLUE - PY_Cycle", group = "Linear OpMode")
+@Autonomous(name = "(CLOSE) 51 - BLUE - PY_CycleCenterChange", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
@@ -55,8 +55,7 @@ public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
 
     public static Pose2d PURPLE_CENTER = new Pose2d(24, 0, Math.toRadians(0));
-    public static Pose2d PURPLE_CENTER_RIGHT = new Pose2d(26, 30, Math.toRadians(-90));
-    public static Vector2d RESET_HOME = new Vector2d(0, 0);
+    public static Pose2d PURPLE_CENTER_LEFT = new Pose2d(26, 30, Math.toRadians(-170));
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
@@ -102,10 +101,10 @@ public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
         if (position == 1) {
             VISION_ANG = VISION_ANG_LEFT;
             BACKBOARD_ADJUST = BACKBOARD_LEFT;
+            PURPLE_CENTER = PURPLE_CENTER_LEFT;
         } else if (position == 3) {
             VISION_ANG = VISION_ANG_RIGHT;
             BACKBOARD_ADJUST = BACKBOARD_RIGHT;
-            PURPLE_CENTER = PURPLE_CENTER_RIGHT;
         } else {
             // no need for center, as it is defaulted to pos = 2
             VISION_ANG = VISION_ANG_CENTER;
@@ -130,7 +129,7 @@ public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
                     pokeyClaw.resetPosition(true);
                 })
                 .waitSeconds(.5)
-                .lineToConstantHeading(RESET_HOME) //go back home (start pos)
+//                .lineToConstantHeading(RESET_HOME) //go back home (start pos)
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
                 .waitSeconds(1)
@@ -201,10 +200,10 @@ public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
 
         pokeyClaw.openClaw(false);
         webcamServo.setPosition(true);
+        position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
 
-        position = vision.getPosition(); //get position by new camera position
         telemetry.update();
         //print positions
         dashTelemetry.addData("Detected", position);

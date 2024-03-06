@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Config
+//@Config
 @Deprecated
 
 public class RR_Close_PYPokey_BLUE extends LinearOpMode{

@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.util.PixelCarriage;
 import org.firstinspires.ftc.teamcode.util.Slides;
 
 
-@Config
+//@Config
 @Deprecated
 
 public class RR_Far_SideDumpBothPreload_BLUE extends LinearOpMode{

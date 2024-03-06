@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 //@Autonomous(name = "41 - BLUE - DumpBothPreload", group = "Linear OpMode")
-@Config
+//@Config
 @Deprecated
 public class RR_Close_DumpBothPreload_BLUE extends LinearOpMode{
     /*

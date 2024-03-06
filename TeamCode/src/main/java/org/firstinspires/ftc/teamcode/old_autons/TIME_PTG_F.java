@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 
 @Deprecated
-@Config
+//@Config
 public class TIME_PTG_F extends LinearOpMode {
 
     protected MecanumDrive drive;

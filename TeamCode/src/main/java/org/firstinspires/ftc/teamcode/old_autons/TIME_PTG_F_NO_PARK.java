@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.util.MecanumDrive;
 
-@Autonomous(name="PTG_F_NO_PARK", group="Linear Opmode")
-@Config
+//@Autonomous(name="PTG_F_NO_PARK", group="Linear Opmode")
+//@Config
 @Deprecated
 public class TIME_PTG_F_NO_PARK extends LinearOpMode {
 

@@ -3,22 +3,19 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.util.*; //star allows us to import everything in the folder :)
 
-import java.util.Stack;
 
-
-@TeleOp(name = "00 TELE_OP_NEW_CONTROLS")
-public class _TeleOp_P3OLD extends OpMode { //class header, we will always extend a TYPE of OpMode
+//@TeleOp(name = "00 TELE_OP")
+@Deprecated
+public class TeleOp_P3OLDCONTROLS extends OpMode { //class header, we will always extend a TYPE of OpMode
     //public allows us to see this variable in the FTC Dashboard (a website that allows us to edit in realtime)
     //static = field that is shared across every instance of a class
     //double is a data type that allows us to use decimal points (others incl. int, string, float...)
 
-    public static double DRIVE_SPEED_FAST = 1;
+    public static double DRIVE_SPEED_FAST = .8;
     public static double DRIVE_SPEED_SLOW = .4;
     public static double DRIVE_SPEED_CURRENT = DRIVE_SPEED_FAST;
 
@@ -41,8 +38,6 @@ public class _TeleOp_P3OLD extends OpMode { //class header, we will always exten
 
     Pokey pokey;
     PokeyClaw pokeyClaw;
-
-    StackIntake stackIntake;
 
     DistanceTester distanceTester;
 
@@ -84,7 +79,6 @@ public class _TeleOp_P3OLD extends OpMode { //class header, we will always exten
         pokey = new Pokey(hardwareMap);
         pokeyClaw = new PokeyClaw(hardwareMap);
         distanceTester = new DistanceTester(hardwareMap);
-        stackIntake = new StackIntake(hardwareMap);
     }
 
     @Override
@@ -101,7 +95,7 @@ public class _TeleOp_P3OLD extends OpMode { //class header, we will always exten
         }
 
         drive.teleOpRobotCentric(gamepad1, DRIVE_SPEED_CURRENT); //go drive vroom
-//
+
 //        if (pixelCarriage.isPixelInCarriage()) {
 //            gamepad1.rumble(1000);
 //            gamepad2.rumble(1000);
@@ -167,10 +161,10 @@ public class _TeleOp_P3OLD extends OpMode { //class header, we will always exten
         dashTelemetry.addData("pixelIn: ", pixelIn);
 
         //CARRIAGE PIVOT CONTROLS -- CONTROLLER 2
-        if (gamepad2.left_bumper) {
+        if (gamepad2.x) {
             pixelCarriage.setPivotIntake(true); //faces intake
         }
-        if (gamepad2.right_bumper) {
+        if (gamepad2.b) {
             pixelCarriage.setPivotIntake(false); //faces outtake
         }
 
@@ -183,34 +177,30 @@ public class _TeleOp_P3OLD extends OpMode { //class header, we will always exten
         }
 
         //PLANE LAUNCHER
-        if(gamepad1.dpad_up){
+        if(gamepad2.dpad_up){
             planeLauncher.launchPlane();
         }
 
         //reset pokey
-        if(gamepad2.dpad_up) {
+        if(gamepad1.dpad_up) {
             pokey.resetPosition(true);
         }
-        if (gamepad2.dpad_down) {
+        if (gamepad1.dpad_down) {
             pokey.resetPosition(false);
         }
-        if (gamepad2.dpad_right) {
+        if (gamepad1.dpad_right) {
             pokey.increment(1);
         }
-        if (gamepad2.dpad_left) {
+        if (gamepad1.dpad_left) {
             pokey.increment(-1);
         }
 
 
-        if (gamepad2.x) {
+        if (gamepad1.x) {
             pokeyClaw.openClaw(false);
         }
-        if (gamepad2.b) {
-            pokeyClaw.openClaw(true);
-        }
-
         if (gamepad1.b) {
-            stackIntake.flipFlop();
+            pokeyClaw.openClaw(true);
         }
 
 

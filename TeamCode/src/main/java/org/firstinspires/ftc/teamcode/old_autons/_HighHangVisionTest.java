@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.HighHang;
 import org.firstinspires.ftc.teamcode.util.GreenShroomVision;
 
 @Deprecated
-@Config
+//@Config
 public class _HighHangVisionTest extends LinearOpMode {
 
     protected GreenShroomVision vision;
