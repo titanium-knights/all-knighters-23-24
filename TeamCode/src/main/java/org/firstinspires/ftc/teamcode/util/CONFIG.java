@@ -40,7 +40,7 @@ public class CONFIG {
     public static String distanceSensor = "distanceSensor";
 
     public static String stackIntakeL = "stackIntakeL";
-    public static String stackIntakeR = "stackIntakeR";
+    public static String stackIntakeR = "stackIntakeR"; //eh 2 facing robot
 
     public static String webcamServo = "webcamServo";//eh 3
     //.67 watch .0 down
