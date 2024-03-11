@@ -7,9 +7,9 @@ public class StackIntake {
     public Servo stackIntakeL;
     public Servo stackIntakeR;
 
-    public static double L_IN = 0;
+    public static double L_IN = 0.1;
     public static double L_OUT = 0.6;
-    public static double R_IN = 1;
+    public static double R_IN = 0.9;
     public static double R_OUT = .4;
 
     public StackIntake(HardwareMap hmap) {
