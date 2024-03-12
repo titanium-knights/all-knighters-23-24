@@ -36,8 +36,6 @@ public class _VisionTest extends LinearOpMode {
         dashTelemetry.addData("Detected: ", position);
 
         waitForStart();
-
-        sleep(3000);
         webcamServo.setPosition(false);
 
     }

@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "51 (FAR) - BLUE - PY", group = "Linear OpMode")
+@Autonomous(name = "51 (FAR) - BLUE - PYcyc", group = "Linear OpMode")
 @Config
 
 public class RR_Far_2_1_BLUE extends LinearOpMode{
