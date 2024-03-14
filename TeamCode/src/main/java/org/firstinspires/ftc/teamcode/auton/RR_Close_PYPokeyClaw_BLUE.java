@@ -56,14 +56,16 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
     public static int SLIDE_POS_DOWN = -50;
     public static double SLIDE_POW = .4;
 
+    public static boolean positionManual = false;
+
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 45;
-    public static int VISION_ANG_CENTER = 15;
+    public static int VISION_ANG_LEFT = 90;
+    public static int VISION_ANG_CENTER = -15;
     public static int VISION_ANG_RIGHT = -60;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(27, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
     public static Vector2d RESET_HOME = new Vector2d(10, 6);
 
     public static double INTAKE_POW = .8;
@@ -72,15 +74,15 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 37, Math.toRadians(-90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 40);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(21, 40);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 40);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(35, 40);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, 40);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(30, 40);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(0, 37); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(0, 36); //parking position ( full square)
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -111,6 +113,9 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
         } else {
             // no need for center, as it is defaulted to pos = 2
             VISION_ANG = VISION_ANG_CENTER;
+            BACKBOARD_ADJUST = BACKBOARD_CENTER;
+
+
         }
 
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
@@ -118,6 +123,9 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                     webcamServo.setPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
+                .addTemporalMarker(() -> {
+                    pokeyClaw.goToHalfPosition();
+                })
                 .turn(Math.toRadians(VISION_ANG))
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
@@ -125,10 +133,10 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
-                    pokeyClaw.resetPosition(true);
+                    pokeyClaw.openClaw(true);
                 })
                 .addTemporalMarker(() -> {
-                    pokeyClaw.openClaw(true);
+                    pokeyClaw.resetPosition(true);
                 })
 //                .waitSeconds(.25)
 //                .addTemporalMarker(() -> {
@@ -176,7 +184,9 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
         webcamServo.setPosition(true);
 
         waitForStart();
-        position = vision.getPosition(); //get position by new camera position
+        if (!positionManual) {
+            position = vision.getPosition(); //get position by new camera position
+        }
         dashTelemetry.addData("Detected", position);
 
 
