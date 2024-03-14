@@ -58,9 +58,9 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 40;
-    public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -90;
+    public static int VISION_ANG_LEFT = 90;
+    public static int VISION_ANG_CENTER = -15;
+    public static int VISION_ANG_RIGHT = -60;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
     public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
@@ -120,16 +120,18 @@ public class RR_Far_DetectOnly_BLUE extends LinearOpMode{
                     webcamServo.setPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
-                .turn(Math.toRadians(VISION_ANG))
-                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     pokeyClaw.goToHalfPosition();
                 })
-                .waitSeconds(0.75)
+                .turn(Math.toRadians(VISION_ANG))
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    pokeyClaw.resetPosition(false);
+                })
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
-                .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(true);
                 })
