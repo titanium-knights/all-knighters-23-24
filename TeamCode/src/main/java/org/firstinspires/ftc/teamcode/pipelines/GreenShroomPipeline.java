@@ -29,10 +29,10 @@ public class GreenShroomPipeline extends OpenCvPipeline {
     public final Scalar GREEN = new Scalar(0, 255, 0);
 
     // values based on resolution of camera
-    public static double X_POSITION_LEFT = 90;
-    public static double X_POSITION_CENTER = 480;
-    public static double X_POSITION_RIGHT = 900;
-    public static double Y_POSITION = 110;
+    public static double X_POSITION_LEFT = 40;
+    public static double X_POSITION_CENTER = 530;
+    public static double X_POSITION_RIGHT = 970;
+    public static double Y_POSITION = 225;
 
     public static double Y_POSITION_OFFSET = 150;
 
