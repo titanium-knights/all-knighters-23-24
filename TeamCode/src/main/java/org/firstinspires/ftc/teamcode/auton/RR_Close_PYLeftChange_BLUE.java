@@ -21,10 +21,10 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "63 - C_BLUE - 2+2 Cycle", group = "Linear OpMode")
+@Autonomous(name = "51 - C_BLUE - PY_LeftChange", group = "Linear OpMode")
 @Config
 
-public class RR_Close_PYCycle_BLUE extends LinearOpMode{
+public class RR_Close_PYLeftChange_BLUE extends LinearOpMode{
 
 
     protected SampleMecanumDrive drive;
@@ -131,72 +131,7 @@ public class RR_Close_PYCycle_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(true);
                 })
-                .waitSeconds(1)
-                .waitSeconds(.5)
-                .lineToLinearHeading(BACKBOARD_DEFAULT)
-                .addTemporalMarker( ()->{
-                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                    carriage.setPivotIntake(false); //faces outtake
-                })
-                .lineToLinearHeading(BACKBOARD_DEFAULT)
-                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-                .waitSeconds(1.5)
-//                //dumping sequence
-                //dumping sequence
-                .addTemporalMarker(()-> {
-                    carriage.setCarriageOpen(true);
-                })//opens the carriage
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
-                    carriage.setPivotIntake(true); //faces outtake
-                }) // <-- end of dumping sequence -->;
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    carriage.setCarriageOpen(false); //close carriage
-                })
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
-                })
-
-                //start cycle sequence
-                .lineToLinearHeading(BEFORE_STACK_WAIT)
-                .lineTo(STACK_WAIT)
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    intake.intake(1);
-                })
-                .waitSeconds(1) //slides down
-                .lineToLinearHeading(BEFORE_STACK_WAIT)
-                .addTemporalMarker(()->{
-                    intake.intake(0);
-                })
-                .lineToLinearHeading(BACKBOARD_DEFAULT)
-                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-
-                //dumping sequence
-                //dumping sequence
-                .addTemporalMarker( ()->{
-                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
-                })
-                .addTemporalMarker(()-> {
-                    carriage.setCarriageOpen(true);
-                })//opens the carriage
-                .waitSeconds(1)
-                .addTemporalMarker( ()->{
-                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                    carriage.setPivotIntake(true); //faces outtake
-                }) // <-- end of dumping sequence -->;
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    carriage.setCarriageOpen(false); //close carriage
-                })
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
-                })
-                .lineTo(TO_PARK_1)
-                ;
+                .waitSeconds(1);
 
 
         path = dumpBothPath.build();
