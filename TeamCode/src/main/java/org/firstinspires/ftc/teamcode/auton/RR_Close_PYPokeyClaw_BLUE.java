@@ -50,7 +50,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
     protected WebcamServo webcamServo;
 
 
-    public static int SLIDE_POS_UP = -800;
+    public static int SLIDE_POS_UP = -500;
 
     public static int SLIDE_POS_UP_2 = -400;
     public static int SLIDE_POS_DOWN = -50;
@@ -63,26 +63,24 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
     public static int VISION_ANG_RIGHT = -60;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
-    public static Vector2d RESET_HOME = new Vector2d(0, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(27, 0);
+    public static Vector2d RESET_HOME = new Vector2d(10, 6);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
-    public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 37, Math.toRadians(-90));
 
-    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 39);
+    public static Vector2d BACKBOARD_LEFT  = new Vector2d(22, 40);
 
-    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 39);
+    public static Vector2d BACKBOARD_RIGHT = new Vector2d(33, 40);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, 39);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(26, 40);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
     public static Vector2d TO_PARK_1 = new Vector2d(0, 37); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(0, 42); //parking position ( full square)
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -123,42 +121,34 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 .turn(Math.toRadians(VISION_ANG))
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
-                    pokeyClaw.goToHalfPosition();
+                    pokeyClaw.resetPosition(false);
                 })
-                .waitSeconds(1.25)
-                .addTemporalMarker(() -> {
-                    pokeyClaw.openClaw(true);
-                })
-                .waitSeconds(.25)
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(true);
                 })
+                .addTemporalMarker(() -> {
+                    pokeyClaw.openClaw(true);
+                })
+//                .waitSeconds(.25)
+//                .addTemporalMarker(() -> {
+//                    pokeyClaw.resetPosition(true);
+//                })
                 .waitSeconds(.5)
                 .lineToConstantHeading(RESET_HOME) //go back home (start pos)
-                .lineToLinearHeading(BACKBOARD_DEFAULT)
-                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
+//                .lineToLinearHeading(BACKBOARD_DEFAULT)
+                .addTemporalMarker( ()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
-//                //dumping sequence
-                .waitSeconds(2)
-                .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(CARRIAGE_RAISE_TIME)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
-                })
+                .lineToLinearHeading(BACKBOARD_DEFAULT)
+                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
                 .waitSeconds(1.5)
+//                //dumping sequence
                 //dumping sequence
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
-                .waitSeconds(1.5)
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
                     carriage.setPivotIntake(true); //faces outtake
@@ -166,13 +156,12 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
                 .waitSeconds(.5) //slides down
                 .addTemporalMarker(()->{
                     carriage.setCarriageOpen(false); //close carriage
-                }) //end of all
+                })
                 .waitSeconds(.5) //slides down
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
                 })
                 .lineTo(TO_PARK_1)
-                .lineTo(TO_PARK_2)
                 .waitSeconds(1);
 
 
@@ -185,9 +174,11 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
 
         pokeyClaw.openClaw(false);
         webcamServo.setPosition(true);
-        position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
+        position = vision.getPosition(); //get position by new camera position
+        dashTelemetry.addData("Detected", position);
+
 
         telemetry.update();
         //print positions

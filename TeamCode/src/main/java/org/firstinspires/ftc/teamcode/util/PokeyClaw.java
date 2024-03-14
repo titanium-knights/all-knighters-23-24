@@ -9,9 +9,9 @@ public class PokeyClaw {
     public static double CLOSE_POS = .98;
 
     public Servo pokey;
-    public static double UP_POS = 0.2;
-    public static double DOWN_POS = 0.85;
-    public static double HALF_POS = 0.75;
+    public static double UP_POS = 0.9;
+    public static double DOWN_POS = 0.2;
+    public static double HALF_POS = 0.3;
 
     public PokeyClaw(HardwareMap hmap) {
         this.pokeyClaw = hmap.servo.get(CONFIG.pokeyClawServo);
@@ -22,19 +22,19 @@ public class PokeyClaw {
         /*
         If multiplier is negative, then the increment is down
          */
-        double currentPos = pokeyClaw.getPosition();
-        pokeyClaw.setPosition(currentPos+(multiplier*.01));
+        double currentPos = pokey.getPosition();
+        pokey.setPosition(currentPos+(multiplier*.01));
     }
 
     public void openClaw(boolean goOpen) {
         /*
         If multiplier is negative, then the increment is down
          */
-        if (goOpen) {
-            pokeyClaw.setPosition(OPEN_POS);
-        } else {
-            pokeyClaw.setPosition(CLOSE_POS);
-        }
+//        if (goOpen) {
+//            pokeyClaw.setPosition(OPEN_POS);
+//        } else {
+//            pokeyClaw.setPosition(CLOSE_POS);
+//        }
     }
 
     public void goToHalfPosition(){

@@ -118,9 +118,12 @@ public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{
                 .turn(Math.toRadians(VISION_ANG))
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
-                    pokeyClaw.goToHalfPosition();
+                    pokeyClaw.resetPosition(false);
                 })
                 .waitSeconds(1.25)
+                .addTemporalMarker(() -> {
+                    pokeyClaw.resetPosition(true);
+                })
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
