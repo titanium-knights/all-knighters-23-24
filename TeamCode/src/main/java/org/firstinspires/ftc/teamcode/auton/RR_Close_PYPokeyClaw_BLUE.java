@@ -54,7 +54,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
 
     public static int SLIDE_POS_UP_2 = -400;
     public static int SLIDE_POS_DOWN = -50;
-    public static double SLIDE_POW = .4;
+    public static double SLIDE_POW = .8;
 
     public static boolean positionManual = false;
 
