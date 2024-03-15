@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.*;
 @Config
 public class PlaneLauncher {
     public Servo launcher;
-    public static double LAUNCH_POS = 0;
+    public static double LAUNCH_POS = .8;
 
 
     public PlaneLauncher(HardwareMap hmap) {

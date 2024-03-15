@@ -7,12 +7,12 @@ public class StackIntake {
     public Servo stackIntakeL;
     public Servo stackIntakeR;
 
-    public static double R_IN = 0.22;
-    public static double R_OUT = 0.8;
+    public static double R_IN = 0.19;
+    public static double R_OUT = 0.77;
     public static double R_RELOAD = 0.8;
 
-    public static double L_IN = 0.8;
-    public static double L_OUT = .1;
+    public static double L_IN = 0.93;
+    public static double L_OUT = .38;
 
     public static double L_RELOAD = .32;
 

@@ -134,7 +134,9 @@ public class RR_DetectOnly_RED extends LinearOpMode{
                 })
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(true);
-                });
+                })
+                .waitSeconds(.5)
+                .waitSeconds(1);
 
 
         path = dumpBothPath.build();
