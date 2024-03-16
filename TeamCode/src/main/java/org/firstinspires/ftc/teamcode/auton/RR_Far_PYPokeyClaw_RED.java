@@ -60,11 +60,11 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
 
     public static int VISION_ANG_LEFT = 90;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -40;
+    public static int VISION_ANG_RIGHT = -60;
 
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(20, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
     public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(90));
     public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, -35);
 

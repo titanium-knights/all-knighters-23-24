@@ -56,12 +56,12 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 90;
+    public static int VISION_ANG_LEFT = 100;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -40;
+    public static int VISION_ANG_RIGHT = -60;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
     public static Vector2d RESET_HOME = new Vector2d(10, -5);
 
     public static double INTAKE_POW = .8;
@@ -69,7 +69,7 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
     public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(32, -39, Math.toRadians(90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(32, -36, Math.toRadians(90));
 
     public static Vector2d BACKBOARD_RIGHT  = new Vector2d(22, -39);
 
@@ -79,8 +79,8 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(4, -37); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(4, -42); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(4, -39); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(4, -44); //parking position ( full square)
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -171,6 +171,8 @@ public class RR_Close_PYPokeyClaw_RED extends LinearOpMode{
                     slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
                 })
                 .lineTo(TO_PARK_1)
+                .lineTo(TO_PARK_2)
+
                 .waitSeconds(1);
 
 

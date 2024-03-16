@@ -23,7 +23,7 @@ public class PokeyClaw {
         If multiplier is negative, then the increment is down
          */
         double currentPos = pokey.getPosition();
-        pokey.setPosition(currentPos+(multiplier*.01));
+        pokey.setPosition(currentPos+(multiplier*.05));
     }
 
     public void openClaw(boolean goOpen) {

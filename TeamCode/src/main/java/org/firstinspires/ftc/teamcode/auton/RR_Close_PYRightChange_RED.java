@@ -64,13 +64,13 @@ public class RR_Close_PYRightChange_RED extends LinearOpMode{
     public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(32, -39, Math.toRadians(90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(32, -38, Math.toRadians(90));
 
-    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(22, -39);
+    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(22, -38);
 
-    public static Vector2d BACKBOARD_LEFT = new Vector2d(33 , -39);
+    public static Vector2d BACKBOARD_LEFT = new Vector2d(33 , -38);
 
-    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -39);
+    public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -38);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 

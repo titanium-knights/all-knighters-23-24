@@ -82,7 +82,7 @@ public class RR_Close_PYPokeyClaw_BLUE extends LinearOpMode{
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Vector2d TO_PARK_1 = new Vector2d(0, 36); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(0, 40); //parking position ( full square)
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
