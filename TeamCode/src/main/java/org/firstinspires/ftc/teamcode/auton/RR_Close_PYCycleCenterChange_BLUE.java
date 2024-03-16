@@ -21,7 +21,6 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(CLOSE) 51 - BLUE - PY_CycleCenterChange", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYCycleCenterChange_BLUE extends LinearOpMode{

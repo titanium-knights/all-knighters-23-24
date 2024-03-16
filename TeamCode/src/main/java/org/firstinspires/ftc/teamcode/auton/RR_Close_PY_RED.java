@@ -21,10 +21,20 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "(CLOSE) 51 - RED - PY_Cycle", group = "Linear OpMode")
+@Autonomous(name = "51 - C_RED - PY", group = "Linear OpMode")
 @Config
 
-public class RR_Close_PYCycle_RED extends LinearOpMode{
+public class RR_Close_PY_RED extends LinearOpMode{
+     /*
+    Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
+
+    Cases for autonomous:
+    a. Min score if missed detection: 5 (auton pixel score) * 2 (purple, yellow) + 5 (parking) + 3 (teleop recount) * 2 (purple, yellow) = 21
+    b. Min score if missed, placing onto floor: 4 (pixel total) + 5 (parking)
+    c. Max score if detected correctly onto board: 5 (auton pixel score, purple) * 2 + 20 (correct detection) + 5 (parking) + 3 (teleop recount) * 2 (purple, yellow) = 41
+    d. Max score if detected BOTH correctly and placed in corresponding spot, max score w/o cycling: 61 (consider c)
+     */
+
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
     protected WebcamServo webcamServo;
@@ -37,43 +47,39 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
 
     protected PokeyClaw pokeyClaw;
 
-    public static int SLIDE_POS_UP = -700;
+    public static int SLIDE_POS_UP = -550;
 
-    public static int SLIDE_POS_UP_2 = -300;
+    public static int SLIDE_POS_UP_2 = -400;
     public static int SLIDE_POS_DOWN = -50;
-    public static double SLIDE_POW = .4;
+    public static double SLIDE_POW = .8;
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 40;
+    public static int VISION_ANG_LEFT = 100;
     public static int VISION_ANG_CENTER = 15;
-    public static int VISION_ANG_RIGHT = -90;
+    public static int VISION_ANG_RIGHT = -60;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(24, 0);
-    public static Vector2d RESET_HOME = new Vector2d(0, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
+    public static Vector2d RESET_HOME = new Vector2d(10, -5);
 
     public static double INTAKE_POW = .8;
     public static int INTAKE_TIME = 2;
     public static double CARRIAGE_RAISE_TIME = 2;
 
     //backboard movement
-    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(26, -39, Math.toRadians(90));
+    public static Pose2d BACKBOARD_DEFAULT = new Pose2d(32, -36, Math.toRadians(90));
 
-    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(18, -39);
+    public static Vector2d BACKBOARD_RIGHT  = new Vector2d(22, -39);
 
-    public static Vector2d BACKBOARD_LEFT = new Vector2d(34 , -39);
+    public static Vector2d BACKBOARD_LEFT = new Vector2d(33 , -39);
 
     public static Vector2d BACKBOARD_CENTER = new Vector2d(28, -39);
 
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-
-    public static Pose2d BEFORE_STACK_WAIT = new Pose2d(36, -30, Math.toRadians(90));
-    public static Vector2d STACK_WAIT = new Vector2d(60, 72);
-
-    public static Vector2d TO_PARK_1 = new Vector2d(4, -37); //parking position ( full square)
-    public static Vector2d TO_PARK_2 = new Vector2d(4, -42); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(4, -39); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(4, -44); //parking position ( full square)
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -94,6 +100,7 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
 
     public void initTraj() {
 
+
 //        position = vision.getPosition();
         if (position == 1) {
             VISION_ANG = VISION_ANG_LEFT;
@@ -106,93 +113,69 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
             VISION_ANG = VISION_ANG_CENTER;
         }
 
+
         TrajectorySequenceBuilder dumpBothPath = drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0)) //start
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
                     webcamServo.setPosition(false); //go down
                 })
                 .lineToConstantHeading(PURPLE_CENTER)
+                .addTemporalMarker(() -> {
+                    pokeyClaw.goToHalfPosition();
+                })
                 .turn(Math.toRadians(VISION_ANG))
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
-                    pokeyClaw.goToHalfPosition();
+                    pokeyClaw.resetPosition(false);
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
-                .waitSeconds(.25)
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(true);
                 })
+//                .waitSeconds(.25)
+//                .addTemporalMarker(() -> {
+//                    pokeyClaw.resetPosition(true);
+//                })
                 .waitSeconds(.5)
                 .lineToConstantHeading(RESET_HOME) //go back home (start pos)
-                .lineToLinearHeading(BACKBOARD_DEFAULT)
-                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-                .waitSeconds(1)
-
-//                //dumping sequence
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
+//                .lineToLinearHeading(BACKBOARD_DEFAULT)
+                .addTemporalMarker( ()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
-                .waitSeconds(2)
-                .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(CARRIAGE_RAISE_TIME)
-                //dumping sequence
-                .addTemporalMarker(()-> {
-                    carriage.setCarriageOpen(true);
-                })//opens the carriage
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
-                    carriage.setPivotIntake(true); //faces outtake
-                }) // <-- end of dumping sequence -->;
-                .addTemporalMarker(()->{
-                    carriage.setCarriageOpen(false); //close carriage
-                }) //end of all
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
-                })
-                //dumping done
-
-                .lineToLinearHeading(BEFORE_STACK_WAIT)
-                .lineTo(STACK_WAIT)
-                .waitSeconds(.5) //slides down
-                .addTemporalMarker(()->{
-                    intake.intake(1);
-                })
-                .waitSeconds(1) //slides down
-                .lineToLinearHeading(BEFORE_STACK_WAIT)
-                .addTemporalMarker(()->{
-                    intake.intake(0);
-                })
                 .lineToLinearHeading(BACKBOARD_DEFAULT)
                 .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-
+                .waitSeconds(1.5)
+//                //dumping sequence
                 //dumping sequence
+                .addTemporalMarker( ()->{
+                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
+                })
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
                 .waitSeconds(1)
-                .addTemporalMarker(()->{
+                .addTemporalMarker( ()->{
+                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
                     carriage.setPivotIntake(true); //faces outtake
                 }) // <-- end of dumping sequence -->;
+                .waitSeconds(.5) //slides down
                 .addTemporalMarker(()->{
                     carriage.setCarriageOpen(false); //close carriage
-                }) //end of all
+                })
                 .waitSeconds(.5) //slides down
                 .addTemporalMarker(()->{
                     slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
                 })
-                //dumping done
+                .lineTo(TO_PARK_1)
+                .lineTo(TO_PARK_2)
 
                 .waitSeconds(1);
 
 
         path = dumpBothPath.build();
-
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -200,9 +183,12 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
 
         pokeyClaw.openClaw(false);
         webcamServo.setPosition(true);
-        position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
+        position = vision.getPosition(); //get position by new camera position
+
+        dashTelemetry.addData("Detected", position);
+
 
         telemetry.update();
         //print positions
@@ -212,7 +198,6 @@ public class RR_Close_PYCycle_RED extends LinearOpMode{
 
         drive.setPoseEstimate(path.start());
         drive.followTrajectorySequence(path);
-
 
         while (opModeIsActive() && !Thread.currentThread().isInterrupted() && drive.isBusy()) {
             drive.update();

@@ -21,7 +21,6 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "51 - C_BLUE - PY_LeftChange", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PYLeftChange_BLUE extends LinearOpMode{
