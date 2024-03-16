@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.util.StackIntake;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "63 - C_BLUE - 2+2 Cycle", group = "Linear OpMode")
+@Autonomous(name = "60 - C_BLUE - 2+2 Cycle", group = "Linear OpMode")
 @Config
 
 public class RR_Close_Cycle_BLUE extends LinearOpMode{
@@ -131,14 +131,15 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> { //high hang will go down in beginning of sequence for safety
                     webcamServo.setPosition(false); //go down
                 })
-                .lineToLinearHeading(PURPLE_CENTER)
                 .addTemporalMarker(() -> {
                     pokeyClaw.goToHalfPosition();
                 })
+                .lineToLinearHeading(PURPLE_CENTER)
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(false);
                 })
+                .waitSeconds(.5)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })

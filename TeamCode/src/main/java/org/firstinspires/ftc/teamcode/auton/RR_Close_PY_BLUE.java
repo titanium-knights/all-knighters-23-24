@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "51 - C_BLUE - PY", group = "Linear OpMode")
+@Autonomous(name = "50 - C_BLUE - PY", group = "Linear OpMode")
 @Config
 
 public class RR_Close_PY_BLUE extends LinearOpMode{
@@ -82,6 +82,7 @@ public class RR_Close_PY_BLUE extends LinearOpMode{
     public static Vector2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
     public static Vector2d TO_PARK_1 = new Vector2d(0, 40); //parking position ( full square)
+    public static Vector2d TO_PARK_2 = new Vector2d(0, 45); //parking position ( full square)
 
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
@@ -143,32 +144,38 @@ public class RR_Close_PY_BLUE extends LinearOpMode{
 //                })
                 .waitSeconds(.5)
                 .lineToConstantHeading(RESET_HOME) //go back home (start pos)
-//                 .addTemporalMarker( ()->{
-//                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-//                    carriage.setPivotIntake(false); //faces outtake
-//                })
 //                .lineToLinearHeading(BACKBOARD_DEFAULT)
-//                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
-//                .waitSeconds(1.5)
-////                //dumping sequence
+                .addTemporalMarker( ()->{
+                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
+                    carriage.setPivotIntake(false); //faces outtake
+                })
+                .lineToLinearHeading(BACKBOARD_DEFAULT)
+                .lineTo(BACKBOARD_ADJUST) //adjusts for detection
+                .waitSeconds(1.5)
 //                //dumping sequence
-//                .addTemporalMarker(()-> {
-//                    carriage.setCarriageOpen(true);
-//                })//opens the carriage
-//                .waitSeconds(1)
-//                .addTemporalMarker(()->{
-//                    carriage.setPivotIntake(true); //faces outtake
-//                }) // <-- end of dumping sequence -->;
-//                .waitSeconds(.5) //slides down
-//                .addTemporalMarker(()->{
-//                    carriage.setCarriageOpen(false); //close carriage
-//                })
-//                .waitSeconds(.5) //slides down
-//                .addTemporalMarker(()->{
-//                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
-//                }) .lineToLinearHeading(BACKBOARD_DEFAULT)
-
+                //dumping sequence
+                .addTemporalMarker( ()->{
+                    slides.setPosition(SLIDE_POS_UP_2, SLIDE_POW); //slides up for dump
+                })
+                .addTemporalMarker(()-> {
+                    carriage.setCarriageOpen(true);
+                })//opens the carriage
+                .waitSeconds(1)
+                .addTemporalMarker( ()->{
+                    slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
+                    carriage.setPivotIntake(true); //faces outtake
+                }) // <-- end of dumping sequence -->;
+                .waitSeconds(.5) //slides down
+                .addTemporalMarker(()->{
+                    carriage.setCarriageOpen(false); //close carriage
+                })
+                .waitSeconds(.5) //slides down
+                .addTemporalMarker(()->{
+                    slides.setPosition(SLIDE_POS_DOWN, SLIDE_POW); //slides up for dump
+                })
                 .lineTo(TO_PARK_1)
+                .lineTo(TO_PARK_2)
+
                 .waitSeconds(1);
 
 
