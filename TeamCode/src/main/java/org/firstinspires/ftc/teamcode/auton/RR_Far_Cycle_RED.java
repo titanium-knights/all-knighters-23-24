@@ -21,10 +21,10 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "51 (FAR) - RED - PY", group = "Linear OpMode")
+@Autonomous(name = "57 (FAR) - RED - PY", group = "Linear OpMode")
 @Config
 
-public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
+public class RR_Far_Cycle_RED extends LinearOpMode{
      /*
     Goal of this op-mode is to dump both preload onto the detected spot (1,2,3)
 
@@ -58,13 +58,13 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
 
     TrajectorySequence path;
 
-    public static int VISION_ANG_LEFT = 90;
+    public static int VISION_ANG_LEFT = 30;
     public static int VISION_ANG_CENTER = 15;
     public static int VISION_ANG_RIGHT = -60;
 
 
     public static int VISION_ANG; //actual angle
-    public static Vector2d PURPLE_CENTER = new Vector2d(28, 0);
+    public static Vector2d PURPLE_CENTER = new Vector2d(20, 0);
     public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(90));
     public static Vector2d RESET_HOME_CLOSE = new Vector2d(4, -35);
 
@@ -86,6 +86,8 @@ public class RR_Far_PYPokeyClaw_RED extends LinearOpMode{
     public static Vector2d TO_PARK_1 = new Vector2d(50, -86); //parking position ( full square)
     public static Vector2d TO_PARK_2 = new Vector2d(50, -90); //parking position ( full square)
 
+    public static Pose2d BEFORE_STACK_WAIT = new Pose2d(48, 24, Math.toRadians(-90));
+    public static Vector2d STACK_WAIT = new Vector2d(50, 30);
 
     Telemetry dashTelemetry = FtcDashboard.getInstance().getTelemetry();
 
