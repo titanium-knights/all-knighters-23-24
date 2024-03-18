@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "00 TESTER", group = "Linear OpMode")
+//@Autonomous(name = "00 TESTER", group = "Linear OpMode")
 @Config
 
 public class _TesterFile extends LinearOpMode{

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.old_autons;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -21,9 +21,9 @@ import org.firstinspires.ftc.teamcode.util.PokeyClaw;
 import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
-
-@Autonomous(name = "51 (FAR) - BLUE - PY_Cycle", group = "Linear OpMode")
-@Config
+@Deprecated
+//@Autonomous(name = "51 (FAR) - BLUE - PY_Cycle", group = "Linear OpMode")
+//@Config
 
 public class UNSTABLE_RR_Far_PYCycle_BLUE extends LinearOpMode{
    /*

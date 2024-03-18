@@ -43,9 +43,9 @@ public class RR_Far_Cycle_BLUE extends LinearOpMode{
     protected StackIntake stackIntake;
 
 
-    public static int SLIDE_POS_UP = -700;
+    public static int SLIDE_POS_UP = -660;
 
-    public static int SLIDE_POS_UP_2 = -300;
+    public static int SLIDE_POS_UP_2 = -250;
     public static int SLIDE_POS_DOWN = -50;
     public static double SLIDE_POW = .4;
     public static double SLIDE_POW_2 = .2;
@@ -63,7 +63,7 @@ public class RR_Far_Cycle_BLUE extends LinearOpMode{
     public static Pose2d PURPLE_CENTER = new Pose2d(29, 0, Math.toRadians(0));
 
     public static Pose2d PURPLE_CENTER_LEFT = new Pose2d(28, 0, Math.toRadians(VISION_ANG_LEFT));
-    public static Pose2d PURPLE_CENTER_RIGHT = new Pose2d(27, -2, Math.toRadians(VISION_ANG_RIGHT));
+    public static Pose2d PURPLE_CENTER_RIGHT = new Pose2d(27, 2, Math.toRadians(VISION_ANG_RIGHT));
     public static Pose2d PURPLE_CENTER_CENTER = new Pose2d(53, 0, Math.toRadians(180));
 
     public static Pose2d RESET_HOME = new Pose2d(4, 0, Math.toRadians(-90));
@@ -78,15 +78,15 @@ public class RR_Far_Cycle_BLUE extends LinearOpMode{
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(28, 88, Math.toRadians(-90));
 
-    public static Pose2d BACKBOARD_LEFT  = new Pose2d(19, 88, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_LEFT  = new Pose2d(21, 88, Math.toRadians(-90));
 
-    public static Pose2d BACKBOARD_RIGHT = new Pose2d(36, 88, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_RIGHT = new Pose2d(34, 88, Math.toRadians(-90));
 
-    public static Pose2d BACKBOARD_CENTER = new Pose2d(25, 88, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_CENTER = new Pose2d(27, 88, Math.toRadians(-90));
 
     public static Pose2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
     public static Pose2d BEFORE_STACK_WAIT = new Pose2d(51, 0, Math.toRadians(-90));
-    public static Vector2d STACK_WAIT = new Vector2d(51, -27);
+    public static Vector2d STACK_WAIT = new Vector2d(48, -27);
     public static Vector2d AFTER_STACK_WAIT = new Vector2d(50, 85);
 
     public static Vector2d TO_PARK_1 = new Vector2d(50, 85); //parking position ( full square)
@@ -167,6 +167,10 @@ public class RR_Far_Cycle_BLUE extends LinearOpMode{
                 .addTemporalMarker(()->{
                     stackIntake.flipFlop(false);
                 })
+                    .addTemporalMarker(()->{
+                        intake.intake(-1);
+
+                    })
                 .lineTo(AFTER_STACK_WAIT)
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
@@ -211,6 +215,7 @@ public class RR_Far_Cycle_BLUE extends LinearOpMode{
         position = vision.getPosition(); //get position by new camera position
 
         waitForStart();
+        sleep(4000);
         position = vision.getPosition(); //get position by new camera position
 
 

@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.*;
 @Config
 public class WebcamServo {
     public Servo webcamServo;
-    public static double UP_POS = 0.3;
-    public static double DOWN_POS = 0;
+    public static double UP_POS = 0.67;
+    public static double DOWN_POS = .92;
 
     public WebcamServo(HardwareMap hmap) {
         this.webcamServo = hmap.servo.get(CONFIG.webcamServo);

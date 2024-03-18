@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
 @Config
-@Autonomous(name = "FAR - CenterChange", group = "Linear OpMode")
+//@Autonomous(name = "FAR - CenterChange", group = "Linear OpMode")
 public class RR_Far_PYCenterChange extends LinearOpMode{
 
 

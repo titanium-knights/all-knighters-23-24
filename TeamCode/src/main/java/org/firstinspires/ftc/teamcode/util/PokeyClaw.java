@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.*;
 public class PokeyClaw {
     public Servo pokeyClaw;
     public static double OPEN_POS = .2;
-    public static double CLOSE_POS = .5;
+    public static double CLOSE_POS = .52;
 
     public Servo pokey;
     public static double UP_POS = 0.9;

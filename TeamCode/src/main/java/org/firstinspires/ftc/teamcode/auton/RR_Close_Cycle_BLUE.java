@@ -27,7 +27,6 @@ import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 public class RR_Close_Cycle_BLUE extends LinearOpMode{
 
-
     protected SampleMecanumDrive drive;
     protected GreenShroomVision vision;
 
@@ -54,14 +53,14 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
 
 
     public static int VISION_ANG_LEFT = -90;
-    public static int VISION_ANG_CENTER = -15;
-    public static int VISION_ANG_RIGHT = -60;
+    public static int VISION_ANG_CENTER = -5;
+    public static int VISION_ANG_RIGHT = -40;
 
     public static int VISION_ANG = VISION_ANG_CENTER; //actual angle
 
     public static Pose2d PURPLE_CENTER = new Pose2d(27, 0, Math.toRadians(0));
-    public static Pose2d PURPLE_CENTER_LEFT = new Pose2d(37, 25, Math.toRadians(VISION_ANG_LEFT));
-    public static Pose2d PURPLE_CENTER_RIGHT = new Pose2d(27, 3, Math.toRadians(VISION_ANG_RIGHT));
+    public static Pose2d PURPLE_CENTER_LEFT = new Pose2d(37, 26, Math.toRadians(VISION_ANG_LEFT));
+    public static Pose2d PURPLE_CENTER_RIGHT = new Pose2d(27, -3, Math.toRadians(VISION_ANG_RIGHT));
     public static Pose2d PURPLE_CENTER_CENTER = new Pose2d(27, 0, Math.toRadians(VISION_ANG_CENTER));
 
 
@@ -72,7 +71,7 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
     //backboard movement
     public static Pose2d BACKBOARD_DEFAULT = new Pose2d(25, 37, Math.toRadians(-90));
 
-    public static Pose2d BACKBOARD_LEFT  = new Pose2d(21, 42, Math.toRadians(-90));
+    public static Pose2d BACKBOARD_LEFT  = new Pose2d(18, 41, Math.toRadians(-90));
 
     public static Pose2d BACKBOARD_RIGHT = new Pose2d(35, 42, Math.toRadians(-90));
 
@@ -83,10 +82,10 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
 
     public static Pose2d BACKBOARD_ADJUST = BACKBOARD_CENTER; //changes based on visualization
 
-    public static Pose2d BEFORE_STACK_WAIT = new Pose2d(50, 15, Math.toRadians(-90));
-    public static Vector2d STACK_WAIT = new Vector2d(47, -76);
+    public static Pose2d BEFORE_STACK_WAIT = new Pose2d(51, 15, Math.toRadians(-90));
+    public static Vector2d STACK_WAIT = new Vector2d(44, -71);
 
-    public static Vector2d TO_PARK_1 = new Vector2d(30, 38); //parking position ( full square)
+    public static Vector2d TO_PARK_1 = new Vector2d(30, 35); //parking position ( full square)
     public static Vector2d TO_PARK_2 = new Vector2d(0, 42); //parking position ( full square)
 
 
@@ -123,6 +122,8 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
             // no need for center, as it is defaulted to pos = 2
             VISION_ANG = VISION_ANG_CENTER;
             PURPLE_CENTER = PURPLE_CENTER_CENTER;
+            BACKBOARD_ADJUST = BACKBOARD_CENTER;
+
 
         }
 
@@ -139,19 +140,16 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(false);
                 })
-                .waitSeconds(.5)
                 .addTemporalMarker(() -> {
                     pokeyClaw.openClaw(true);
                 })
                 .addTemporalMarker(() -> {
                     pokeyClaw.resetPosition(true);
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                })
-                .addTemporalMarker(() -> {
                     carriage.setPivotIntake(false); //faces outtake
                 })
-                .waitSeconds(1.5)
                 .lineToLinearHeading(BACKBOARD_ADJUST) //adjusts for detection
+                .waitSeconds(2)
 //                //dumping sequence
                 //dumping sequence
                 .addTemporalMarker(()-> {
@@ -161,7 +159,7 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
                 .waitSeconds(.5)
                 .addTemporalMarker( ()->{
                     slides.setPosition(SLIDE_POS_UP, SLIDE_POW); //slides up for dump
-                    carriage.setPivotIntake(true); //faces intake
+                    carriage.setPivotIntake(true); //faces outtake
                 }) // <-- end of dumping sequence -->;
                 .waitSeconds(.75) //slides down
                 .addTemporalMarker(()->{
@@ -192,6 +190,10 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
                     stackIntake.flipFlop(false);
+                })
+                .waitSeconds(.5)
+                .addTemporalMarker(()->{
+                    intake.intake(-1);
                     intake.intake(0);
                 })
                 .lineToLinearHeading(BEFORE_STACK_WAIT)
@@ -207,7 +209,6 @@ public class RR_Close_Cycle_BLUE extends LinearOpMode{
                     carriage.setCarriageOpen(true);
                 })//opens the carriage
                 .waitSeconds(1.5)
-                .lineTo(TO_PARK_1)
                 .addTemporalMarker(()-> {
                     carriage.setCarriageOpen(false);
                     carriage.setPivotIntake(true); //faces outtake

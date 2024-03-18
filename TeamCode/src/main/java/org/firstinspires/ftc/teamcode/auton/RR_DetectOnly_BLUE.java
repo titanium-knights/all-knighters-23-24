@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.util.Slides;
 import org.firstinspires.ftc.teamcode.util.WebcamServo;
 
 
-@Autonomous(name = "20 - BLUE - Detect Only", group = "Linear OpMode")
+@Autonomous(name = "20 - A_BLUE - Detect Only", group = "Linear OpMode")
 @Config
 
 public class RR_DetectOnly_BLUE extends LinearOpMode{
